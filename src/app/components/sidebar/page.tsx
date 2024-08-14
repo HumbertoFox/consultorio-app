@@ -8,7 +8,7 @@ import Image from 'next/image';
 import ImageMedicine from '@/app/assets/simbolo-de-medicina.png';
 import ImageDoctorX from '@/app/assets/doutorx.png';
 import ImageDoctorY from '@/app/assets/doutory.png';
-import styles from '@/app/components/styles/sidebar.module.css';
+import styles from './sidebar.module.css';
 
 export default function SideBar() {
     const router = useRouter();
