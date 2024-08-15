@@ -19,6 +19,19 @@
     transition: .4s ease-in-out;
 }
 
+.radiolabeldiv {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.radiolabeldiv label {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: pointer;
+}
+
 .form input[type=text],
 .form input[type=number],
 .form input[type=tel],
@@ -52,7 +65,8 @@
     resize: none;
 }
 
-.form input[type=date] {
+.form input[type=date],
+.form input[type=datetime-local] {
     width: 220px;
     padding: 5px;
 }

@@ -39,7 +39,7 @@ export default function SideBar() {
     return (
         <div className={styles.divsidebar}>
             <Link href={'/'}>
-                <Image src={ImageMedicine} className={styles.imgnedicina} width={150} height={150} alt='Imagem Logo Medicina' />
+                <Image src={ImageMedicine} className={styles.imgnedicina} width={150} height={150} alt='Imagem Logo Medicina' priority />
             </Link>
             <nav className={styles.navsidebar}>
                 <div className={selectBar == 'calendar' ? styles.active : ''} onClick={() => handleBarClick('calendar')}>
