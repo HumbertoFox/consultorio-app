@@ -1,4 +1,4 @@
-import FormPatDoc from '@/app/components/forms/formpatdoc';
+import FormPatDoc from '@/components/forms/formpatdoc';
 import styles from '@/app/page.module.css';
 
 export default function PatientsPage() {

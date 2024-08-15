@@ -44,7 +44,7 @@ screen and (max-height: 700px) {
 
   .divmain,
   .divmainforms {
-    width: calc(100% - 70px);
-    left: 70px;
+    width: calc(100% - 75px);
+    left: 75px;
   }
 }

@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpenReader, faCheck, faNotesMedical, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Image from 'next/image';
-import ImageMedicine from '@/app/assets/simbolo-de-medicina.png';
-import ImageDoctorX from '@/app/assets/doutorx.png';
-import ImageDoctorY from '@/app/assets/doutory.png';
+import ImageMedicine from '@/assets/simbolo-de-medicina.png';
+import ImageDoctorX from '@/assets/doutorx.png';
+import ImageDoctorY from '@/assets/doutory.png';
 import styles from './sidebar.module.css';
 
 export default function SideBar() {

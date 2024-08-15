@@ -67,7 +67,7 @@ export default function FormConsultation() {
             <input type='datetime-local' id='consultdateend' />
             <label htmlFor='observation'>Observações</label>
             <textarea id='observation' />
-            <input type='submit' title='Agendar Paciente' value='Agendar' />
+            <input type='submit' title='Agendar Consulta' value='Agendar' />
         </form >
     );
 };
