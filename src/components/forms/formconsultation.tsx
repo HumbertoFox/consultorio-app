@@ -1,10 +1,26 @@
+'use client';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './page.module.css';
 
+type Inputs = {
+    cpf: string,
+    cpfRequired: string
+}
+
 export default function FormConsultation() {
+
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='cpf'>CPF</label>
-            <input type='number' id='cpf' />
+            <input
+                type='number'
+                id='cpf'
+                placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
+                className={`${errors.cpf ? styles.required : ''}`}
+                {...register("cpf", { required: true, maxLength: 11, pattern: /\d{11}/g })} />
             <label htmlFor='name'>Nome</label>
             <input type='text' id='name' />
             <label htmlFor='dateofbirth'>Data de Nascimento</label>

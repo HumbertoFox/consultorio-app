@@ -95,3 +95,24 @@
     border: 1px solid hsla(120, 73.44%, 74.9%, .5);
     box-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
 }
+
+.form input.required:focus,
+.form input.requireddate:focus {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+    box-shadow: 0 0 5px hsla(332.47, 100%, 50%, .5);
+}
+
+.form input.required {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+    background: url('../../assets/aviso.png') no-repeat right 2% bottom 50%;
+    background-size: 20px;
+}
+
+.form input.requireddate {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+}
+
+.form .required::placeholder {
+    font-style: italic;
+    color: hsla(332.47, 100%, 50%, .5);
+}
