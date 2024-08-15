@@ -1,0 +1,83 @@
+.form {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form input::-webkit-outer-spin-button,
+.form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form label {
+    display: flex;
+    flex-direction: column;
+    color: gray;
+    font-size: .9rem;
+    transition: .4s ease-in-out;
+}
+
+.form input[type=text],
+.form input[type=number],
+.form input[type=tel],
+.form input[type=email],
+.form input[type=date],
+.form input[type=password],
+.form textarea {
+    height: 30px;
+    border: 1px solid #D2D4DE;
+    border-radius: 5px;
+    padding: 0 5px;
+    outline: none;
+    margin-bottom: 5px;
+    transition: .4s ease-in-out;
+}
+
+.form input[type=text]:focus,
+.form input[type=number]:focus,
+.form input[type=tel]:focus,
+.form input[type=email]:focus,
+.form input[type=date]:focus,
+.form input[type=password]:focus,
+.form textarea:focus {
+    border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+}
+
+.form textarea {
+    height: 70px;
+    padding: 5px;
+    resize: none;
+}
+
+.form input[type=date] {
+    width: 220px;
+    padding: 5px;
+}
+
+.form input[type=submit] {
+    color: black;
+    background-color: #90EE90;
+    padding: 5px 10px;
+    border: 1px solid #D2D4DE;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    transition: .4s ease-in-out;
+    margin: 0 auto;
+}
+
+.form input[type=submit]:hover {
+    border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+    color: #FFF;
+    text-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+}
+
+.form input[type=submit]:active {
+    color: #3C91E6;
+    border: 1px solid hsla(120, 73.44%, 74.9%, .5);
+    box-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+}
