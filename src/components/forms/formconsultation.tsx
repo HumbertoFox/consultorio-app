@@ -3,14 +3,42 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './page.module.css';
 
 type Inputs = {
-    cpf: string,
-    cpfRequired: string
+    cpf: string
 }
 
 export default function FormConsultation() {
-
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
+    const getCheckedCpf = (data: string) => {
+        const isRepeatedCpf = (cpf: string) => {
+            const firstDigit = cpf[0];
+            return cpf.split('').every(digit => digit === firstDigit);
+        };
+        if (isRepeatedCpf(data)) {
+            return;
+        };
+        const calculateCheckDigit = (input: string) => {
+            let sum = 0;
+            for (let i = 0; i < input.length; i++) {
+                const digit = input.charAt(i);
+                const weight = (input.length + 1 - i);
+                sum += Number(digit) * weight;
+            };
+            const remainder = sum % 11;
+            return remainder < 2 ? "0" : (11 - remainder);
+        };
+        let primaryCheckDigit = calculateCheckDigit(data.substring(0, 9));
+        let secondaryCheckDigit = calculateCheckDigit(data.substring(0, 9) + primaryCheckDigit);
+        let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
+        return data === correctCpf;
+    };
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const cpf = data.cpf;
+        if (!getCheckedCpf(cpf)) {
+            setError('cpf', { type: 'focus' }, { shouldFocus: true });
+            return;
+        };
+        console.log(data)
+    };
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -20,7 +48,8 @@ export default function FormConsultation() {
                 id='cpf'
                 placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
                 className={`${errors.cpf ? styles.required : ''}`}
-                {...register("cpf", { required: true, maxLength: 11, pattern: /\d{11}/g })} />
+                {...register("cpf", { required: true, maxLength: 11, pattern: /\d{11}/g })}
+            />
             <label htmlFor='name'>Nome</label>
             <input type='text' id='name' />
             <label htmlFor='dateofbirth'>Data de Nascimento</label>
