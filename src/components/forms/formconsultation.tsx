@@ -329,7 +329,7 @@ export default function FormConsultation({ crm }: CrmDoctor) {
                     />
                     Particular
                 </label>
-                <label htmlFor='courtesyradio'>
+                {crm === 6733 && <label htmlFor='courtesyradio'>
                     <input
                         type='radio'
                         id='courtesyradio'
@@ -339,6 +339,7 @@ export default function FormConsultation({ crm }: CrmDoctor) {
                     />
                     Cortesia
                 </label>
+                }
             </div>
             {selectRadio === 'covenantradio' && <label htmlFor='covenant'>Covênio
                 <input
