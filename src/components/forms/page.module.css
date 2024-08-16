@@ -125,3 +125,8 @@
     font-size: .9rem;
     transition: .4s ease-in-out;
 }
+
+.divbuilding {
+    display: flex;
+    flex-direction: column;
+}

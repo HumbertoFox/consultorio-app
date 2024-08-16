@@ -30,7 +30,9 @@ type Inputs = {
 export default function FormConsultation() {
     const [age, setAge] = useState<number>(0);
     const formattedNow = new Date().toISOString().slice(0, 16);
-    const [endDateStart, setEndDateStart] = useState(formattedNow);
+    const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
+    const [radioSelect, setRadioSelect] = useState<string>('house');
+    const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
     const { register, handleSubmit, setError, setValue, setFocus, watch, formState: { errors } } = useForm<Inputs>();
     const value = watch('particular');
     const getCheckedCpf = (data: string) => {
@@ -55,13 +57,6 @@ export default function FormConsultation() {
         let secondaryCheckDigit = calculateCheckDigit(data.substring(0, 9) + primaryCheckDigit);
         let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
         return data === correctCpf;
-    };
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const cpf = data.cpf;
-        if (!getCheckedCpf(cpf)) {
-            setError('cpf', { type: 'focus' }, { shouldFocus: true });
-            return;
-        };
     };
     const calculateAge = (data: string) => {
         const birthDate = new Date(data);
@@ -132,6 +127,27 @@ export default function FormConsultation() {
             return;
         }
     };
+    const swapRadioSelect = (element: ChangeEvent<HTMLInputElement>) => {
+        const selectValue = element.target.value;
+        setRadioSelect(selectValue);
+        setValue('building', selectValue !== 'buildingradio' ? '...' : '');
+        setValue('buildingblock', selectValue !== 'buildingradio' ? '...' : '');
+        setValue('apartment', selectValue !== 'buildingradio' ? '...' : '');
+    };
+    const swapSelectedRadio = (element: ChangeEvent<HTMLInputElement>) => {
+        const selectedValue = element.target.value;
+        setSelectRadio(selectedValue);
+        setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
+        setValue('covenant', selectedValue !== 'covenantradio' ? '...' : '');
+    };
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        const cpf = data.cpf;
+        if (!getCheckedCpf(cpf)) {
+            setError('cpf', { type: 'focus' }, { shouldFocus: true });
+            return;
+        };
+        console.log(data);
+    };
     useEffect(() => {
         const formatValue = formatAsCurrency(value);
         setValue('particular', formatValue, { shouldValidate: true });
@@ -139,22 +155,24 @@ export default function FormConsultation() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor='cpf'>CPF</label>
-            <input
-                type='number'
-                id='cpf'
-                placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.cpf ? styles.required : ''}`}
-                {...register('cpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
-            />
-            <label htmlFor='name'>Nome</label>
-            <input
-                type='text'
-                id='name'
-                placeholder={`${errors.name ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.name ? styles.required : ''}`}
-                {...register('name', { required: true, pattern: /[A-Za-z]{5}/g })}
-            />
+            <label htmlFor='cpf'>CPF
+                <input
+                    type='number'
+                    id='cpf'
+                    placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.cpf ? styles.required : ''}`}
+                    {...register('cpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                />
+            </label>
+            <label htmlFor='name'>Nome
+                <input
+                    type='text'
+                    id='name'
+                    placeholder={`${errors.name ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.name ? styles.required : ''}`}
+                    {...register('name', { required: true, pattern: /[A-Za-z]{5}/g })}
+                />
+            </label>
             <div className={styles.divage}>
                 <div>
                     <label htmlFor='dateofbirth'>Data de Nascimento</label>
@@ -170,152 +188,207 @@ export default function FormConsultation() {
                     <p>anos</p>
                 </div>
             </div>
-            <label htmlFor='telephone'>Telefone</label>
-            <input
-                type='tel'
-                id='telephone'
-                placeholder={`${errors.telephone ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.telephone ? styles.required : ''}`}
-                {...register('telephone', { required: true, maxLength: 11, pattern: /\d{11}/g })}
-            />
-            <label htmlFor='email'>Email</label>
-            <input
-                type='email'
-                id='email'
-                placeholder={`${errors.email ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.email ? styles.required : ''}`}
-                {...register('email', { required: true })}
-            />
-            <label htmlFor='zipcode'>CEP</label>
-            <input
-                type='number'
-                id='zipcode'
-                {...register('zipcode', { required: true, onBlur: checkedZipCode })}
-            />
-            <label htmlFor='street'>Logradouro Av/Travessa/Rua</label>
-            <input
-                type='text'
-                id='street'
-                placeholder={`${errors.street ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.street ? styles.required : ''}`}
-                {...register('street', { required: true })}
-            />
-            <label htmlFor='residencenumber'>Número da Casa/Edifício</label>
-            <input
-                type='text'
-                id='residencenumber'
-                placeholder={`${errors.residencenumber ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.residencenumber ? styles.required : ''}`}
-                {...register('residencenumber', { required: true })}
-            />
+            <label htmlFor='telephone'>Telefone
+                <input
+                    type='tel'
+                    id='telephone'
+                    placeholder={`${errors.telephone ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.telephone ? styles.required : ''}`}
+                    {...register('telephone', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                />
+            </label>
+            <label htmlFor='email'>Email
+                <input
+                    type='email'
+                    id='email'
+                    placeholder={`${errors.email ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.email ? styles.required : ''}`}
+                    {...register('email', { required: true })}
+                />
+            </label>
+            <label htmlFor='zipcode'>CEP
+                <input
+                    type='number'
+                    id='zipcode'
+                    {...register('zipcode', { required: true, onBlur: checkedZipCode })}
+                />
+            </label>
+            <label htmlFor='street'>Logradouro Av/Travessa/Rua
+                <input
+                    type='text'
+                    id='street'
+                    placeholder={`${errors.street ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.street ? styles.required : ''}`}
+                    {...register('street', { required: true })}
+                />
+            </label>
+            <label htmlFor='residencenumber'>Número da Casa/Edifício
+                <input
+                    type='text'
+                    id='residencenumber'
+                    placeholder={`${errors.residencenumber ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.residencenumber ? styles.required : ''}`}
+                    {...register('residencenumber', { required: true })}
+                />
+            </label>
             <div className={styles.radiolabeldiv}>
                 <label htmlFor='house'>
-                    <input type='radio' name='house' id='house' value='house' />
+                    <input
+                        type='radio'
+                        id='house'
+                        value='house'
+                        checked={radioSelect === 'house' ? true : false}
+                        onChange={swapRadioSelect}
+                    />
                     Casa
                 </label>
                 <label htmlFor='buildingradio'>
-                    <input type='radio' name='house' id='buildingradio' value='buildingradio' />
+                    <input
+                        type='radio'
+                        id='buildingradio'
+                        value='buildingradio'
+                        checked={radioSelect === 'buildingradio' ? true : false}
+                        onChange={swapRadioSelect}
+                    />
                     Edifício
                 </label>
             </div>
-            <label htmlFor='building'>Nome do Edifício</label>
-            <input
-                type='text'
-                id='building'
-                {...register('building', { required: true, value: '...' })}
-            />
-            <label htmlFor='buildingblock'>Bloco</label>
-            <input
-                type='text'
-                id='buildingblock'
-                {...register('buildingblock', { required: true, value: '...' })}
-            />
-            <label htmlFor='apartment'>Apartamento</label>
-            <input
-                type='text'
-                id='apartment'
-                {...register('apartment', { required: true, value: '...' })}
-            />
-            <label htmlFor='district'>Bairro/Distrito</label>
-            <input
-                type='text'
-                id='district'
-                placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.district ? styles.required : ''}`}
-                {...register('district', { required: true })}
-            />
-            <label htmlFor='city'>Cidade</label>
-            <input
-                type='text'
-                id='city'
-                placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.city ? styles.required : ''}`}
-                {...register('city', { required: true })}
-            />
-            <label htmlFor='crm'>CRM</label>
-            <input
-                type='number'
-                id='crm'
-                disabled={true}
-                {...register('crm')}
-            />
+            {radioSelect == 'buildingradio' &&
+                <div className={styles.divbuilding}>
+                    <label htmlFor='building'>Nome do Edifício
+                        <input
+                            type='text'
+                            id='building'
+                            {...register('building', { required: true, value: '...' })}
+                        />
+                    </label>
+                    <label htmlFor='buildingblock'>Bloco
+                        <input
+                            type='text'
+                            id='buildingblock'
+                            {...register('buildingblock', { required: true, value: '...' })}
+                        />
+                    </label>
+                    <label htmlFor='apartment'>Apartamento
+                        <input
+                            type='text'
+                            id='apartment'
+                            {...register('apartment', { required: true, value: '...' })}
+                        />
+                    </label>
+                </div>
+            }
+            <label htmlFor='district'>Bairro/Distrito
+                <input
+                    type='text'
+                    id='district'
+                    placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.district ? styles.required : ''}`}
+                    {...register('district', { required: true })}
+                />
+            </label>
+            <label htmlFor='city'>Cidade
+                <input
+                    type='text'
+                    id='city'
+                    placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.city ? styles.required : ''}`}
+                    {...register('city', { required: true })}
+                />
+            </label>
+            <label htmlFor='crm'>CRM
+                <input
+                    type='number'
+                    id='crm'
+                    disabled={true}
+                    {...register('crm')}
+                />
+            </label>
             <div className={styles.radiolabeldiv}>
-                <label htmlFor='planradio'>
-                    <input type='radio' id='planradio' name='planradio' value='planradio' />
+                <label htmlFor='covenantradio'>
+                    <input
+                        type='radio'
+                        id='covenantradio'
+                        value='covenantradio'
+                        checked={selectRadio === 'covenantradio' ? true : false}
+                        onChange={swapSelectedRadio}
+                    />
                     Covênio
                 </label>
                 <label htmlFor='particularradio'>
-                    <input type='radio' id='particularradio' name='planradio' value='particularradio' />
+                    <input
+                        type='radio'
+                        id='particularradio'
+                        value='particularradio'
+                        checked={selectRadio === 'particularradio' ? true : false}
+                        onChange={swapSelectedRadio}
+                    />
                     Particular
                 </label>
                 <label htmlFor='courtesyradio'>
-                    <input type='radio' id='courtesyradio' name='planradio' value='courtesyradio' />
+                    <input
+                        type='radio'
+                        id='courtesyradio'
+                        value='courtesyradio'
+                        checked={selectRadio === 'courtesyradio' ? true : false}
+                        onChange={swapSelectedRadio}
+                    />
                     Cortesia
                 </label>
             </div>
-            <label htmlFor='covenant'>Covênio</label>
-            <input
-                type='text'
-                id='covenant'
-                placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.covenant ? styles.required : ''}`}
-                {...register('covenant', { required: true })}
-            />
-            <label htmlFor='particular'>Valor</label>
-            <input
-                type='text'
-                id='particular'
-                {...register('particular')}
-            />
-            <label htmlFor='courtesy'>Cortesia</label>
-            <input
-                type='text'
-                id='courtesy'
-                placeholder={`${errors.courtesy ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.courtesy ? styles.required : ''}`}
-                {...register('courtesy', { required: true, value: 'Não' })}
-            />
-            <label htmlFor='consultdatestart'>Data da Consulta Inicio</label>
-            <input
-                type='datetime-local'
-                id='consultdatestart'
-                min={formattedNow}
-                className={`${errors.consultdatestart ? styles.requireddate : ''}`}
-                {...register('consultdatestart', { required: true, onBlur: (elementDate) => setEndDateStart(elementDate.target.value) })}
-            />
-            <label htmlFor='consultdateend'>Data da Consulta Termino</label>
-            <input
-                type='datetime-local'
-                id='consultdateend'
-                min={endDateStart == '' ? formattedNow : endDateStart}
-                className={`${errors.consultdateend ? styles.requireddate : ''}`}
-                {...register('consultdateend', { required: true })}
-            />
-            <label htmlFor='observation'>Observações</label>
-            <textarea
-                id='observation'
-                {...register('observation', { value: '...' })}
-            />
+            {selectRadio === 'covenantradio' && <label htmlFor='covenant'>Covênio
+                <input
+                    type='text'
+                    id='covenant'
+                    placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.covenant ? styles.required : ''}`}
+                    {...register('covenant', { required: true })}
+                />
+            </label>
+            }
+            {selectRadio === 'particularradio' && <label htmlFor='particular'>Valor
+                <input
+                    type='text'
+                    id='particular'
+                    {...register('particular')}
+                />
+            </label>
+            }
+            {selectRadio === 'courtesyradio' && <label htmlFor='courtesy'>Cortesia
+                <input
+                    type='text'
+                    id='courtesy'
+                    disabled={true}
+                    placeholder={`${errors.courtesy ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.courtesy ? styles.required : ''}`}
+                    {...register('courtesy', { required: true, value: 'Não' })}
+                />
+            </label>
+            }
+            <label htmlFor='consultdatestart'>Data da Consulta Inicio
+                <input
+                    type='datetime-local'
+                    id='consultdatestart'
+                    min={formattedNow}
+                    className={`${errors.consultdatestart ? styles.requireddate : ''}`}
+                    {...register('consultdatestart', { required: true, onBlur: (elementDate) => setEndDateStart(elementDate.target.value) })}
+                />
+            </label>
+            <label htmlFor='consultdateend'>Data da Consulta Termino
+                <input
+                    type='datetime-local'
+                    id='consultdateend'
+                    min={endDateStart == '' ? formattedNow : endDateStart}
+                    className={`${errors.consultdateend ? styles.requireddate : ''}`}
+                    {...register('consultdateend', { required: true })}
+                />
+            </label>
+            <label htmlFor='observation'>Observações
+                <textarea
+                    id='observation'
+                    {...register('observation', { value: '...' })}
+                />
+            </label>
             <input type='submit' title='Agendar Consulta' value='Agendar' />
         </form >
     );
