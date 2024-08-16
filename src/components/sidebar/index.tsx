@@ -12,7 +12,7 @@ import styles from './sidebar.module.css';
 
 export default function SideBar() {
     const router = useRouter();
-    const [selectBar, setSelectBar] = useState('');
+    const [selectBar, setSelectBar] = useState<string>('');
     const handleBarClick = (element: string) => {
         setSelectBar(element);
         localStorage.setItem('activeBarSelection', element);
@@ -27,7 +27,7 @@ export default function SideBar() {
             } else if (activeBarSelection == 'PatientsDoctorx') {
                 router.push('/');
             } else if (activeBarSelection == 'DoctoryConsultation') {
-                router.push('/');
+                router.push('/consultationy');
             } else if (activeBarSelection == 'PatientsDoctory') {
                 router.push('/');
             };
@@ -73,7 +73,7 @@ export default function SideBar() {
                     </div>
                 </div>
                 <div className={selectBar == 'DoctoryConsultation' ? styles.active : ''} onClick={() => handleBarClick('DoctoryConsultation')}>
-                    <Link href={'/'}>
+                    <Link href={'/consultationy'}>
                         <FontAwesomeIcon icon={faNotesMedical} />
                         <span>Agendar Consulta</span>
                     </Link>
