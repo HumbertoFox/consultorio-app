@@ -1,6 +1,6 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { viaCepApi } from '@/api/viacep';
 import styles from './page.module.css';
 
@@ -21,14 +21,18 @@ type Inputs = {
     crm: number,
     consultdatestart: string,
     consultdateend: string,
-    observation: string
+    observation: string,
+    covenant: string,
+    courtesy: string,
+    particular: string
 }
 
 export default function FormConsultation() {
     const [age, setAge] = useState<number>(0);
     const formattedNow = new Date().toISOString().slice(0, 16);
     const [endDateStart, setEndDateStart] = useState(formattedNow);
-    const { register, handleSubmit, setError, setValue, setFocus, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, setError, setValue, setFocus, watch, formState: { errors } } = useForm<Inputs>();
+    const value = watch('particular');
     const getCheckedCpf = (data: string) => {
         const isRepeatedCpf = (cpf: string) => {
             const firstDigit = cpf[0];
@@ -69,6 +73,14 @@ export default function FormConsultation() {
             age--;
         };
         return age;
+    };
+    const formatAsCurrency = (value: string) => {
+        if (!value) return '0';
+        const numericalValue = parseFloat(value.replace(/[^\d]/g, '')) / 100;
+        return numericalValue.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
     };
     const handleDateChange = (element: ChangeEvent<HTMLInputElement>) => {
         const data = element.target.value;
@@ -121,6 +133,10 @@ export default function FormConsultation() {
             return;
         }
     };
+    useEffect(() => {
+        const formatValue = formatAsCurrency(value);
+        setValue('particular', formatValue, { shouldValidate: true });
+    }, [value, setValue]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -259,11 +275,27 @@ export default function FormConsultation() {
                 </label>
             </div>
             <label htmlFor='covenant'>Covênio</label>
-            <input type='text' id='covenant' />
+            <input
+                type='text'
+                id='covenant'
+                placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
+                className={`${errors.covenant ? styles.required : ''}`}
+                {...register('covenant', { required: true })}
+            />
             <label htmlFor='particular'>Valor</label>
-            <input type='text' id='particular' />
+            <input
+                type='text'
+                id='particular'
+                {...register('particular')}
+            />
             <label htmlFor='courtesy'>Cortesia</label>
-            <input type='text' id='courtesy' />
+            <input
+                type='text'
+                id='courtesy'
+                placeholder={`${errors.courtesy ? 'Campo Obrigatório' : ''}`}
+                className={`${errors.courtesy ? styles.required : ''}`}
+                {...register('courtesy', { required: true, value: 'Não' })}
+            />
             <label htmlFor='consultdatestart'>Data da Consulta Inicio</label>
             <input
                 type='datetime-local'
