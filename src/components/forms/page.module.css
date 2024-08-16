@@ -116,3 +116,12 @@
     font-style: italic;
     color: hsla(332.47, 100%, 50%, .5);
 }
+
+.divage {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: gray;
+    font-size: .9rem;
+    transition: .4s ease-in-out;
+}
