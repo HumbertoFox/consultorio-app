@@ -4,7 +4,7 @@ import FormConsultation from '@/components/forms/formconsultation';
 export default function ConsultationPage() {
     return (
         <div className={styles.divmainforms}>
-            <FormConsultation />
+            <FormConsultation crm={8185} />
         </div>
     );
 };

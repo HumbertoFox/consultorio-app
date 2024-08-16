@@ -2,13 +2,13 @@
 import styles from './page.module.css';
 
 type PropsName = {
-    name?: string
+    crm?: string
 };
 
-export default function FormPatDoc({ name }: PropsName) {
+export default function FormPatDoc({ crm }: PropsName) {
     return (
         <form className={styles.form}>
-            {name && <label htmlFor='crm'>CRM
+            {crm && <label htmlFor='crm'>CRM
                 <input type="number" id='crm' />
             </label>}
             <label htmlFor='cpf'>CPF

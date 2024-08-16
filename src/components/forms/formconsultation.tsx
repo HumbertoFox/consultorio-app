@@ -27,7 +27,11 @@ type Inputs = {
     particular: string
 }
 
-export default function FormConsultation() {
+type CrmDoctor = {
+    crm: number
+}
+
+export default function FormConsultation({ crm }: CrmDoctor) {
     const [age, setAge] = useState<number>(0);
     const formattedNow = new Date().toISOString().slice(0, 16);
     const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
@@ -155,6 +159,14 @@ export default function FormConsultation() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <label htmlFor='crm'>CRM
+                <input
+                    type='number'
+                    id='crm'
+                    disabled={true}
+                    {...register('crm', { value: crm })}
+                />
+            </label>
             <label htmlFor='cpf'>CPF
                 <input
                     type='number'
@@ -294,14 +306,6 @@ export default function FormConsultation() {
                     placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
                     className={`${errors.city ? styles.required : ''}`}
                     {...register('city', { required: true })}
-                />
-            </label>
-            <label htmlFor='crm'>CRM
-                <input
-                    type='number'
-                    id='crm'
-                    disabled={true}
-                    {...register('crm')}
                 />
             </label>
             <div className={styles.radiolabeldiv}>
