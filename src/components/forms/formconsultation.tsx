@@ -62,7 +62,6 @@ export default function FormConsultation() {
             setError('cpf', { type: 'focus' }, { shouldFocus: true });
             return;
         };
-        console.log(data)
     };
     const calculateAge = (data: string) => {
         const birthDate = new Date(data);
