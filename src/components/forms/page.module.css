@@ -38,6 +38,7 @@
 .form input[type=email],
 .form input[type=date],
 .form input[type=password],
+.form input[type=search],
 .form textarea {
     height: 30px;
     border: 1px solid #D2D4DE;
@@ -54,6 +55,7 @@
 .form input[type=email]:focus,
 .form input[type=date]:focus,
 .form input[type=password]:focus,
+.form input[type=search]:focus,
 .form textarea:focus {
     border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
     box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
@@ -105,6 +107,11 @@
 .form input.required {
     border: 1px solid hsla(332.47, 100%, 50%, .5);
     background: url('../../assets/aviso.png') no-repeat right 2% bottom 50%;
+    background-size: 20px;
+}
+
+.form input[type=search].required {
+    background: url('../../assets/ponto-de-exclamacao.png') right 9% bottom 50% no-repeat;
     background-size: 20px;
 }
 

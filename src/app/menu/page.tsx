@@ -14,7 +14,7 @@ export default function MenuPage() {
                         <Link href={'/'} title='Agenda'>
                             <FontAwesomeIcon icon={faCalendarCheck} />
                         </Link>
-                        <Link href={'/'} title='Editar Paciente'>
+                        <Link href={'/patients'} title='Editar Paciente'>
                             <FontAwesomeIcon icon={faBedPulse} />
                         </Link>
                     </div>
