@@ -22,7 +22,10 @@ export default function SideBar() {
         const activeBarSelection = localStorage.getItem('activeBarSelection');
         if (activeBarSelection != null) {
             setSelectBar(activeBarSelection);
-            if (activeBarSelection == 'DoctorxConsultation') {
+            
+            if (activeBarSelection == 'Menu') {
+                router.push('/menu');
+            } else if (activeBarSelection == 'DoctorxConsultation') {
                 router.push('/consultationx');
             } else if (activeBarSelection == 'PatientsDoctorx') {
                 router.push('/');
@@ -32,17 +35,17 @@ export default function SideBar() {
                 router.push('/');
             };
         } else {
-            setSelectBar('calendar');
+            setSelectBar('Calendar');
             router.push('/');
         };
     }, [router]);
     return (
         <div className={styles.divsidebar}>
-            <Link href={'/'}>
+            <Link href={'/menu'} onClick={() => handleBarClick('Menu')}>
                 <Image src={ImageMedicine} className={styles.imgnedicina} width={150} height={150} alt='Imagem Logo Medicina' priority />
             </Link>
             <nav className={styles.navsidebar}>
-                <div className={selectBar == 'calendar' ? styles.active : ''} onClick={() => handleBarClick('calendar')}>
+                <div className={selectBar == 'Calendar' ? styles.active : ''} onClick={() => handleBarClick('Calendar')}>
                     <Link href={'/'}>
                         <FontAwesomeIcon icon={faBookOpenReader} />
                         <span>Calendario</span>
