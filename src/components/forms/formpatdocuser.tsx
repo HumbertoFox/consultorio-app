@@ -2,6 +2,8 @@
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { viaCepApi } from '@/api/viacep';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './page.module.css';
 
 type Inputs = {
@@ -24,18 +26,25 @@ type Inputs = {
     observation: string,
     covenant: string,
     courtesy: string,
-    particular: string
+    particular: string,
+    password: string,
+    passwordchecked: string
 }
 
-type Doctors = {
-    doctors: boolean,
+type DocPatUser = {
+    docpatuser: string,
     buttons: string
 }
 
-export default function FormPatDocUser({ doctors, buttons }: Doctors) {
+export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
     const [age, setAge] = useState<number>(0);
     const [radioSelect, setRadioSelect] = useState<string>('house');
-    const { register, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<Inputs>();
+    const [ispass, setIspass] = useState(false);
+    const [ispasschecked, setIspasschecked] = useState(false);
+    const handlePass = () => setIspass(!ispass);
+    const handlePassChecked = () => setIspasschecked(!ispasschecked);
+    const { register, handleSubmit, setValue, setFocus, watch, formState: { errors } } = useForm<Inputs>();
+    const password = watch('password');
     const calculateAge = (data: string) => {
         const birthDate = new Date(data);
         const today = new Date();
@@ -110,7 +119,7 @@ export default function FormPatDocUser({ doctors, buttons }: Doctors) {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            {doctors && <label htmlFor='crm'>CRM
+            {docpatuser === 'doctors' && <label htmlFor='crm'>CRM
                 <input
                     type='number'
                     id='crm'
@@ -260,6 +269,37 @@ export default function FormPatDocUser({ doctors, buttons }: Doctors) {
                     {...register('city', { required: true })}
                 />
             </label>
+            {docpatuser == 'user' && <div className={styles.divpassword}>
+                <label htmlFor='password'>Senha
+                    <input
+                        type={ispass ? 'text' : 'password'}
+                        id='password'
+                        autoComplete='off'
+                        placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.password ? styles.required : ''}`}
+                        {...register('password', { required: true })}
+                    />
+                    <button type='button' onClick={handlePass}>
+                        {!ispass && <FontAwesomeIcon icon={faEye} />}
+                        {ispass && <FontAwesomeIcon icon={faEyeSlash} />}
+                    </button>
+                </label>
+                <label htmlFor='passwordchecked'>Confirme Senha
+                    <input
+                        type={ispasschecked ? 'text' : 'password'}
+                        id='passwordchecked'
+                        autoComplete='off'
+                        placeholder={`${errors.passwordchecked ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.passwordchecked ? styles.required : ''}`}
+                        {...register('passwordchecked', { required: true, validate: (value) => value === password })}
+                    />
+                    <button type='button' onClick={handlePassChecked}>
+                        {!ispasschecked && <FontAwesomeIcon icon={faEye} />}
+                        {ispasschecked && <FontAwesomeIcon icon={faEyeSlash} />}
+                    </button>
+                </label>
+            </div>
+            }
             <input type='submit' value={buttons} />
         </form>
     );

@@ -6,7 +6,7 @@ export default function EditPatientsPage() {
     return (
         <div className={styles.divmainforms}>
             <SearchForm />
-            <FormPatDocUser doctors={false} buttons='Cadastrar' />
+            <FormPatDocUser docpatuser='patient' buttons='Editar' />
         </div>
     );
 };

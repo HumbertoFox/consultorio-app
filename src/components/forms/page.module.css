@@ -133,7 +133,25 @@
     transition: .4s ease-in-out;
 }
 
-.divbuilding {
+.divbuilding,
+.divpassword {
     display: flex;
     flex-direction: column;
+}
+
+.divpassword label {
+    position: relative;
+}
+
+.divpassword button {
+    position: absolute;
+    top: 22px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.divpassword svg {
+    color: gray;
 }

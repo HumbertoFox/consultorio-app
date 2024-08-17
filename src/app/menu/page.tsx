@@ -11,10 +11,10 @@ export default function MenuPage() {
                 <h1>Página de Menu</h1>
                 <section className={styles.menusection}>
                     <div>
-                        <Link href={'/'} title='Cadastrar Usuário'>
+                        <Link href={'/registeruser'} title='Cadastrar Usuário'>
                             <FontAwesomeIcon icon={faUserPlus} />
                         </Link>
-                        <Link href={'/'} title='Cadastrar Doutores'>
+                        <Link href={'/registerdoctors'} title='Cadastrar Doutores'>
                             <FontAwesomeIcon icon={faUserDoctor} />
                         </Link>
                     </div>
