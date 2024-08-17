@@ -1,12 +1,12 @@
-import FormPatDocUser from '@/components/forms/formpatdocuser';
 import styles from '@/app/page.module.css';
+import FormPatDocUser from '@/components/forms/formpatdocuser';
 import SearchForm from '@/components/forms/formsearch';
 
-export default function PatientsPage() {
+export default function EditDoctorPage() {
     return (
         <div className={styles.divmainforms}>
             <SearchForm />
-            <FormPatDocUser />
+            <FormPatDocUser doctors={true} buttons='Editar'/>
         </div>
     );
 };

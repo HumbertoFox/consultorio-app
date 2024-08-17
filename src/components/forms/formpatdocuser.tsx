@@ -27,7 +27,12 @@ type Inputs = {
     particular: string
 }
 
-export default function FormPatDocUser() {
+type Doctors = {
+    doctors: boolean,
+    buttons: string
+}
+
+export default function FormPatDocUser({ doctors, buttons }: Doctors) {
     const [age, setAge] = useState<number>(0);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const { register, handleSubmit, setValue, setFocus, formState: { errors } } = useForm<Inputs>();
@@ -105,6 +110,15 @@ export default function FormPatDocUser() {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            {doctors && <label htmlFor='crm'>CRM
+                <input
+                    type='number'
+                    id='crm'
+                    placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
+                    className={`${errors.crm ? styles.required : ''}`}
+                    {...register('crm', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                />
+            </label>}
             <label htmlFor='cpf'>CPF
                 <input
                     type='number'
@@ -246,7 +260,7 @@ export default function FormPatDocUser() {
                     {...register('city', { required: true })}
                 />
             </label>
-            <input type='submit' value='Editar' />
+            <input type='submit' value={buttons} />
         </form>
     );
 };
