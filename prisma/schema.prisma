@@ -8,108 +8,131 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model addresss {
-  address_id      Int        @id @default(autoincrement())
+model Address {
+  address_id      Int       @id @default(autoincrement())
   zipcode         String
-  residencenumber String     @db.VarChar(50)
-  building        String     @db.VarChar(100)
-  buildingblock   String     @db.VarChar(50)
-  apartment       String     @db.VarChar(50)
-  registerdate    DateTime   @default(now()) @db.Timestamp(0)
-  zipcodes        zipcodes   @relation(fields: [zipcode], references: [zipcode])
-  doctors         doctors[]
-  patients        patients[]
-  users           users[]
+  residencenumber String    @db.VarChar(50)
+  building        String    @db.VarChar(100)
+  buildingblock   String    @db.VarChar(50)
+  apartment       String    @db.VarChar(50)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt()
+  address_zipcode Zipcode   @relation(fields: [zipcode], references: [zipcode])
+  address_doctor  Doctor[]
+  address_patient Patient[]
+  address_user    User[]
+
+  @@map("addresss")
 }
 
-model consultations {
-  consultation_id  Int      @id @default(autoincrement())
-  cpf              String
+model Consultation {
+  consultation_id      Int      @id @default(autoincrement())
+  cpf                  String
+  crm                  String
+  plan                 String   @db.VarChar(50)
+  particular           String   @db.VarChar(50)
+  courtesy             String   @db.VarChar(20)
+  observation          String
+  consultdatestart     String
+  consultdateend       String
+  patient_id           Int
+  user_id              Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt()
+  consultation_cpf     Cpf      @relation(fields: [cpf], references: [cpf])
+  consultation_crm     Crm      @relation(fields: [crm], references: [crm])
+  consultation_user    User     @relation(fields: [user_id], references: [user_id])
+  consultation_patient Patient  @relation(fields: [patient_id], references: [patient_id])
+
+  @@map("consultations")
+}
+
+model Cpf {
+  cpf              String         @id @db.VarChar(11)
+  name             String         @db.VarChar(100)
+  dateofbirth      String
+  cpf_consultation Consultation[]
+  cpf_doctor       Doctor[]
+  cpf_patient      Patient[]
+  cpf_user         User[]
+
+  @@map("cpfs")
+}
+
+model Crm {
+  crm              String         @id @db.VarChar(11)
+  crm_doctor       Doctor[]
+  crm_consultation Consultation[]
+
+  @@map("crms")
+}
+
+model Doctor {
+  doctor_id        Int       @id @default(autoincrement())
   crm              String
-  plan             String   @db.VarChar(50)
-  particular       String   @db.VarChar(50)
-  courtesy         String   @db.VarChar(20)
-  observation      String
-  consultdatestart String
-  consultdateend   String
-  patient_id       Int
+  cpf              String
+  telephone        String
+  address_id       Int
   user_id          Int
-  registerdate     DateTime @default(now()) @db.Timestamp(0)
-  cpfs             cpfs     @relation(fields: [cpf], references: [cpf])
-  crms             crms     @relation(fields: [crm], references: [crm])
-  patients         patients @relation(fields: [patient_id], references: [patient_id])
-  users            users    @relation(fields: [user_id], references: [user_id])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt()
+  doctor_address   Address   @relation(fields: [address_id], references: [address_id])
+  doctor_cpf       Cpf       @relation(fields: [cpf], references: [cpf])
+  doctor_crm       Crm       @relation(fields: [crm], references: [crm])
+  doctor_telephone Telephone @relation(fields: [telephone], references: [telephone])
+  doctor_user      User      @relation(fields: [user_id], references: [user_id])
+
+  @@map("doctors")
 }
 
-model cpfs {
-  cpf           String          @id @db.VarChar(11)
-  name          String          @db.VarChar(100)
-  dateofbirth   String
-  consultations consultations[]
-  doctors       doctors[]
-  patients      patients[]
-  users         users[]
+model Patient {
+  patient_id           Int            @id @default(autoincrement())
+  cpf                  String
+  telephone            String
+  address_id           Int
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt()
+  parient_address      Address        @relation(fields: [address_id], references: [address_id])
+  patient_cpf          Cpf            @relation(fields: [cpf], references: [cpf])
+  patient_telephone    Telephone      @relation(fields: [telephone], references: [telephone])
+  patient_consultation Consultation[]
+
+  @@map("patients")
 }
 
-model crms {
-  crm           String          @id @db.VarChar(11)
-  consultations consultations[]
-  doctors       doctors[]
+model Telephone {
+  telephone         String    @id @db.VarChar(11)
+  email             String    @db.VarChar(150)
+  telephone_doctor  Doctor[]
+  telephone_patient Patient[]
+  telephone_user    User[]
+
+  @@map("telephones")
 }
 
-model doctors {
-  doctor_id    Int        @id @default(autoincrement())
-  crm          String
-  cpf          String
-  telephone    String
-  address_id   Int
-  user_id      Int
-  registerdate DateTime   @default(now()) @db.Timestamp(0)
-  addresss     addresss   @relation(fields: [address_id], references: [address_id])
-  cpfs         cpfs       @relation(fields: [cpf], references: [cpf])
-  crms         crms       @relation(fields: [crm], references: [crm])
-  telephones   telephones @relation(fields: [telephone], references: [telephone])
-  users        users      @relation(fields: [user_id], references: [user_id])
+model User {
+  user_id           Int            @id @default(autoincrement())
+  cpf               String
+  telephone         String
+  password          String         @db.VarChar(200)
+  address_id        Int
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt()
+  user_address      Address        @relation(fields: [address_id], references: [address_id])
+  user_cpf          Cpf            @relation(fields: [cpf], references: [cpf])
+  user_telephone    Telephone      @relation(fields: [telephone], references: [telephone])
+  user_doctor       Doctor[]
+  user_consultation Consultation[]
+
+  @@map("users")
 }
 
-model patients {
-  patient_id    Int             @id @default(autoincrement())
-  cpf           String
-  telephone     String
-  address_id    Int
-  registerdate  DateTime        @default(now()) @db.Timestamp(0)
-  consultations consultations[]
-  addresss      addresss        @relation(fields: [address_id], references: [address_id])
-  cpfs          cpfs            @relation(fields: [cpf], references: [cpf])
-  telephones    telephones      @relation(fields: [telephone], references: [telephone])
-}
+model Zipcode {
+  zipcode         String    @id @db.VarChar(11)
+  street          String    @db.VarChar(100)
+  district        String    @db.VarChar(100)
+  city            String    @db.VarChar(100)
+  zipcode_address Address[]
 
-model telephones {
-  telephone String     @id @db.VarChar(11)
-  email     String     @db.VarChar(150)
-  doctors   doctors[]
-  patients  patients[]
-  users     users[]
-}
-
-model users {
-  user_id       Int             @id @default(autoincrement())
-  cpf           String
-  telephone     String
-  password      String          @db.VarChar(200)
-  address_id    Int
-  registerdate  DateTime        @default(now()) @db.Timestamp(0)
-  consultations consultations[]
-  doctors       doctors[]
-  addresss      addresss        @relation(fields: [address_id], references: [address_id])
-  cpfs          cpfs            @relation(fields: [cpf], references: [cpf])
-  telephones    telephones      @relation(fields: [telephone], references: [telephone])
-}
-
-model zipcodes {
-  zipcode  String     @id @db.VarChar(11)
-  street   String     @db.VarChar(100)
-  district String     @db.VarChar(100)
-  city     String     @db.VarChar(100)
-  addresss addresss[]
+  @@map("zipcodes")
 }
