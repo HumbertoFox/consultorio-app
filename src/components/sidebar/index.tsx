@@ -36,7 +36,7 @@ export default function SideBar() {
             };
         } else {
             setSelectBar('Calendar');
-            router.push('/');
+            router.push('/login');
         };
     }, [router]);
     return (
@@ -46,7 +46,7 @@ export default function SideBar() {
             </Link>
             <nav className={styles.navsidebar}>
                 <div className={selectBar == 'Calendar' ? styles.active : ''} onClick={() => handleBarClick('Calendar')}>
-                    <Link href={'/'}>
+                    <Link href={'/login'}>
                         <FontAwesomeIcon icon={faBookOpenReader} />
                         <span>Calendario</span>
                     </Link>

@@ -81,6 +81,29 @@
   filter: drop-shadow(hsl(120, 73.44%, 74.9%) 0 0 5px);
 }
 
+.login {
+  width: 100%;
+  min-width: calc(375px - 75px);
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginsection {
+  min-width: calc(375px - 75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+  border: 1px solid hsl(205.46, 86.5%, 46.47%);
+  border-radius: 15px;
+  box-shadow: 0 0 20px hsla(120, 73.44%, 74.9%, .5);
+  margin: 0 30px;
+}
+
 @media (max-width: 480px) {
   .main {
     width: 375px;
