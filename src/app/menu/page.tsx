@@ -1,48 +1,48 @@
 'use client';
 import Link from 'next/link';
-import styles from '@/app/page.module.css';
+import styles from './page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function MenuPage() {
     return (
-        <main className={styles.mainmenu}>
-            <div className={styles.menu}>
+        <main className={styles.menu}>
+            <div className={styles.divmenu}>
                 <h1>Página de Menu</h1>
-                <section className={styles.menusection}>
+                <nav className={styles.navmenu}>
                     <div>
                         <Link href={'/'} title='Agenda'>
                             <FontAwesomeIcon icon={faCalendarCheck} />
                         </Link>
-                        <Link href={'/registerpatients'} title='Cadastrar Paciente'>
+                        <Link href={'/menu/registerpatients'} title='Cadastrar Paciente'>
                             <FontAwesomeIcon icon={faBed} />
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/registeruser'} title='Cadastrar Usuário'>
+                        <Link href={'/menu/registeruser'} title='Cadastrar Usuário'>
                             <FontAwesomeIcon icon={faUserPlus} />
                         </Link>
-                        <Link href={'/registerdoctors'} title='Cadastrar Doutor(a)'>
+                        <Link href={'/menu/registerdoctors'} title='Cadastrar Doutor(a)'>
                             <FontAwesomeIcon icon={faUserDoctor} />
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/editdoctors'} title='Editar Doutor(a)'>
+                        <Link href={'/menu/editdoctors'} title='Editar Doutor(a)'>
                             <FontAwesomeIcon icon={faUserNurse} />
                         </Link>
-                        <Link href={'/editpatients'} title='Editar Paciente'>
+                        <Link href={'/menu/editpatients'} title='Editar Paciente'>
                             <FontAwesomeIcon icon={faBedPulse} />
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/edituser'} title='Editar Usuário'>
+                        <Link href={'/menu/edituser'} title='Editar Usuário'>
                             <FontAwesomeIcon icon={faUserPen} />
                         </Link>
-                        <Link href={'/removeuser'} title='Excluir Usuário'>
+                        <Link href={'/menu/removeuser'} title='Excluir Usuário'>
                             <FontAwesomeIcon icon={faUserXmark} />
                         </Link>
                     </div>
-                </section>
+                </nav>
             </div>
         </main>
     );

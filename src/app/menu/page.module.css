@@ -1,0 +1,81 @@
+.menu {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  transition: all .4s ease-in-out;
+}
+
+.divmenu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.mainmenu {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  transition: all .4s ease-in-out;
+  margin: 10px;
+}
+
+.mainmenu h1,
+.menu h1 {
+  font-size: 1rem;
+  color: hsl(205.46, 86.5%, 46.47%);
+  text-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+}
+
+.menusection,
+.navmenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 30px;
+  border: 1px solid hsl(205.46, 86.5%, 46.47%);
+  border-radius: 15px;
+  box-shadow: 0 0 20px hsla(120, 73.44%, 74.9%, .5);
+  margin: 0 30px;
+}
+
+.navmenu {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.navmenu div {
+  display: flex;
+  gap: 30px;
+}
+
+.navmenu svg,
+.icons {
+  font-size: 72px;
+  color: hsl(205.46, 86.5%, 46.47%);
+}
+
+@media (max-width: 480px) {
+
+  .mainmenu,
+  .menu {
+    width: 375px;
+  }
+}
