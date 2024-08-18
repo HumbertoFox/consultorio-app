@@ -4,7 +4,7 @@ import FormPatDocUser from '@/components/forms/formpatdocuser';
 
 export default function EditPatientsPage() {
     return (
-        <div className={styles.divmainforms}>
+        <div className={styles.main}>
             <SearchForm />
             <FormPatDocUser docpatuser='patient' buttons='Editar' />
         </div>

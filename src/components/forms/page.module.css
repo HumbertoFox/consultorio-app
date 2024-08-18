@@ -39,6 +39,8 @@
 .form input[type=date],
 .form input[type=password],
 .form input[type=search],
+.form input[type=date],
+.form input[type=datetime-local],
 .form textarea {
     height: 30px;
     border: 1px solid #D2D4DE;
@@ -56,6 +58,8 @@
 .form input[type=date]:focus,
 .form input[type=password]:focus,
 .form input[type=search]:focus,
+.form input[type=date]:focus,
+.form input[type=datetime-local]:focus,
 .form textarea:focus {
     border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
     box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);

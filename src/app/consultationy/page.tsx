@@ -3,7 +3,7 @@ import FormConsultation from '@/components/forms/formconsultation';
 
 export default function ConsultationyPage() {
     return (
-        <div className={styles.divmainforms}>
+        <div className={styles.main}>
             <FormConsultation crm={6733} />
         </div>
     );

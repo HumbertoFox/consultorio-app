@@ -6,7 +6,7 @@ import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPl
 
 export default function MenuPage() {
     return (
-        <div className={styles.divmain}>
+        <div className={styles.mainmenu}>
             <div className={styles.menu}>
                 <h1>Página de Menu</h1>
                 <section className={styles.menusection}>

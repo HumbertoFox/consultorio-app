@@ -4,7 +4,7 @@ import FormPatDocUser from '@/components/forms/formpatdocuser';
 
 export default function RemoveUserPage() {
     return (
-        <div className={styles.divmainforms}>
+        <div className={styles.main}>
             <SearchForm />
             <FormPatDocUser docpatuser='user' buttons='Remover' />
         </div>
