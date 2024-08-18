@@ -3,8 +3,8 @@ import FormPatDocUser from '@/components/forms/formpatdocuser';
 
 export default function RegisterUserPage() {
     return (
-        <div className={styles.main}>
+        <main className={styles.mainmenu}>
             <FormPatDocUser docpatuser='user' buttons='Cadastrar' />
-        </div>
+        </main>
     );
 };

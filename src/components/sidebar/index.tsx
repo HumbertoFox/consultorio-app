@@ -17,7 +17,6 @@ export default function SideBar() {
         setSelectBar(element);
         localStorage.setItem('activeBarSelection', element);
     };
-
     useEffect(() => {
         const activeBarSelection = localStorage.getItem('activeBarSelection');
         if (activeBarSelection != null) {
@@ -36,9 +35,10 @@ export default function SideBar() {
             };
         } else {
             setSelectBar('Calendar');
-            router.push('/login');
+            router.push('/');
         };
     }, [router]);
+    
     return (
         <div className={styles.divsidebar}>
             <Link href={'/menu'} onClick={() => handleBarClick('Menu')}>
@@ -46,7 +46,7 @@ export default function SideBar() {
             </Link>
             <nav className={styles.navsidebar}>
                 <div className={selectBar == 'Calendar' ? styles.active : ''} onClick={() => handleBarClick('Calendar')}>
-                    <Link href={'/login'}>
+                    <Link href={'/'}>
                         <FontAwesomeIcon icon={faBookOpenReader} />
                         <span>Calendario</span>
                     </Link>

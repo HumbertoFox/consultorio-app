@@ -4,9 +4,9 @@ import FormPatDocUser from '@/components/forms/formpatdocuser';
 
 export default function EditPatientsPage() {
     return (
-        <div className={styles.main}>
+        <main className={styles.mainmenu}>
             <SearchForm />
             <FormPatDocUser docpatuser='patient' buttons='Editar' />
-        </div>
+        </main>
     );
 };

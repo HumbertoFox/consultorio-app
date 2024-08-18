@@ -7,7 +7,7 @@ import { faUserLock } from '@fortawesome/free-solid-svg-icons';
 
 export default function LoginPage() {
     return (
-        <div className={styles.mainmenu}>
+        <main className={styles.mainmenu}>
             <div className={styles.login}>
                 <h1>Usuário do Sistema</h1>
                 <section className={styles.loginsection}>
@@ -16,6 +16,6 @@ export default function LoginPage() {
                     <FormLogin />
                 </section>
             </div>
-        </div>
+        </main>
     );
 };

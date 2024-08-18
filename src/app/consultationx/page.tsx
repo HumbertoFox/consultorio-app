@@ -1,10 +1,14 @@
 import styles from '@/app/page.module.css';
 import FormConsultation from '@/components/forms/formconsultation';
+import SideBar from '@/components/sidebar';
 
 export default function ConsultationxPage() {
     return (
-        <div className={styles.main}>
-            <FormConsultation crm={8185} />
-        </div>
+        <main className={styles.main}>
+            <SideBar />
+            <div className={styles.divmain}>
+                <FormConsultation crm={8185} />
+            </div>
+        </main>
     );
 };
