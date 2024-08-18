@@ -22,9 +22,7 @@ export default function SideBar() {
         if (activeBarSelection != null) {
             setSelectBar(activeBarSelection);
             
-            if (activeBarSelection == 'Menu') {
-                router.push('/menu');
-            } else if (activeBarSelection == 'DoctorxConsultation') {
+            if (activeBarSelection == 'DoctorxConsultation') {
                 router.push('/consultationx');
             } else if (activeBarSelection == 'PatientsDoctorx') {
                 router.push('/');
