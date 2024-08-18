@@ -1,6 +1,6 @@
 import styles from '@/app/page.module.css';
-import FormPatDocUser from '@/components/forms/formpatdocuser';
 import SearchForm from '@/components/forms/formsearch';
+import FormPatDocUser from '@/components/forms/formpatdocuser';
 
 export default function EditDoctorPage() {
     return (

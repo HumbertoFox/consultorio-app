@@ -2,11 +2,11 @@ import styles from '@/app/page.module.css';
 import SearchForm from '@/components/forms/formsearch';
 import FormPatDocUser from '@/components/forms/formpatdocuser';
 
-export default function EditPatientsPage() {
+export default function RemoveUserPage() {
     return (
         <div className={styles.divmainforms}>
             <SearchForm />
-            <FormPatDocUser docpatuser='patient' buttons='Editar' />
+            <FormPatDocUser docpatuser='user' buttons='Remover' />
         </div>
     );
 };

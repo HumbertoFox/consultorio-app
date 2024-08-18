@@ -119,187 +119,189 @@ export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            {docpatuser === 'doctors' && <label htmlFor='crm'>CRM
-                <input
-                    type='number'
-                    id='crm'
-                    placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.crm ? styles.required : ''}`}
-                    {...register('crm', { required: true, maxLength: 11, pattern: /\d{11}/g })}
-                />
-            </label>}
-            <label htmlFor='cpf'>CPF
-                <input
-                    type='number'
-                    id='cpf'
-                    placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.cpf ? styles.required : ''}`}
-                    {...register('cpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
-                />
-            </label>
-            <label htmlFor='name'>Name
-                <input
-                    type='text'
-                    id='name'
-                    placeholder={`${errors.name ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.name ? styles.required : ''}`}
-                    {...register('name', { required: true, pattern: /[A-Za-z]{5}/g })}
-                />
-            </label>
-            <div className={styles.divage}>
-                <div>
-                    <label htmlFor='dateofbirth'>Data de Nascimento</label>
+            <fieldset disabled={buttons == 'Remover' ? true : false}>
+                {docpatuser === 'doctors' && <label htmlFor='crm'>CRM
                     <input
-                        type='date'
-                        id='dateofbirth'
-                        className={`${errors.dateofbirth ? styles.requireddate : ''}`}
-                        {...register('dateofbirth', { required: true, onChange: handleDateChange })}
+                        type='number'
+                        id='crm'
+                        placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.crm ? styles.required : ''}`}
+                        {...register('crm', { required: true, maxLength: 11, pattern: /\d{11}/g })}
                     />
-                </div>
-                <div>
-                    <p>{age}</p>
-                    <p>anos</p>
-                </div>
-            </div>
-            <label htmlFor='telephone'>Telefone
-                <input
-                    type='tel'
-                    id='telephone'
-                    placeholder={`${errors.telephone ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.telephone ? styles.required : ''}`}
-                    {...register('telephone', { required: true, maxLength: 11, pattern: /\d{11}/g })}
-                />
-            </label>
-            <label htmlFor='email'>Email
-                <input
-                    type='email'
-                    id='email'
-                    placeholder={`${errors.email ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.email ? styles.required : ''}`}
-                    {...register('email', { required: true })}
-                />
-            </label>
-            <label htmlFor='zipcode'>CEP
-                <input
-                    type='number'
-                    id='zipcode'
-                    {...register('zipcode', { required: true, onBlur: checkedZipCode })}
-                />
-            </label>
-            <label htmlFor='street'>Logradouro Av/Travessa/Rua
-                <input
-                    type='text'
-                    id='street'
-                    placeholder={`${errors.street ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.street ? styles.required : ''}`}
-                    {...register('street', { required: true })}
-                />
-            </label>
-            <label htmlFor='residencenumber'>Número da Casa/Edifício
-                <input
-                    type='text'
-                    id='residencenumber'
-                    placeholder={`${errors.residencenumber ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.residencenumber ? styles.required : ''}`}
-                    {...register('residencenumber', { required: true })}
-                />
-            </label>
-            <div className={styles.radiolabeldiv}>
-                <label htmlFor='house'>
+                </label>}
+                <label htmlFor='cpf'>CPF
                     <input
-                        type='radio'
-                        id='house'
-                        value='house'
-                        checked={radioSelect === 'house' ? true : false}
-                        onChange={swapRadioSelect}
+                        type='number'
+                        id='cpf'
+                        placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.cpf ? styles.required : ''}`}
+                        {...register('cpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
                     />
-                    Casa
                 </label>
-                <label htmlFor='buildingradio'>
+                <label htmlFor='name'>Name
                     <input
-                        type='radio'
-                        id='buildingradio'
-                        value='buildingradio'
-                        checked={radioSelect === 'buildingradio' ? true : false}
-                        onChange={swapRadioSelect}
+                        type='text'
+                        id='name'
+                        placeholder={`${errors.name ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.name ? styles.required : ''}`}
+                        {...register('name', { required: true, pattern: /[A-Za-z]{5}/g })}
                     />
-                    Edifício
                 </label>
-            </div>
-            {radioSelect == 'buildingradio' &&
-                <div className={styles.divbuilding}>
-                    <label htmlFor='building'>Nome do Edifício
+                <div className={styles.divage}>
+                    <div>
+                        <label htmlFor='dateofbirth'>Data de Nascimento</label>
                         <input
-                            type='text'
-                            id='building'
-                            {...register('building', { required: true, value: '...' })}
+                            type='date'
+                            id='dateofbirth'
+                            className={`${errors.dateofbirth ? styles.requireddate : ''}`}
+                            {...register('dateofbirth', { required: true, onChange: handleDateChange })}
                         />
+                    </div>
+                    <div>
+                        <p>{age}</p>
+                        <p>anos</p>
+                    </div>
+                </div>
+                <label htmlFor='telephone'>Telefone
+                    <input
+                        type='tel'
+                        id='telephone'
+                        placeholder={`${errors.telephone ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.telephone ? styles.required : ''}`}
+                        {...register('telephone', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                    />
+                </label>
+                <label htmlFor='email'>Email
+                    <input
+                        type='email'
+                        id='email'
+                        placeholder={`${errors.email ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.email ? styles.required : ''}`}
+                        {...register('email', { required: true })}
+                    />
+                </label>
+                <label htmlFor='zipcode'>CEP
+                    <input
+                        type='number'
+                        id='zipcode'
+                        {...register('zipcode', { required: true, onBlur: checkedZipCode })}
+                    />
+                </label>
+                <label htmlFor='street'>Logradouro Av/Travessa/Rua
+                    <input
+                        type='text'
+                        id='street'
+                        placeholder={`${errors.street ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.street ? styles.required : ''}`}
+                        {...register('street', { required: true })}
+                    />
+                </label>
+                <label htmlFor='residencenumber'>Número da Casa/Edifício
+                    <input
+                        type='text'
+                        id='residencenumber'
+                        placeholder={`${errors.residencenumber ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.residencenumber ? styles.required : ''}`}
+                        {...register('residencenumber', { required: true })}
+                    />
+                </label>
+                <div className={styles.radiolabeldiv}>
+                    <label htmlFor='house'>
+                        <input
+                            type='radio'
+                            id='house'
+                            value='house'
+                            checked={radioSelect === 'house' ? true : false}
+                            onChange={swapRadioSelect}
+                        />
+                        Casa
                     </label>
-                    <label htmlFor='buildingblock'>Bloco
+                    <label htmlFor='buildingradio'>
                         <input
-                            type='text'
-                            id='buildingblock'
-                            {...register('buildingblock', { required: true, value: '...' })}
+                            type='radio'
+                            id='buildingradio'
+                            value='buildingradio'
+                            checked={radioSelect === 'buildingradio' ? true : false}
+                            onChange={swapRadioSelect}
                         />
-                    </label>
-                    <label htmlFor='apartment'>Apartamento
-                        <input
-                            type='text'
-                            id='apartment'
-                            {...register('apartment', { required: true, value: '...' })}
-                        />
+                        Edifício
                     </label>
                 </div>
-            }
-            <label htmlFor='district'>Bairro/Distrito
-                <input
-                    type='text'
-                    id='district'
-                    placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.district ? styles.required : ''}`}
-                    {...register('district', { required: true })}
-                />
-            </label>
-            <label htmlFor='city'>Cidade
-                <input
-                    type='text'
-                    id='city'
-                    placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.city ? styles.required : ''}`}
-                    {...register('city', { required: true })}
-                />
-            </label>
-            {docpatuser == 'user' && <div className={styles.divpassword}>
-                <label htmlFor='password'>Senha
+                {radioSelect == 'buildingradio' &&
+                    <div className={styles.divbuilding}>
+                        <label htmlFor='building'>Nome do Edifício
+                            <input
+                                type='text'
+                                id='building'
+                                {...register('building', { required: true, value: '...' })}
+                            />
+                        </label>
+                        <label htmlFor='buildingblock'>Bloco
+                            <input
+                                type='text'
+                                id='buildingblock'
+                                {...register('buildingblock', { required: true, value: '...' })}
+                            />
+                        </label>
+                        <label htmlFor='apartment'>Apartamento
+                            <input
+                                type='text'
+                                id='apartment'
+                                {...register('apartment', { required: true, value: '...' })}
+                            />
+                        </label>
+                    </div>
+                }
+                <label htmlFor='district'>Bairro/Distrito
                     <input
-                        type={ispass ? 'text' : 'password'}
-                        id='password'
-                        autoComplete='off'
-                        placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.password ? styles.required : ''}`}
-                        {...register('password', { required: true })}
+                        type='text'
+                        id='district'
+                        placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.district ? styles.required : ''}`}
+                        {...register('district', { required: true })}
                     />
-                    <button type='button' onClick={handlePass}>
-                        {!ispass && <FontAwesomeIcon icon={faEye} />}
-                        {ispass && <FontAwesomeIcon icon={faEyeSlash} />}
-                    </button>
                 </label>
-                <label htmlFor='passwordchecked'>Confirme Senha
+                <label htmlFor='city'>Cidade
                     <input
-                        type={ispasschecked ? 'text' : 'password'}
-                        id='passwordchecked'
-                        autoComplete='off'
-                        placeholder={`${errors.passwordchecked ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.passwordchecked ? styles.required : ''}`}
-                        {...register('passwordchecked', { required: true, validate: (value) => value === password })}
+                        type='text'
+                        id='city'
+                        placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.city ? styles.required : ''}`}
+                        {...register('city', { required: true })}
                     />
-                    <button type='button' onClick={handlePassChecked}>
-                        {!ispasschecked && <FontAwesomeIcon icon={faEye} />}
-                        {ispasschecked && <FontAwesomeIcon icon={faEyeSlash} />}
-                    </button>
                 </label>
-            </div>
-            }
+                {docpatuser == 'user' && <div className={styles.divpassword}>
+                    <label htmlFor='password'>Senha
+                        <input
+                            type={ispass ? 'text' : 'password'}
+                            id='password'
+                            autoComplete='off'
+                            placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
+                            className={`${errors.password ? styles.required : ''}`}
+                            {...register('password', { required: true })}
+                        />
+                        <button type='button' onClick={handlePass}>
+                            {!ispass && <FontAwesomeIcon icon={faEye} />}
+                            {ispass && <FontAwesomeIcon icon={faEyeSlash} />}
+                        </button>
+                    </label>
+                    <label htmlFor='passwordchecked'>Confirme Senha
+                        <input
+                            type={ispasschecked ? 'text' : 'password'}
+                            id='passwordchecked'
+                            autoComplete='off'
+                            placeholder={`${errors.passwordchecked ? 'Campo Obrigatório' : ''}`}
+                            className={`${errors.passwordchecked ? styles.required : ''}`}
+                            {...register('passwordchecked', { required: true, validate: (value) => value === password })}
+                        />
+                        <button type='button' onClick={handlePassChecked}>
+                            {!ispasschecked && <FontAwesomeIcon icon={faEye} />}
+                            {ispasschecked && <FontAwesomeIcon icon={faEyeSlash} />}
+                        </button>
+                    </label>
+                </div>
+                }
+            </fieldset>
             <input type='submit' value={buttons} />
         </form>
     );

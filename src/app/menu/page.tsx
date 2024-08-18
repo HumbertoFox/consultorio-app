@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import styles from '@/app/page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBedPulse, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function MenuPage() {
     return (
@@ -11,10 +11,18 @@ export default function MenuPage() {
                 <h1>Página de Menu</h1>
                 <section className={styles.menusection}>
                     <div>
+                        <Link href={'/'} title='Agenda'>
+                            <FontAwesomeIcon icon={faCalendarCheck} />
+                        </Link>
+                        <Link href={'/registerpatients'} title='Cadastrar Paciente'>
+                            <FontAwesomeIcon icon={faBed} />
+                        </Link>
+                    </div>
+                    <div>
                         <Link href={'/registeruser'} title='Cadastrar Usuário'>
                             <FontAwesomeIcon icon={faUserPlus} />
                         </Link>
-                        <Link href={'/registerdoctors'} title='Cadastrar Doutores'>
+                        <Link href={'/registerdoctors'} title='Cadastrar Doutor(a)'>
                             <FontAwesomeIcon icon={faUserDoctor} />
                         </Link>
                     </div>
@@ -27,10 +35,10 @@ export default function MenuPage() {
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/'} title='Editar Usuário'>
+                        <Link href={'/edituser'} title='Editar Usuário'>
                             <FontAwesomeIcon icon={faUserPen} />
                         </Link>
-                        <Link href={'/'} title='Excluir Usuário'>
+                        <Link href={'/removeuser'} title='Excluir Usuário'>
                             <FontAwesomeIcon icon={faUserXmark} />
                         </Link>
                     </div>

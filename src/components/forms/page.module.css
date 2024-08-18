@@ -110,7 +110,8 @@
     background-size: 20px;
 }
 
-.form input[type=search].required {
+.form input[type=search].required,
+.form input[type=password].required  {
     background: url('../../assets/ponto-de-exclamacao.png') right 9% bottom 50% no-repeat;
     background-size: 20px;
 }
@@ -143,12 +144,16 @@
     position: relative;
 }
 
+.form fieldset,
+.divpassword button {
+    border: none;
+}
+
 .divpassword button {
     position: absolute;
     top: 22px;
     right: 5px;
     background: none;
-    border: none;
     cursor: pointer;
 }
 
