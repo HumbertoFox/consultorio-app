@@ -21,7 +21,6 @@ export default function SideBar() {
         const activeBarSelection = localStorage.getItem('activeBarSelection');
         if (activeBarSelection != null) {
             setSelectBar(activeBarSelection);
-            
             if (activeBarSelection == 'DoctorxConsultation') {
                 router.push('/consultationx');
             } else if (activeBarSelection == 'PatientsDoctorx') {
