@@ -1,7 +1,7 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './page.module.css'
-import { SearchPatient } from '@/app/api/searchpatient/route';
+import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { useEffect, useState } from 'react';
 
 type Inputs = {
