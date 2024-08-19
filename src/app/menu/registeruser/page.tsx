@@ -9,7 +9,7 @@ export default function RegisterUserPage() {
             <h1>Cadastrar Usuário</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserPlus} className={styles.icons} />
-                <FormPatDocUser docpatuser='user' buttons='Cadastrar' />
+                <FormPatDocUser docpatuser='user' buttons='Cadastrar' searchPatDocUserCpf={null} />
             </section>
         </main>
     );

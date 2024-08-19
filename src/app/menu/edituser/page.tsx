@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPen } from '@fortawesome/free-solid-svg-icons';
 
 interface PatDocUserSearchResult {
-    crm?: number;
     cpf?: number;
     name?: string;
     dateofbirth?: string;
@@ -29,6 +28,7 @@ export default function EditUserPage() {
     const handleCpfSearch = (result: PatDocUserSearchResult) => {
         setSearchPatDocUserCpf(result);
     };
+    
     return (
         <main className={styles.mainmenu}>
             <h1>Editar Usuário</h1>

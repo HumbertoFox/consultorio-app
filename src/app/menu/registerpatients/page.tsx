@@ -9,7 +9,7 @@ export default function RegisterPatientsPage() {
             <h1>Cadastrar Paciente</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faBed} className={styles.icons} />
-                <FormPatDocUser docpatuser='patient' buttons='Cadastrar' />
+                <FormPatDocUser docpatuser='patient' buttons='Cadastrar' searchPatDocUserCpf={null} />
             </section>
         </main>
     );
