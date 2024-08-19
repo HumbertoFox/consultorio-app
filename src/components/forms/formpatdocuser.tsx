@@ -33,9 +33,9 @@ type Inputs = {
 };
 
 interface DocPatUser {
-    docpatuser: string;
-    buttons: string;
-    searchPatientCpf: {
+    docpatuser?: string;
+    buttons?: string;
+    searchPatDocUserCpf: {
         cpf?: number;
         name?: string;
         dateofbirth?: string;
@@ -52,7 +52,7 @@ interface DocPatUser {
     } | null;
 };
 
-export default function FormPatDocUser({ docpatuser, buttons, searchPatientCpf }: DocPatUser) {
+export default function FormPatDocUser({ docpatuser, buttons, searchPatDocUserCpf }: DocPatUser) {
     const router = useRouter();
     const [age, setAge] = useState<number>(0);
     const [radioSelect, setRadioSelect] = useState<string>('house');
@@ -134,8 +134,8 @@ export default function FormPatDocUser({ docpatuser, buttons, searchPatientCpf }
         console.log(data);
     };
     useEffect(() => {
-        console.log(searchPatientCpf);
-    }, [searchPatientCpf]);
+        console.log(searchPatDocUserCpf);
+    }, [searchPatDocUserCpf]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

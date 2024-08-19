@@ -1,8 +1,10 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './page.module.css'
-import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
+import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
+import { SearchUser } from '@/app/api/searchuser/requser';
 
 type Inputs = {
     searchpatient: string;
@@ -10,11 +12,11 @@ type Inputs = {
 
 interface Typesearch {
     type: string;
-    searchPatientCpf: (patientSearch: any) => void;
+    searchPatDocUserCpf: (patientSearch: any) => void;
 };
 
-export default function SearchForm({ type, searchPatientCpf }: Typesearch) {
-    const [patientSearch, setPatientSearch] = useState<any>('');
+export default function SearchForm({ type, searchPatDocUserCpf }: Typesearch) {
+    const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
     const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
@@ -51,15 +53,26 @@ export default function SearchForm({ type, searchPatientCpf }: Typesearch) {
 
             if (type == 'patient') {
                 const result = await SearchPatient(formData);
-                setPatientSearch(result)
+                setPatDocUserSearch(result);
+                console.log(result);
+            };
+            if (type == 'doctor') {
+                const result = await SearchDoctor(formData);
+                setPatDocUserSearch(result);
+                console.log(result);
+            };
+            if (type == 'user') {
+                const result = await SearchUser(formData);
+                setPatDocUserSearch(result);
+                console.log(result);
             };
         } catch (error) {
             console.error('Erro', error);
         };
     };
     useEffect(() => {
-        searchPatientCpf(patientSearch);
-    }, [patientSearch, searchPatientCpf]);
+        searchPatDocUserCpf(patdocuserSearch);
+    }, [patdocuserSearch, searchPatDocUserCpf]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

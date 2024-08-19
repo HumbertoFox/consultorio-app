@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBedPulse } from '@fortawesome/free-solid-svg-icons';
 
-interface PatientSearchResult {
+interface PatDocUserSearchResult {
     cpf?: number;
     name?: string;
     dateofbirth?: string;
@@ -23,9 +23,9 @@ interface PatientSearchResult {
 }
 
 export default function EditPatientsPage() {
-    const [searchPatientCpf, setSearchPatientCpf] = useState<PatientSearchResult | null>(null);
-    const handleCpfSearch = (result: PatientSearchResult) => {
-        setSearchPatientCpf(result);
+    const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<PatDocUserSearchResult | null>(null);
+    const handleCpfSearch = (result: PatDocUserSearchResult) => {
+        setSearchPatDocUserCpf(result);
     };
 
     return (
@@ -33,8 +33,8 @@ export default function EditPatientsPage() {
             <h1>Editar Paciente</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faBedPulse} className={styles.icons} />
-                <SearchForm type='patient' searchPatientCpf={handleCpfSearch} />
-                <FormPatDocUser docpatuser='patient' buttons='Editar' searchPatientCpf={searchPatientCpf} />
+                <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
+                <FormPatDocUser docpatuser='patient' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );
