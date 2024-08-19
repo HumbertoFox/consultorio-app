@@ -10,7 +10,7 @@ export default function EditUserPage() {
             <h1>Editar Usuário</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserPen} className={styles.icons} />
-                <SearchForm />
+                <SearchForm type='user' />
                 <FormPatDocUser docpatuser='user' buttons='Editar' />
             </section>
         </main>

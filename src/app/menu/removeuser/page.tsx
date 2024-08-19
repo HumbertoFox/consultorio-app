@@ -10,7 +10,7 @@ export default function RemoveUserPage() {
             <h1>Deletar Usuário</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserXmark} className={styles.icons} />
-                <SearchForm />
+                <SearchForm type='user' />
                 <FormPatDocUser docpatuser='user' buttons='Remover' />
             </section>
         </main>

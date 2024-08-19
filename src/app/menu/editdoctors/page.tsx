@@ -10,7 +10,7 @@ export default function EditDoctorPage() {
             <h1>Editar Doutor(a)</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserNurse} className={styles.icons} />
-                <SearchForm />
+                <SearchForm type='doctor' />
                 <FormPatDocUser docpatuser='doctors' buttons='Editar' />
             </section>
         </main>

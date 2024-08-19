@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
 type Inputs = {
@@ -37,6 +38,7 @@ interface DocPatUser {
 };
 
 export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
+    const router = useRouter();
     const [age, setAge] = useState<number>(0);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [ispass, setIspass] = useState(false);
@@ -302,7 +304,10 @@ export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
                 </div>
                 }
             </fieldset>
-            <input type='submit' value={buttons} />
+            <div className={styles.divbtn}>
+                <input type='submit' title={buttons} value={buttons} />
+                <button type="button" title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>
+            </div>
         </form>
     );
 };
