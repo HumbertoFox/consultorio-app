@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,36 +8,51 @@ import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
 type Inputs = {
-    cpf: string,
-    name: string,
-    dateofbirth: number,
-    telephone: string,
-    email: string,
-    zipcode: string,
-    residencenumber: string,
-    street: string,
-    district: string,
-    city: string,
-    building: string,
-    buildingblock: string,
-    apartment: string,
-    crm: number,
-    consultdatestart: string,
-    consultdateend: string,
-    observation: string,
-    covenant: string,
-    courtesy: string,
-    particular: string,
-    password: string,
-    passwordchecked: string
+    cpf: string;
+    name: string;
+    dateofbirth: number;
+    telephone: string;
+    email: string;
+    zipcode: string;
+    residencenumber: string;
+    street: string;
+    district: string;
+    city: string;
+    building: string;
+    buildingblock: string;
+    apartment: string;
+    crm: number;
+    consultdatestart: string;
+    consultdateend: string;
+    observation: string;
+    covenant: string;
+    courtesy: string;
+    particular: string;
+    password: string;
+    passwordchecked: string;
 };
 
 interface DocPatUser {
-    docpatuser: string,
-    buttons: string
+    docpatuser: string;
+    buttons: string;
+    searchPatientCpf: {
+        cpf?: number;
+        name?: string;
+        dateofbirth?: string;
+        telephone?: string;
+        email?: string;
+        zipcode?: number;
+        street?: string;
+        district?: string;
+        city?: string;
+        residencenumber?: string;
+        building?: string;
+        buildingblock?: string;
+        apartment?: string;
+    } | null;
 };
 
-export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
+export default function FormPatDocUser({ docpatuser, buttons, searchPatientCpf }: DocPatUser) {
     const router = useRouter();
     const [age, setAge] = useState<number>(0);
     const [radioSelect, setRadioSelect] = useState<string>('house');
@@ -118,6 +133,9 @@ export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
     };
+    useEffect(() => {
+        console.log(searchPatientCpf);
+    }, [searchPatientCpf]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -306,7 +324,7 @@ export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
             </fieldset>
             <div className={styles.divbtn}>
                 <input type='submit' title={buttons} value={buttons} />
-                <button type="button" title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>
+                <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>
             </div>
         </form>
     );

@@ -2,16 +2,19 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './page.module.css'
 import { SearchPatient } from '@/app/api/searchpatient/route';
+import { useEffect, useState } from 'react';
 
 type Inputs = {
-    searchpatient: string
+    searchpatient: string;
 };
 
 interface Typesearch {
-    type: string
+    type: string;
+    searchPatientCpf: (patientSearch: any) => void;
 };
 
-export default function SearchForm({ type }: Typesearch) {
+export default function SearchForm({ type, searchPatientCpf }: Typesearch) {
+    const [patientSearch, setPatientSearch] = useState<any>('');
     const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
@@ -48,12 +51,15 @@ export default function SearchForm({ type }: Typesearch) {
 
             if (type == 'patient') {
                 const result = await SearchPatient(formData);
-                console.log(result);
+                setPatientSearch(result)
             };
         } catch (error) {
             console.error('Erro', error);
         };
     };
+    useEffect(() => {
+        searchPatientCpf(patientSearch);
+    }, [patientSearch, searchPatientCpf]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
