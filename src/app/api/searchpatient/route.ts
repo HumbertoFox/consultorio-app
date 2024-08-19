@@ -7,7 +7,7 @@ export async function SearchPatient(formData: FormData) {
     const cpf = formData.get('cpf')?.toString();
 
     if (!cpf) {
-        throw new Error('CPF é obrigatórios.');
+        return { status: 400, Error: true, message: 'CPF Não encontrado!' }
     };
 
     const patient = await prisma.patients.findFirst({
@@ -24,7 +24,9 @@ export async function SearchPatient(formData: FormData) {
         }
     });
 
-    if (patient) {
+    if (!patient) {
+        return { status: 400, Error: true, message: 'Paciente Não encontrado!' }
+    } else {
         const listpatient = {
             records: {
                 cpf: patient.cpf,
@@ -46,6 +48,6 @@ export async function SearchPatient(formData: FormData) {
             }
         };
 
-        return { message: 'Paciente encontrado!', listpatient }
+        return { status: 200, Error: false, message: 'Paciente encontrado!', listpatient };
     };
 };
