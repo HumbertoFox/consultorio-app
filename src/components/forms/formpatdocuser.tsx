@@ -29,12 +29,12 @@ type Inputs = {
     particular: string,
     password: string,
     passwordchecked: string
-}
+};
 
-type DocPatUser = {
+interface DocPatUser {
     docpatuser: string,
     buttons: string
-}
+};
 
 export default function FormPatDocUser({ docpatuser, buttons }: DocPatUser) {
     const [age, setAge] = useState<number>(0);

@@ -25,11 +25,11 @@ type Inputs = {
     covenant: string,
     courtesy: string,
     particular: string
-}
+};
 
-type CrmDoctor = {
+interface CrmDoctor {
     crm: number
-}
+};
 
 export default function FormConsultation({ crm }: CrmDoctor) {
     const [age, setAge] = useState<number>(0);
