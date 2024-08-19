@@ -1,7 +1,7 @@
 'use client';
 import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { viaCepApi } from '@/api/viacep';
+import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from './page.module.css';

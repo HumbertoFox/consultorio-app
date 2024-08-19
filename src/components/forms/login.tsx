@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { login } from '@/app/modules/auth/actions/authactions';
 import styles from './page.module.css';
 
 type Inputs = {
@@ -14,8 +15,17 @@ export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const handlePass = () => setIspass(!ispass);
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        try {
+            const formData = new FormData();
+            formData.append('cpf', data.cpf);
+            formData.append('password', data.password);
+
+            const result = await login(formData);
+            console.log(result.message);
+        } catch (error) {
+            console.error('Erro de login:', error);
+        };
     };
 
     return (

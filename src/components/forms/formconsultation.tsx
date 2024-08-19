@@ -1,7 +1,7 @@
 'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { viaCepApi } from '@/api/viacep';
+import { viaCepApi } from '@/app/api/viacep';
 import styles from './page.module.css';
 
 type Inputs = {

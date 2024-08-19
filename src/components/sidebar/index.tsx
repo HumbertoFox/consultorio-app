@@ -35,7 +35,7 @@ export default function SideBar() {
             router.push('/');
         };
     }, [router]);
-    
+
     return (
         <div className={styles.divsidebar}>
             <Link href={'/menu'} onClick={() => handleBarClick('Menu')}>
@@ -85,7 +85,7 @@ export default function SideBar() {
                     </Link>
                 </div>
                 <div>
-                    <Link href={'/'} title='Sair do Sistema'>
+                    <Link href={'/api/logout'} title='Sair do Sistema'>
                         <FontAwesomeIcon className={styles.iconexit} icon={faArrowRightFromBracket} />
                         <span>Sair do Sistema</span>
                     </Link>
