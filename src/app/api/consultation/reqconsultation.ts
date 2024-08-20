@@ -15,7 +15,7 @@ export async function SearchConsults(crm: string) {
     if (consultation.length === 0) {
         return { status: 400, Error: true, message: 'Consultas Não encontrada!' }
     } else {
-        const listconsultation = await Promise.all(consultation.map(consult => {
+        const listconsultation = await Promise.all(consultation.map((consult: any) => {
             return {
                 id: consult.consultation_id,
                 crm: consult.crm,

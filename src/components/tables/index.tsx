@@ -64,7 +64,7 @@ export default function TableReport({ crm }: CrmDoctor) {
                 </tr>
             </thead>
             <tbody>
-                {consults.map(consul => (
+                {consults.map((consul: any) => (
                     <tr key={consul.id}>
                         <td>{consul.id}</td>
                         <td>{consul.crm}</td>
