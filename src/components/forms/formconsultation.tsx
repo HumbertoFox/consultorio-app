@@ -2,7 +2,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { viaCepApi } from '@/app/api/viacep';
-import styles from './page.module.css';
+import styles from './form.module.css';
 
 type Inputs = {
     cpf: string,

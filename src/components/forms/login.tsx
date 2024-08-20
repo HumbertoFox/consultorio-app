@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { loginAuth } from '@/app/modules/auth/actions/authactions';
-import styles from './page.module.css';
+import styles from './form.module.css';
 
 type Inputs = {
     cpf: string;

@@ -5,7 +5,7 @@ import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
-import styles from './page.module.css';
+import styles from './form.module.css';
 
 type Inputs = {
     cpf: string;
