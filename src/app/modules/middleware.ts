@@ -1,5 +1,5 @@
 'use server';
-import AuthService from '@/services/authservice';
+import { isSessionValid } from '@/services/isvalid';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     };
 
-    const session = await AuthService.isSessionValid();
+    const session = await isSessionValid();
     if (!session) {
         const isAPIRoute = pathname.startsWith('/api');
 
