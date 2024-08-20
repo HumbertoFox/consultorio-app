@@ -28,23 +28,21 @@ export async function SearchDoctor(formData: FormData) {
         return { status: 400, Error: true, message: 'Doutor(a) Não encontrado!' }
     } else {
         const listdoctor = {
-            records: {
-                crm: doctor.crm,
-                cpf: doctor.cpf,
-                name: doctor.cpfs.name,
-                dateofbirth: doctor.cpfs.dateofbirth,
-                telephone: doctor.telephone,
-                email: doctor.telephones.email,
-                address_id: doctor.address_id,
-                zipcode: doctor.addresss.zipcode,
-                street: doctor.addresss.zipcodes.street,
-                district: doctor.addresss.zipcodes.district,
-                city: doctor.addresss.zipcodes.city,
-                residencenumber: doctor.addresss.residencenumber,
-                building: doctor.addresss.building,
-                buildingblock: doctor.addresss.buildingblock,
-                apartment: doctor.addresss.apartment
-            }
+            crm: doctor.crm,
+            cpf: doctor.cpf,
+            name: doctor.cpfs.name,
+            dateofbirth: doctor.cpfs.dateofbirth,
+            telephone: doctor.telephone,
+            email: doctor.telephones.email,
+            address_id: doctor.address_id,
+            zipcode: doctor.addresss.zipcode,
+            street: doctor.addresss.zipcodes.street,
+            district: doctor.addresss.zipcodes.district,
+            city: doctor.addresss.zipcodes.city,
+            residencenumber: doctor.addresss.residencenumber,
+            building: doctor.addresss.building,
+            buildingblock: doctor.addresss.buildingblock,
+            apartment: doctor.addresss.apartment
         };
 
         return { status: 200, Error: false, message: 'Doutor(a) encontrado!', listdoctor };

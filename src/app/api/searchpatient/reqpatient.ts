@@ -28,24 +28,22 @@ export async function SearchPatient(formData: FormData) {
         return { status: 400, Error: true, message: 'Paciente Não encontrado!' }
     } else {
         const listpatient = {
-            records: {
-                cpf: patient.cpf,
-                name: patient.cpfs.name,
-                dateofbirth: patient.cpfs.dateofbirth,
-                telephone: patient.telephone,
-                email: patient.telephones.email,
-                address_id: patient.address_id,
-                zipcode: patient.addresss.zipcode,
-                street: patient.addresss.zipcodes.street,
-                district: patient.addresss.zipcodes.district,
-                city: patient.addresss.zipcodes.city,
-                plan: patient.consultations[0].plan,
-                residencenumber: patient.addresss.residencenumber,
-                building: patient.addresss.building,
-                buildingblock: patient.addresss.buildingblock,
-                apartment: patient.addresss.apartment,
-                observation: patient.consultations[0].observation
-            }
+            cpf: patient.cpf,
+            name: patient.cpfs.name,
+            dateofbirth: patient.cpfs.dateofbirth,
+            telephone: patient.telephone,
+            email: patient.telephones.email,
+            address_id: patient.address_id,
+            zipcode: patient.addresss.zipcode,
+            street: patient.addresss.zipcodes.street,
+            district: patient.addresss.zipcodes.district,
+            city: patient.addresss.zipcodes.city,
+            plan: patient.consultations[0].plan,
+            residencenumber: patient.addresss.residencenumber,
+            building: patient.addresss.building,
+            buildingblock: patient.addresss.buildingblock,
+            apartment: patient.addresss.apartment,
+            observation: patient.consultations[0].observation
         };
 
         return { status: 200, Error: false, message: 'Paciente encontrado!', listpatient };
