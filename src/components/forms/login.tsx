@@ -1,14 +1,14 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { login } from '@/app/modules/auth/actions/authactions';
+import { loginAuth } from '@/app/modules/auth/actions/authactions';
 import styles from './page.module.css';
 
 type Inputs = {
-    cpf: string,
-    password: string
+    cpf: string;
+    password: string;
 };
 
 export default function FormLogin() {
@@ -21,7 +21,7 @@ export default function FormLogin() {
             formData.append('cpf', data.cpf);
             formData.append('password', data.password);
 
-            const result = await login(formData);
+            const result = await loginAuth(formData);
             console.log(result.message);
         } catch (error) {
             console.error('Erro de login:', error);

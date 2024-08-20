@@ -1,6 +1,6 @@
 'use server';
-import AuthService from "@/services/authservice";
-import { NextRequest, NextResponse } from "next/server";
+import AuthService from '@/services/authservice';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
     matcher: '/((?!_next/static|_next/image|favicon.ico).*)'
