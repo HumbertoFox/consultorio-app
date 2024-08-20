@@ -1,0 +1,19 @@
+.table {
+    display: flex;
+    flex-direction: column;
+}
+
+.table thead tr,
+.table tbody tr {
+    display: flex;
+    justify-content: space-around;
+}
+
+.table thead tr th {
+    font-size: .9rem;
+    text-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+}
+
+.table tbody {
+    font-size: .8rem;
+}

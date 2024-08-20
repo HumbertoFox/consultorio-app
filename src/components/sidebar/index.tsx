@@ -24,11 +24,11 @@ export default function SideBar() {
             if (activeBarSelection == 'DoctorxConsultation') {
                 router.push('/consultations/doctorx');
             } else if (activeBarSelection == 'PatientsDoctorx') {
-                router.push('/');
+                router.push('/consultations/reportx');
             } else if (activeBarSelection == 'DoctoryConsultation') {
                 router.push('/consultations/doctory');
             } else if (activeBarSelection == 'PatientsDoctory') {
-                router.push('/');
+                router.push('/consultations/reporty');
             };
         } else {
             setSelectBar('Calendar');
@@ -61,7 +61,7 @@ export default function SideBar() {
                     </Link>
                 </div>
                 <div className={selectBar == 'PatientsDoctorx' ? styles.active : ''} onClick={() => handleBarClick('PatientsDoctorx')}>
-                    <Link href={'/'}>
+                    <Link href={'/consultations/reportx'}>
                         <FontAwesomeIcon icon={faCheck} />
                         <span>Listar Pacientes</span>
                     </Link>
@@ -79,7 +79,7 @@ export default function SideBar() {
                     </Link>
                 </div>
                 <div className={selectBar == 'PatientsDoctory' ? styles.active : ''} onClick={() => handleBarClick('PatientsDoctory')}>
-                    <Link href={'/'}>
+                    <Link href={'/consultations/reporty'}>
                         <FontAwesomeIcon icon={faCheck} />
                         <span>Listar Pacientes</span>
                     </Link>
