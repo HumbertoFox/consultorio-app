@@ -1,7 +1,7 @@
-import styles from '@/app/menu/page.module.css';
-import FormPatDocUser from '@/components/forms/formpatdocuser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
+import styles from '@/app/menu/page.module.css';
 
 export default function RegisterUserPage() {
     return (
@@ -9,7 +9,7 @@ export default function RegisterUserPage() {
             <h1>Cadastrar Usuário</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserPlus} className={styles.icons} />
-                <FormPatDocUser docpatuser='user' buttons='Cadastrar' searchPatDocUserCpf={null} />
+                <FormPacDocUserConsult docpatuser='user' buttons='Cadastrar' searchPatDocUserCpf={null} />
             </section>
         </main>
     );
