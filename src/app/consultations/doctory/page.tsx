@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import styles from '@/app/page.module.css';
-import FormConsultation from '@/components/forms/formconsultation';
+import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import SearchForm from '@/components/forms/formsearch';
 
 interface PatDocUserSearchResult {
@@ -30,7 +30,7 @@ export default function ConsultationyPage() {
     return (
         <div className={styles.divmain}>
             <SearchForm type='doctor' searchPatDocUserCpf={handleCpfSearch} />
-            <FormConsultation crm={6733} docpatuser='doctors' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
+            <FormPacDocUserConsult crm={6733} docpatuser='doctors' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
         </div>
     );
 };

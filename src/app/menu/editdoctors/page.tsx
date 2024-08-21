@@ -1,10 +1,10 @@
 'use client';
-import styles from '@/app/menu/page.module.css';
-import SearchForm from '@/components/forms/formsearch';
-import FormPatDocUser from '@/components/forms/formpatdocuser';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserNurse } from '@fortawesome/free-solid-svg-icons';
+import SearchForm from '@/components/forms/formsearch';
+import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
+import styles from '@/app/menu/page.module.css';
 
 interface PatDocUserSearchResult {
     crm?: number;
@@ -35,7 +35,7 @@ export default function EditDoctorPage() {
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserNurse} className={styles.icons} />
                 <SearchForm type='doctor' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPatDocUser docpatuser='doctors' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <FormPacDocUserConsult docpatuser='doctors' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );

@@ -1,7 +1,7 @@
-import styles from '@/app/menu/page.module.css';
-import FormPatDocUser from '@/components/forms/formpatdocuser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed } from '@fortawesome/free-solid-svg-icons';
+import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
+import styles from '@/app/menu/page.module.css';
 
 export default function RegisterPatientsPage() {
     return (
@@ -9,7 +9,7 @@ export default function RegisterPatientsPage() {
             <h1>Cadastrar Paciente</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faBed} className={styles.icons} />
-                <FormPatDocUser docpatuser='patient' buttons='Cadastrar' searchPatDocUserCpf={null} />
+                <FormPacDocUserConsult docpatuser='patient' buttons='Cadastrar' searchPatDocUserCpf={null} />
             </section>
         </main>
     );

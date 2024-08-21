@@ -53,7 +53,7 @@ interface DocPatUser {
     } | null;
 };
 
-export default function FormConsultation({ crm, docpatuser, buttons, searchPatDocUserCpf }: DocPatUser) {
+export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: DocPatUser) {
     const router = useRouter();
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
@@ -374,7 +374,7 @@ export default function FormConsultation({ crm, docpatuser, buttons, searchPatDo
                     </label>
                 </div>
                 }
-                <div className={styles.radiolabeldiv}>
+                {buttons === 'Agendar' && <div className={styles.radiolabeldiv}>
                     <label htmlFor='covenantradio'>
                         <input
                             type='radio'
@@ -407,7 +407,8 @@ export default function FormConsultation({ crm, docpatuser, buttons, searchPatDo
                     </label>
                     }
                 </div>
-                {selectRadio === 'covenantradio' && <label htmlFor='covenant'>Covênio
+                }
+                {selectRadio === 'covenantradio' && buttons === 'Agendar' && <label htmlFor='covenant'>Covênio
                     <input
                         type='text'
                         id='covenant'
