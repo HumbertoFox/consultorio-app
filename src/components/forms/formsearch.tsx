@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
 import { SearchUser } from '@/app/api/searchuser/requser';
+import EventClick from '../modal/eventclick';
 import styles from './form.module.css'
 
 type Inputs = {
@@ -15,8 +16,16 @@ interface PatDocUserSearchResult {
     searchPatDocUserCpf: (patientSearch: any) => void;
 };
 
+interface EventMessage {
+    message?: string;
+    Error: boolean;
+    title?: string;
+    onClose?: () => void;
+};
+
 export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
+    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
     const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
@@ -41,6 +50,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
         return data === correctCpf;
     };
+    const handleEventAlertClose = () => {
+        setEventAlert(null);
+    };
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const cpf = data.searchcpf.toString();
         if (!getCheckedCpf(cpf)) {
@@ -63,6 +75,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                     result = await SearchUser(formData);
                     break;
             };
+            
+            setEventAlert(result);
+
             setPatDocUserSearch(result);
         } catch (error) {
             console.error('Erro', error);
@@ -86,6 +101,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                 {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
             <input type='submit' title='Pesquisar Por CPF' value='Pesquisar' />
+            {eventAlert && <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />}
         </form>
     );
 };

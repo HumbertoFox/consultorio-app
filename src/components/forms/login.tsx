@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { loginAuth } from '@/app/modules/auth/actions/authactions';
 import { useRouter } from 'next/navigation';
-import styles from './form.module.css';
 import EventClick from '../modal/eventclick';
+import styles from './form.module.css';
 
 type Inputs = {
     cpf: string;
@@ -18,7 +18,7 @@ interface EventMessage {
     Error: boolean;
     title?: string;
     onClose?: () => void;
-}
+};
 
 export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);

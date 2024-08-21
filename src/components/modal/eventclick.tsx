@@ -15,7 +15,7 @@ export default function EventClick({ message, Error, title, onClose }: EventMess
             <section className={Error == true ? styles.sectionerror : ''}>
                 <h2>{Error == true ? 'Error' : 'Sucesso'}</h2>
                 <span>{message}</span>
-                {Error === true || title !== 'Fechar Login' && <button type='button' title={title} onClick={onClose}>Fechar</button>}
+                {Error === true && title !== 'Fechar Login' && <button type='button' title={title} onClick={onClose}>Fechar</button>}
             </section>
         </div>
     );

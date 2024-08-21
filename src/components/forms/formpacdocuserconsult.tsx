@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 import styles from './form.module.css';
+import EventClick from '../modal/eventclick';
 
 type Inputs = {
     cpf?: number;
@@ -62,6 +63,13 @@ interface PatDocUserSearchResult {
     } | any;
 };
 
+interface EventMessage {
+    message?: string;
+    Error: boolean;
+    title?: string;
+    onClose?: () => void;
+}
+
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const router = useRouter();
     const [ispass, setIspass] = useState(false);
@@ -71,6 +79,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
+    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
     const handlePass = () => setIspass(!ispass);
     const handlePassChecked = () => setIspasschecked(!ispasschecked);
     const { register, handleSubmit, setError, setValue, setFocus, watch, formState: { errors } } = useForm<Inputs>();
@@ -180,6 +189,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setSelectRadio(selectedValue);
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
         setValue('covenant', selectedValue !== 'covenantradio' ? '...' : '');
+    };
+    const handleEventAlertClose = () => {
+        setEventAlert(null);
     };
     const onSubmit: SubmitHandler<Inputs> = (data: any) => {
         const cpf = data.cpf;
@@ -498,6 +510,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 <input type='submit' title={buttons} value={buttons} />
                 {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>}
             </div>
+            {eventAlert && <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />}
         </form >
     );
 };
