@@ -7,15 +7,15 @@ import { SearchUser } from '@/app/api/searchuser/requser';
 import styles from './form.module.css'
 
 type Inputs = {
-    searchpatient: string;
+    searchcpf: number;
 };
 
-interface Typesearch {
-    type: string;
+interface PatDocUserSearchResult {
+    type: 'patient' | 'doctor' | 'user';
     searchPatDocUserCpf: (patientSearch: any) => void;
 };
 
-export default function SearchForm({ type, searchPatDocUserCpf }: Typesearch) {
+export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
     const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
     const getCheckedCpf = (data: string) => {
@@ -42,47 +42,48 @@ export default function SearchForm({ type, searchPatDocUserCpf }: Typesearch) {
         return data === correctCpf;
     };
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        const cpf = data.searchpatient;
+        const cpf = data.searchcpf.toString();
         if (!getCheckedCpf(cpf)) {
-            setError('searchpatient', { type: 'focus' }, { shouldFocus: true });
+            setError('searchcpf', { type: 'focus' }, { shouldFocus: true });
             return;
         };
         try {
             const formData = new FormData();
-            formData.append('cpf', data.searchpatient);
+            formData.append('cpf', cpf);
 
-            if (type == 'patient') {
-                const result = await SearchPatient(formData);
-                setPatDocUserSearch(result);
-                console.log(result);
+            let result;
+            switch (type) {
+                case 'patient':
+                    result = await SearchPatient(formData);
+                    break;
+                case 'doctor':
+                    result = await SearchDoctor(formData);
+                    break;
+                case 'user':
+                    result = await SearchUser(formData);
+                    break;
             };
-            if (type == 'doctor') {
-                const result = await SearchDoctor(formData);
-                setPatDocUserSearch(result);
-                console.log(result);
-            };
-            if (type == 'user') {
-                const result = await SearchUser(formData);
-                setPatDocUserSearch(result);
-                console.log(result);
-            };
+            setPatDocUserSearch(result);
         } catch (error) {
             console.error('Erro', error);
         };
     };
     useEffect(() => {
-        searchPatDocUserCpf(patdocuserSearch);
+        if (patdocuserSearch) {
+            const res = Object.values(patdocuserSearch);
+            searchPatDocUserCpf(res[3]);
+        }
     }, [patdocuserSearch, searchPatDocUserCpf]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor='searchpatient'>Pesquisar</label>
+            <label htmlFor='searchcpf'>Pesquisar</label>
             <input
                 type='search'
-                id='searchpatient'
-                placeholder={`${errors.searchpatient ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.searchpatient ? styles.required : ''}`}
-                {...register('searchpatient', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                id='searchcpf'
+                placeholder={`${errors.searchcpf ? 'Campo Obrigatório' : ''}`}
+                className={`${errors.searchcpf ? styles.required : ''}`}
+                {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
             <input type='submit' title='Pesquisar Por CPF' value='Pesquisar' />
         </form>

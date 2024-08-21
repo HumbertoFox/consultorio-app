@@ -8,52 +8,61 @@ import { useRouter } from 'next/navigation';
 import styles from './form.module.css';
 
 type Inputs = {
-    cpf: number;
-    name: string;
-    dateofbirth: number;
-    telephone: string;
-    email: string;
-    zipcode: string;
-    residencenumber: string;
-    street: string;
-    district: string;
-    city: string;
-    building: string;
-    buildingblock: string;
-    apartment: string;
-    crm: number;
-    consultdatestart: string;
-    consultdateend: string;
-    observation: string;
-    covenant: string;
-    courtesy: string;
-    particular: string
-    password: string;
-    passwordchecked: string;
+    cpf?: number;
+    name?: string;
+    dateofbirth?: number;
+    telephone?: string;
+    email?: string;
+    zipcode?: string;
+    residencenumber?: string;
+    street?: string;
+    district?: string;
+    city?: string;
+    building?: string;
+    buildingblock?: string;
+    apartment?: string;
+    crm?: number;
+    consultdatestart?: string;
+    consultdateend?: string;
+    observation?: string;
+    covenant?: string;
+    courtesy?: string;
+    particular?: string;
+    password?: string;
+    passwordchecked?: string;
 };
 
-interface DocPatUser {
+interface PatDocUserSearchResult {
     crm?: number;
     docpatuser?: string;
     buttons?: string;
     searchPatDocUserCpf: {
-        cpf?: number;
-        name?: string;
-        dateofbirth?: string;
-        telephone?: string;
-        email?: string;
-        zipcode?: number;
-        street?: string;
-        district?: string;
-        city?: string;
-        residencenumber?: string;
-        building?: string;
-        buildingblock?: string;
-        apartment?: string;
-    } | null;
+        cpf: number;
+        name: string;
+        dateofbirth: number;
+        telephone: string;
+        email: string;
+        zipcode: string;
+        residencenumber: string;
+        street: string;
+        district: string;
+        city: string;
+        building: string;
+        buildingblock: string;
+        apartment: string;
+        crm: number;
+        consultdatestart: string;
+        consultdateend: string;
+        observation: string;
+        covenant: string;
+        courtesy: string;
+        particular: string;
+        password: string;
+        passwordchecked: string;
+    } | any;
 };
 
-export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: DocPatUser) {
+export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const router = useRouter();
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
@@ -172,21 +181,41 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
         setValue('covenant', selectedValue !== 'covenantradio' ? '...' : '');
     };
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const onSubmit: SubmitHandler<Inputs> = (data: any) => {
         const cpf = data.cpf;
-        if (!getCheckedCpf(cpf.toString())) {
+        if (!getCheckedCpf(cpf)) {
             setError('cpf', { type: 'focus' }, { shouldFocus: true });
             return;
         };
         console.log(data);
     };
     useEffect(() => {
-        const formatValue = formatAsCurrency(value);
+        const formatValue = formatAsCurrency(value ?? '');
         setValue('particular', formatValue, { shouldValidate: true });
     }, [value, setValue]);
     useEffect(() => {
-        console.log(searchPatDocUserCpf);
-    }, [searchPatDocUserCpf]);
+        setValue('cpf', searchPatDocUserCpf?.cpf)
+        setValue('name', searchPatDocUserCpf?.name)
+        setValue('dateofbirth', searchPatDocUserCpf?.dateofbirth)
+        setValue('telephone', searchPatDocUserCpf?.telephone)
+        setValue('email', searchPatDocUserCpf?.email)
+        setValue('zipcode', searchPatDocUserCpf?.zipcode)
+        setValue('residencenumber', searchPatDocUserCpf?.residencenumber)
+        setValue('street', searchPatDocUserCpf?.street)
+        setValue('district', searchPatDocUserCpf?.district)
+        setValue('city', searchPatDocUserCpf?.city)
+        setValue('building', searchPatDocUserCpf?.building)
+        setValue('buildingblock', searchPatDocUserCpf?.buildingblock)
+        setValue('apartment', searchPatDocUserCpf?.apartment)
+        setValue('crm', searchPatDocUserCpf?.crm)
+        setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart)
+        setValue('consultdateend', searchPatDocUserCpf?.consultdateend)
+        setValue('observation', searchPatDocUserCpf?.observation)
+        setValue('covenant', searchPatDocUserCpf?.covenant)
+        setValue('courtesy', searchPatDocUserCpf?.courtesy)
+        setValue('particular', searchPatDocUserCpf?.particular)
+        setValue('password', searchPatDocUserCpf?.password)
+    }, [searchPatDocUserCpf, setValue]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
