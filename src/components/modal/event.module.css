@@ -1,0 +1,74 @@
+.diveventmain {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background-color: hsl(120, 73.44%, 74.9%, .7);
+    z-index: 4;
+    transition: .4s ease-in-out;
+}
+
+.diveventmain section,
+.diveventmessage {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    background: #FFF;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+    animation: EventAnime .4s ease-in-out;
+}
+
+.diveventmain section h2 {
+    font-size: 1.1rem;
+    color: #3C91E6;
+}
+
+.diveventmain .sectionerror h2 {
+    color: #FF0000;
+}
+
+.diveventmain section span {
+    font-size: .9rem;
+}
+
+.diveventmain section button {
+    color: black;
+    background-color: #90EE90;
+    padding: 5px 10px;
+    border: 1px solid #D2D4DE;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .4s ease-in-out;
+    margin: 10px auto 0 auto;
+}
+
+.diveventmain section button:hover {
+    border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+    color: #FFF;
+    text-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+}
+
+.diveventmain section button:active {
+    color: #3C91E6;
+    border: 1px solid hsla(120, 73.44%, 74.9%, .5);
+    box-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+}
+
+@keyframes EventAnime {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

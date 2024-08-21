@@ -4,25 +4,51 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { loginAuth } from '@/app/modules/auth/actions/authactions';
+import { useRouter } from 'next/navigation';
 import styles from './form.module.css';
+import EventClick from '../modal/eventclick';
 
 type Inputs = {
     cpf: string;
     password: string;
 };
 
+interface EventMessage {
+    message?: string;
+    Error: boolean;
+    title?: string;
+    onClose?: () => void;
+}
+
 export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);
+    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const router = useRouter();
     const handlePass = () => setIspass(!ispass);
+    const handleEventAlertClose = () => {
+        setEventAlert(null);
+    };
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
             const formData = new FormData();
             formData.append('cpf', data.cpf);
             formData.append('password', data.password);
 
-            const result = await loginAuth(formData);
-            console.log(result.message);
+            const response = await loginAuth(formData);
+            setEventAlert(response);
+
+            if (response.Error === false) {
+                setTimeout(() => {
+                    router.push('/');
+                }, 3000);
+            } else {
+                setTimeout(() => {
+                    window.location.reload();
+                    router.push('/login');
+                }, 3000);
+            };
+
         } catch (error) {
             console.error('Erro de login:', error);
         };
@@ -57,6 +83,7 @@ export default function FormLogin() {
                 </label>
             </div>
             <input type='submit' title='Entrar' value='Entrar' />
+            {eventAlert && <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />}
         </form>
     );
 };
