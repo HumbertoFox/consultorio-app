@@ -5,8 +5,9 @@ import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
-import styles from './form.module.css';
+import { RegisterUser } from '@/app/api/registeruser/requser';
 import EventClick from '../modal/eventclick';
+import styles from './form.module.css';
 
 type Inputs = {
     cpf?: number;
@@ -59,7 +60,6 @@ interface PatDocUserSearchResult {
         courtesy: string;
         particular: string;
         password: string;
-        passwordchecked: string;
     } | any;
 };
 
@@ -193,13 +193,46 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const handleEventAlertClose = () => {
         setEventAlert(null);
     };
-    const onSubmit: SubmitHandler<Inputs> = (data: any) => {
+    const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
         const cpf = data.cpf;
         if (!getCheckedCpf(cpf)) {
             setError('cpf', { type: 'focus' }, { shouldFocus: true });
             return;
         };
-        console.log(data);
+        try {
+            const formData = new FormData();
+            formData.append('cpf', data.cpf);
+            formData.append('name', data.name);
+            formData.append('dateofbirth', data.dateofbirth);
+            formData.append('telephone', data.telephone);
+            formData.append('email', data.email);
+            formData.append('zipcode', data.zipcode);
+            formData.append('residencenumber', data.residencenumber);
+            formData.append('street', data.street);
+            formData.append('district', data.district);
+            formData.append('city', data.city);
+            formData.append('building', data.building);
+            formData.append('buildingblock', data.buildingblock);
+            formData.append('apartment', data.apartment);
+            formData.append('crm', data.crm);
+            formData.append('consultdatestart', data.consultdatestart);
+            formData.append('consultdateend', data.consultdateend);
+            formData.append('observation', data.observation);
+            formData.append('covenant', data.covenant);
+            formData.append('courtesy', data.courtesy);
+            formData.append('particular', data.particular);
+            formData.append('password', data.password);
+
+            const response = await RegisterUser(formData);
+            setEventAlert(response);
+
+        } catch (error) {
+            console.error('Erro ao Conectar ao Banco:', error);
+            setEventAlert({
+                Error: true,
+                message: 'Erro ao Conectar ao Banco !'
+            });
+        };
     };
     useEffect(() => {
         const formatValue = formatAsCurrency(value ?? '');
@@ -510,7 +543,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 <input type='submit' title={buttons} value={buttons} />
                 {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>}
             </div>
-            {eventAlert && <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />}
+            {eventAlert && <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />}
         </form >
     );
 };

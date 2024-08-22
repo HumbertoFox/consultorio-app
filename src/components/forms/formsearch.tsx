@@ -53,8 +53,8 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
     const handleEventAlertClose = () => {
         setEventAlert(null);
     };
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        const cpf = data.searchcpf.toString();
+    const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+        const cpf = data.searchcpf;
         if (!getCheckedCpf(cpf)) {
             setError('searchcpf', { type: 'focus' }, { shouldFocus: true });
             return;
@@ -76,9 +76,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                     break;
             };
 
+            setPatDocUserSearch(result);
             setEventAlert(result);
 
-            setPatDocUserSearch(result);
         } catch (error) {
             console.error('Erro', error);
             setEventAlert({

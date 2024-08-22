@@ -6,8 +6,8 @@ import * as bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 export async function loginAuth(formData: FormData) {
-    const cpf = formData.get('cpf')?.toString();
-    const password = formData.get('password')?.toString();
+    const cpf = formData.get('cpf') as string;
+    const password = formData.get('password') as string;
 
     if (!cpf || !password) {
         return { status: 400, Error: true, message: 'CPF e senha são obrigatórios!' };
