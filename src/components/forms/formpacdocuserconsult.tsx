@@ -5,6 +5,8 @@ import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
+import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
+import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
@@ -36,7 +38,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser?: string;
+    docpatuser: 'patient' | 'doctor' | 'user';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -201,29 +203,23 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         };
         try {
             const formData = new FormData();
-            formData.append('cpf', data.cpf);
-            formData.append('name', data.name);
-            formData.append('dateofbirth', data.dateofbirth);
-            formData.append('telephone', data.telephone);
-            formData.append('email', data.email);
-            formData.append('zipcode', data.zipcode);
-            formData.append('residencenumber', data.residencenumber);
-            formData.append('street', data.street);
-            formData.append('district', data.district);
-            formData.append('city', data.city);
-            formData.append('building', data.building);
-            formData.append('buildingblock', data.buildingblock);
-            formData.append('apartment', data.apartment);
-            formData.append('crm', data.crm);
-            formData.append('consultdatestart', data.consultdatestart);
-            formData.append('consultdateend', data.consultdateend);
-            formData.append('observation', data.observation);
-            formData.append('covenant', data.covenant);
-            formData.append('courtesy', data.courtesy);
-            formData.append('particular', data.particular);
-            formData.append('password', data.password);
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key as keyof Inputs]);
+            });
 
-            const response = await RegisterUser(formData);
+            let response;
+            switch (docpatuser) {
+                case 'patient':
+                    response = await RegisterPatient(formData);
+                    break;
+                case 'doctor':
+                    response = await RegisterDoctor(formData);
+                    break;
+                case 'user':
+                    response = await RegisterUser(formData);
+                    break;
+            };
+
             setEventAlert(response);
 
         } catch (error) {
@@ -265,7 +261,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Remover' ? true : false}>
-                {docpatuser === 'doctors' && <label htmlFor='crm'>CRM
+                {docpatuser === 'doctor' && <label htmlFor='crm'>CRM
                     <input
                         type='number'
                         id='crm'

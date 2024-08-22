@@ -1,10 +1,9 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-export async function RegisterUser(formData: FormData) {
+export async function RegisterDoctor(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -18,21 +17,19 @@ export async function RegisterUser(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
-    const password = formData.get('password') as string;
+    const crm = formData.get('crm') as string;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const existingUser = await prisma.users.findFirst({
-        where: { cpf }
+    const existingDoctor = await prisma.doctors.findFirst({
+        where: { crm }
     });
+
+    if (existingDoctor) {
+        return { status: 400, Error: true, message: 'CRM já cadastrado !' };
+    };
 
     const existingCpf = await prisma.cpfs.findFirst({
         where: { cpf }
     });
-
-    if (existingUser) {
-        return { status: 400, Error: true, message: 'Usuário já cadastrado !' };
-    };
 
     if (!existingCpf) {
         await prisma.cpfs.create({
@@ -40,7 +37,7 @@ export async function RegisterUser(formData: FormData) {
         });
     };
 
-    const existingTelephone = await prisma.telephones.findFirst({
+    const existingTelephone = await prisma.telephones.findUnique({
         where: { telephone }
     });
 
@@ -70,14 +67,15 @@ export async function RegisterUser(formData: FormData) {
         }
     });
 
-    await prisma.users.create({
+    await prisma.doctors.create({
         data: {
+            crm,
             cpf,
             telephone,
-            password: hashedPassword,
-            address_id: newAddress.address_id
+            address_id: newAddress.address_id,
+            user_id: 1 // add user_id do cookeis
         }
     });
-
-    return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' }
+    
+    return { status: 200, Error: false, message: 'Doutor(a) Cadastrado com Sucesso!' };
 };
