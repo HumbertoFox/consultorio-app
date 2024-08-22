@@ -50,7 +50,15 @@ export default function FormLogin() {
             };
 
         } catch (error) {
-            console.error('Erro de login:', error);
+            console.error('Erro ao Conectar ao Banco:', error);
+            setEventAlert({
+                Error: true,
+                message: 'Erro ao Conectar ao Banco !'
+            });
+            setTimeout(() => {
+                window.location.reload();
+                router.push('/login');
+            }, 3000);
         };
     };
 

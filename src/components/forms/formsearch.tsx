@@ -75,12 +75,16 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                     result = await SearchUser(formData);
                     break;
             };
-            
+
             setEventAlert(result);
 
             setPatDocUserSearch(result);
         } catch (error) {
             console.error('Erro', error);
+            setEventAlert({
+                Error: true,
+                message: 'Erro ao Conectar ao Banco !'
+            });
         };
     };
     useEffect(() => {

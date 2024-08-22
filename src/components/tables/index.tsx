@@ -36,8 +36,8 @@ export default function TableReport({ crm }: CrmDoctor) {
                 setConsults(consultArray);
             } catch (Error) {
                 console.error({
-                    type: "Error",
-                    message: "Erro interno do BD!"
+                    Error: true,
+                    message: 'Erro ao Conectar ao Banco !'
                 });
             } finally {
                 setLoading(false);
