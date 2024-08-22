@@ -6,9 +6,7 @@ const prisma = new PrismaClient();
 export async function SearchConsults(crm: string) {
 
     const consultation = await prisma.consultations.findMany({
-        include: {
-            cpfs: true
-        },
+        include: { cpfs: true },
         where: { crm }
     });
 

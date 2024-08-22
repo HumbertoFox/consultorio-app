@@ -56,22 +56,20 @@ export async function RegisterPatient(formData: FormData) {
         });
     };
 
-    const newAddress = await prisma.addresss.create({
-        data: {
-            zipcode,
-            residencenumber,
-            building,
-            buildingblock,
-            apartment
-        }
+    let addressId = await prisma.addresss.findFirst({
+        where: { zipcode, residencenumber, building, buildingblock, apartment },
+        select: { address_id: true }
     });
 
+    if (!addressId) {
+        const newAddress = await prisma.addresss.create({
+            data: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+        addressId = newAddress;
+    };
+
     await prisma.patients.create({
-        data: {
-            cpf: cpf,
-            telephone,
-            address_id: newAddress.address_id
-        }
+        data: { cpf, telephone, address_id: addressId.address_id }
     });
 
     return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };

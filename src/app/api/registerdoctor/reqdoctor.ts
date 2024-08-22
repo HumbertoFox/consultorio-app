@@ -57,25 +57,24 @@ export async function RegisterDoctor(formData: FormData) {
         });
     };
 
-    const newAddress = await prisma.addresss.create({
-        data: {
-            zipcode,
-            residencenumber,
-            building,
-            buildingblock,
-            apartment
-        }
+    let addressId = await prisma.addresss.findFirst({
+        where: { zipcode, residencenumber, building, buildingblock, apartment },
+        select: { address_id: true }
     });
+
+    if (!addressId) {
+        const newAddress = await prisma.addresss.create({
+            data: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+        addressId = newAddress;
+    };
 
     await prisma.doctors.create({
         data: {
-            crm,
-            cpf,
-            telephone,
-            address_id: newAddress.address_id,
+            crm, cpf, telephone, address_id: addressId.address_id,
             user_id: 1 // add user_id do cookeis
         }
     });
-    
+
     return { status: 200, Error: false, message: 'Doutor(a) Cadastrado com Sucesso!' };
 };

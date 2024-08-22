@@ -60,22 +60,21 @@ export async function RegisterUser(formData: FormData) {
         });
     };
 
-    const newAddress = await prisma.addresss.create({
-        data: {
-            zipcode,
-            residencenumber,
-            building,
-            buildingblock,
-            apartment
-        }
+    let addressId = await prisma.addresss.findFirst({
+        where: { zipcode, residencenumber, building, buildingblock, apartment },
+        select: { address_id: true }
     });
+
+    if (!addressId) {
+        const newAddress = await prisma.addresss.create({
+            data: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+        addressId = newAddress;
+    };
 
     await prisma.users.create({
         data: {
-            cpf,
-            telephone,
-            password: hashedPassword,
-            address_id: newAddress.address_id
+            cpf, telephone, password: hashedPassword, address_id: addressId.address_id
         }
     });
 
