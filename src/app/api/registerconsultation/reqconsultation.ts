@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function RegisterPatient(formData: FormData) {
+export async function RegisterConsultation(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -17,13 +17,47 @@ export async function RegisterPatient(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
+    const crm = formData.get('apartment') as string;
+    const consultdatestart = formData.get('apartment') as string;
+    const consultdateend = formData.get('apartment') as string;
+    const observation = formData.get('apartment') as string;
+    const covenant = formData.get('apartment') as string;
+    const courtesy = formData.get('apartment') as string;
+    const particular = formData.get('apartment') as string;
 
-    const existingPatient = await prisma.patients.findFirst({
-        where: { cpf }
+    let patientId = await prisma.patients.findFirst({
+        where: { cpf },
+        select: { patient_id: true }
     });
 
-    if (existingPatient) {
-        return { status: 400, Error: true, message: 'Paciente já cadastrado!' };
+    const existingConsultation = await prisma.consultations.findFirst({
+        where: {
+            crm: crm,
+            OR: [{
+                consultdatestart: {
+                    lte: consultdatestart
+                },
+                consultdateend: {
+                    gte: consultdateend
+                }
+            }]
+        }
+    });
+
+    if (existingConsultation) {
+        return { status: 400, Error: true, message: 'Horário da Consulta já Agendado!' };
+    };
+
+    if (patientId) {
+
+        await prisma.consultations.create({
+            data: {
+                cpf, crm, plan: covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+                user_id: 1 // add user_id do cookeis
+            }
+        });
+
+        return { status: 400, Error: true, message: 'Paciente Cadastrado com Sucesso!' };
     };
 
     const existingCpf = await prisma.cpfs.findFirst({
@@ -68,8 +102,16 @@ export async function RegisterPatient(formData: FormData) {
         addressId = newAddress;
     };
 
-    await prisma.patients.create({
+    const newPatient = await prisma.patients.create({
         data: { cpf, telephone, address_id: addressId.address_id }
+    });
+    patientId = newPatient;
+
+    await prisma.consultations.create({
+        data: {
+            cpf, crm, plan: covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+            user_id: 1 // add user_id do cookeis
+        }
     });
 
     return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };

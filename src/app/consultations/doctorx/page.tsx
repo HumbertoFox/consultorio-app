@@ -29,7 +29,7 @@ export default function ConsultationxPage() {
 
     return (
         <div className={styles.divmain}>
-            <SearchForm type='doctor' searchPatDocUserCpf={handleCpfSearch} />
+            <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
             <FormPacDocUserConsult crm={8185} docpatuser='consultation' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
         </div>
     );

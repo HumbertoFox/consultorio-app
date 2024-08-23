@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
+import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
 
@@ -219,7 +220,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     response = await RegisterUser(formData);
                     break;
                 case 'consultation':
-                    response = await RegisterDoctor(formData);
+                    response = await RegisterConsultation(formData);
                     break;
             };
 
@@ -253,7 +254,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('building', searchPatDocUserCpf?.building);
             setValue('buildingblock', searchPatDocUserCpf?.buildingblock);
             setValue('apartment', searchPatDocUserCpf?.apartment);
-            setValue('crm', searchPatDocUserCpf?.crm);
+            { !crm && setValue('crm', searchPatDocUserCpf?.crm); }
             setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart);
             setValue('consultdateend', searchPatDocUserCpf?.consultdateend);
             setValue('observation', searchPatDocUserCpf?.observation);
@@ -263,7 +264,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('password', searchPatDocUserCpf?.password);
         };
 
-    }, [searchPatDocUserCpf, setValue]);
+    }, [crm, searchPatDocUserCpf, setValue]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
