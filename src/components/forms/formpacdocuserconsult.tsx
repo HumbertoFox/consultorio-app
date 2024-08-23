@@ -272,7 +272,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     <input
                         type='number'
                         id='crm'
-                        disabled={buttons !== 'Editar' ? true : false}
+                        disabled={(buttons === 'Editar' || buttons === 'Cadastrar') ? false : true}
                         placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
                         className={`${errors.crm ? styles.required : ''}`}
                         {...register('crm', { required: true, maxLength: 4, pattern: /\d{4}/g, value: crm })}
