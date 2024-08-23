@@ -38,7 +38,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'doctor' | 'user';
+    docpatuser: 'patient' | 'doctor' | 'user' | 'consultation';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -218,6 +218,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 case 'user':
                     response = await RegisterUser(formData);
                     break;
+                case 'consultation':
+                    response = await RegisterDoctor(formData);
+                    break;
             };
 
             setEventAlert(response);
@@ -235,40 +238,44 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setValue('particular', formatValue, { shouldValidate: true });
     }, [value, setValue]);
     useEffect(() => {
-        setValue('cpf', searchPatDocUserCpf?.cpf)
-        setValue('name', searchPatDocUserCpf?.name)
-        setValue('dateofbirth', searchPatDocUserCpf?.dateofbirth)
-        setValue('telephone', searchPatDocUserCpf?.telephone)
-        setValue('email', searchPatDocUserCpf?.email)
-        setValue('zipcode', searchPatDocUserCpf?.zipcode)
-        setValue('residencenumber', searchPatDocUserCpf?.residencenumber)
-        setValue('street', searchPatDocUserCpf?.street)
-        setValue('district', searchPatDocUserCpf?.district)
-        setValue('city', searchPatDocUserCpf?.city)
-        setValue('building', searchPatDocUserCpf?.building)
-        setValue('buildingblock', searchPatDocUserCpf?.buildingblock)
-        setValue('apartment', searchPatDocUserCpf?.apartment)
-        setValue('crm', searchPatDocUserCpf?.crm)
-        setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart)
-        setValue('consultdateend', searchPatDocUserCpf?.consultdateend)
-        setValue('observation', searchPatDocUserCpf?.observation)
-        setValue('covenant', searchPatDocUserCpf?.covenant)
-        setValue('courtesy', searchPatDocUserCpf?.courtesy)
-        setValue('particular', searchPatDocUserCpf?.particular)
-        setValue('password', searchPatDocUserCpf?.password)
+
+        if (searchPatDocUserCpf) {
+            setValue('cpf', searchPatDocUserCpf?.cpf);
+            setValue('name', searchPatDocUserCpf?.name);
+            setValue('dateofbirth', searchPatDocUserCpf?.dateofbirth);
+            setValue('telephone', searchPatDocUserCpf?.telephone);
+            setValue('email', searchPatDocUserCpf?.email);
+            setValue('zipcode', searchPatDocUserCpf?.zipcode);
+            setValue('residencenumber', searchPatDocUserCpf?.residencenumber);
+            setValue('street', searchPatDocUserCpf?.street)
+            setValue('district', searchPatDocUserCpf?.district);
+            setValue('city', searchPatDocUserCpf?.city);
+            setValue('building', searchPatDocUserCpf?.building);
+            setValue('buildingblock', searchPatDocUserCpf?.buildingblock);
+            setValue('apartment', searchPatDocUserCpf?.apartment);
+            setValue('crm', searchPatDocUserCpf?.crm);
+            setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart);
+            setValue('consultdateend', searchPatDocUserCpf?.consultdateend);
+            setValue('observation', searchPatDocUserCpf?.observation);
+            setValue('covenant', searchPatDocUserCpf?.covenant);
+            setValue('courtesy', searchPatDocUserCpf?.courtesy);
+            setValue('particular', searchPatDocUserCpf?.particular);
+            setValue('password', searchPatDocUserCpf?.password);
+        };
+
     }, [searchPatDocUserCpf, setValue]);
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Remover' ? true : false}>
-                {docpatuser === 'doctor' && <label htmlFor='crm'>CRM
+                {(docpatuser === 'doctor' || docpatuser === 'consultation') && <label htmlFor='crm'>CRM
                     <input
                         type='number'
                         id='crm'
                         disabled={buttons !== 'Editar' ? true : false}
                         placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
                         className={`${errors.crm ? styles.required : ''}`}
-                        {...register('crm', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+                        {...register('crm', { required: true, maxLength: 4, pattern: /\d{4}/g, value: crm })}
                     />
                 </label>
                 }
