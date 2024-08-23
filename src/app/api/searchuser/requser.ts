@@ -10,14 +10,14 @@ export async function SearchUser(formData: FormData) {
         return { status: 400, Error: true, message: 'CPF Não encontrado!' }
     };
 
-    const user = await prisma.users.findFirst({
+    const user = await prisma.user.findFirst({
         where: { cpf },
         include: {
-            cpfs: true,
-            telephones: true,
-            addresss: {
+            user_cpf: true,
+            user_telephone: true,
+            user_address: {
                 include: {
-                    zipcodes: true
+                    address_zipcode: true
                 }
             }
         }
@@ -28,20 +28,20 @@ export async function SearchUser(formData: FormData) {
     } else {
         const listuser = {
             cpf: user.cpf,
-            name: user.cpfs.name,
-            dateofbirth: user.cpfs.dateofbirth,
+            name: user.user_cpf.name,
+            dateofbirth: user.user_cpf.dateofbirth,
             telephone: user.telephone,
-            email: user.telephones.email,
+            email: user.user_telephone.email,
             password: user.password,
             address_id: user.address_id,
-            zipcode: user.addresss.zipcode,
-            street: user.addresss.zipcodes.street,
-            district: user.addresss.zipcodes.district,
-            city: user.addresss.zipcodes.city,
-            residencenumber: user.addresss.residencenumber,
-            building: user.addresss.building,
-            buildingblock: user.addresss.buildingblock,
-            apartment: user.addresss.apartment
+            zipcode: user.user_address.zipcode,
+            street: user.user_address.address_zipcode.street,
+            district: user.user_address.address_zipcode.district,
+            city: user.user_address.address_zipcode.city,
+            residencenumber: user.user_address.residencenumber,
+            building: user.user_address.building,
+            buildingblock: user.user_address.buildingblock,
+            apartment: user.user_address.apartment
         };
 
         return { status: 200, Error: false, message: 'Usuário encontrado!', listuser };

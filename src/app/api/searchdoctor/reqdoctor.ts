@@ -10,15 +10,15 @@ export async function SearchDoctor(formData: FormData) {
         return { status: 400, Error: true, message: 'CPF Não encontrado!' }
     };
 
-    const doctor = await prisma.doctors.findFirst({
+    const doctor = await prisma.doctor.findFirst({
         where: { cpf },
         include: {
-            crms: true,
-            cpfs: true,
-            telephones: true,
-            addresss: {
+            doctor_crm: true,
+            doctor_cpf: true,
+            doctor_telephone: true,
+            doctor_address: {
                 include: {
-                    zipcodes: true
+                    address_zipcode: true
                 }
             }
         }
@@ -30,19 +30,19 @@ export async function SearchDoctor(formData: FormData) {
         const listdoctor = {
             crm: doctor.crm,
             cpf: doctor.cpf,
-            name: doctor.cpfs.name,
-            dateofbirth: doctor.cpfs.dateofbirth,
-            telephone: doctor.telephone,
-            email: doctor.telephones.email,
+            name: doctor.doctor_cpf.name,
+            dateofbirth: doctor.doctor_cpf.dateofbirth,
+            telephone: doctor.doctor_telephone.telephone,
+            email: doctor.doctor_telephone.email,
             address_id: doctor.address_id,
-            zipcode: doctor.addresss.zipcode,
-            street: doctor.addresss.zipcodes.street,
-            district: doctor.addresss.zipcodes.district,
-            city: doctor.addresss.zipcodes.city,
-            residencenumber: doctor.addresss.residencenumber,
-            building: doctor.addresss.building,
-            buildingblock: doctor.addresss.buildingblock,
-            apartment: doctor.addresss.apartment
+            zipcode: doctor.doctor_address.zipcode,
+            street: doctor.doctor_address.address_zipcode.street,
+            district: doctor.doctor_address.address_zipcode.district,
+            city: doctor.doctor_address.address_zipcode.city,
+            residencenumber: doctor.doctor_address.residencenumber,
+            building: doctor.doctor_address.building,
+            buildingblock: doctor.doctor_address.buildingblock,
+            apartment: doctor.doctor_address.apartment
         };
 
         return { status: 200, Error: false, message: 'Doutor(a) encontrado!', listdoctor };

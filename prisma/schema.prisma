@@ -12,9 +12,9 @@ model Address {
   address_id      Int       @id @default(autoincrement())
   zipcode         String
   residencenumber String    @db.VarChar(50)
-  building        String    @db.VarChar(100)
-  buildingblock   String    @db.VarChar(50)
-  apartment       String    @db.VarChar(50)
+  building        String?   @db.VarChar(100)
+  buildingblock   String?   @db.VarChar(50)
+  apartment       String?   @db.VarChar(50)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt()
   address_zipcode Zipcode   @relation(fields: [zipcode], references: [zipcode])
@@ -29,7 +29,7 @@ model Consultation {
   consultation_id      Int      @id @default(autoincrement())
   cpf                  String
   crm                  String
-  plan                 String   @db.VarChar(50)
+  covenant             String   @db.VarChar(50)
   particular           String   @db.VarChar(50)
   courtesy             String   @db.VarChar(20)
   observation          String

@@ -13,7 +13,7 @@ export async function loginAuth(formData: FormData) {
         return { status: 400, Error: true, message: 'CPF e senha são obrigatórios!' };
     };
 
-    const user = await prisma.users.findFirst({
+    const user = await prisma.user.findFirst({
         where: { cpf }
     });
 
@@ -27,7 +27,7 @@ export async function loginAuth(formData: FormData) {
         return { status: 400, Error: true, message: 'Usuário ou senha invalido!' }
     };
 
-    const user_telephone = await prisma.telephones.findFirst({
+    const user_telephone = await prisma.telephone.findFirst({
         where: { telephone: user.telephone }
     });
 

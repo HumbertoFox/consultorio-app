@@ -18,7 +18,7 @@ export async function RegisterPatient(formData: FormData) {
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
 
-    const existingPatient = await prisma.patients.findFirst({
+    const existingPatient = await prisma.patient.findFirst({
         where: { cpf }
     });
 
@@ -26,49 +26,49 @@ export async function RegisterPatient(formData: FormData) {
         return { status: 400, Error: true, message: 'Paciente já cadastrado!' };
     };
 
-    const existingCpf = await prisma.cpfs.findFirst({
+    const existingCpf = await prisma.cpf.findFirst({
         where: { cpf }
     });
 
     if (!existingCpf) {
-        await prisma.cpfs.create({
+        await prisma.cpf.create({
             data: { cpf, name, dateofbirth }
         });
     };
 
-    const existingTelephone = await prisma.telephones.findUnique({
+    const existingTelephone = await prisma.telephone.findUnique({
         where: { telephone }
     });
 
     if (!existingTelephone) {
-        await prisma.telephones.create({
+        await prisma.telephone.create({
             data: { telephone, email }
         });
     };
 
-    const existingZipcode = await prisma.zipcodes.findUnique({
+    const existingZipcode = await prisma.zipcode.findUnique({
         where: { zipcode }
     });
 
     if (!existingZipcode) {
-        await prisma.zipcodes.create({
+        await prisma.zipcode.create({
             data: { zipcode, street, district, city }
         });
     };
 
-    let addressId = await prisma.addresss.findFirst({
+    let addressId = await prisma.address.findFirst({
         where: { zipcode, residencenumber, building, buildingblock, apartment },
         select: { address_id: true }
     });
 
     if (!addressId) {
-        const newAddress = await prisma.addresss.create({
+        const newAddress = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
         addressId = newAddress;
     };
 
-    await prisma.patients.create({
+    await prisma.patient.create({
         data: { cpf, telephone, address_id: addressId.address_id }
     });
 

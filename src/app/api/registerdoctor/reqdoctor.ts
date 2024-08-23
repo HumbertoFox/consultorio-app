@@ -19,57 +19,68 @@ export async function RegisterDoctor(formData: FormData) {
     const apartment = formData.get('apartment') as string;
     const crm = formData.get('crm') as string;
 
-    const existingDoctor = await prisma.doctors.findFirst({
-        where: { crm }
+    const existingDoctor = await prisma.doctor.findFirst({
+        where: { crm, cpf }
     });
 
     if (existingDoctor) {
-        return { status: 400, Error: true, message: 'CRM já cadastrado !' };
+        return { status: 400, Error: true, message: 'Doutor já cadastrado!' };
     };
 
-    const existingCpf = await prisma.cpfs.findFirst({
+    const existingCrm = await prisma.crm.findUnique({
+        where: { crm }
+    });
+
+    if (!existingCrm) {
+        await prisma.crm.create({
+            data: { crm }
+        });
+    };
+
+    const existingCpf = await prisma.cpf.findUnique({
         where: { cpf }
     });
 
     if (!existingCpf) {
-        await prisma.cpfs.create({
+        await prisma.cpf.create({
             data: { cpf, name, dateofbirth }
         });
     };
 
-    const existingTelephone = await prisma.telephones.findUnique({
+
+    const existingTelephone = await prisma.telephone.findUnique({
         where: { telephone }
     });
 
     if (!existingTelephone) {
-        await prisma.telephones.create({
+        await prisma.telephone.create({
             data: { telephone, email }
         });
     };
 
-    const existingZipcode = await prisma.zipcodes.findUnique({
+    const existingZipcode = await prisma.zipcode.findUnique({
         where: { zipcode }
     });
 
     if (!existingZipcode) {
-        await prisma.zipcodes.create({
+        await prisma.zipcode.create({
             data: { zipcode, street, district, city }
         });
     };
 
-    let addressId = await prisma.addresss.findFirst({
+    let addressId = await prisma.address.findFirst({
         where: { zipcode, residencenumber, building, buildingblock, apartment },
         select: { address_id: true }
     });
 
     if (!addressId) {
-        const newAddress = await prisma.addresss.create({
+        const newAddress = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
         addressId = newAddress;
     };
 
-    await prisma.doctors.create({
+    await prisma.doctor.create({
         data: {
             crm, cpf, telephone, address_id: addressId.address_id,
             user_id: 1 // add user_id do cookeis

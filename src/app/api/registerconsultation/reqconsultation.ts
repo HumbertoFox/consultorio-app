@@ -17,22 +17,22 @@ export async function RegisterConsultation(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
-    const crm = formData.get('apartment') as string;
-    const consultdatestart = formData.get('apartment') as string;
-    const consultdateend = formData.get('apartment') as string;
-    const observation = formData.get('apartment') as string;
-    const covenant = formData.get('apartment') as string;
-    const courtesy = formData.get('apartment') as string;
-    const particular = formData.get('apartment') as string;
+    const crm = formData.get('crm') as string;
+    const consultdatestart = formData.get('consultdatestart') as string;
+    const consultdateend = formData.get('consultdateend') as string;
+    const observation = formData.get('observation') as string;
+    const covenant = formData.get('covenant') as string;
+    const courtesy = formData.get('courtesy') as string;
+    const particular = formData.get('particular') as string;
 
-    let patientId = await prisma.patients.findFirst({
+    let patientId = await prisma.patient.findFirst({
         where: { cpf },
         select: { patient_id: true }
     });
 
-    const existingConsultation = await prisma.consultations.findFirst({
+    const existingConsultation = await prisma.consultation.findFirst({
         where: {
-            crm: crm,
+            crm,
             OR: [{
                 consultdatestart: {
                     lte: consultdatestart
@@ -50,66 +50,66 @@ export async function RegisterConsultation(formData: FormData) {
 
     if (patientId) {
 
-        await prisma.consultations.create({
+        await prisma.consultation.create({
             data: {
-                cpf, crm, plan: covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+                cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
                 user_id: 1 // add user_id do cookeis
             }
         });
 
-        return { status: 400, Error: true, message: 'Paciente Cadastrado com Sucesso!' };
+        return { status: 400, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
     };
 
-    const existingCpf = await prisma.cpfs.findFirst({
+    const existingCpf = await prisma.cpf.findFirst({
         where: { cpf }
     });
 
     if (!existingCpf) {
-        await prisma.cpfs.create({
+        await prisma.cpf.create({
             data: { cpf, name, dateofbirth }
         });
     };
 
-    const existingTelephone = await prisma.telephones.findUnique({
+    const existingTelephone = await prisma.telephone.findUnique({
         where: { telephone }
     });
 
     if (!existingTelephone) {
-        await prisma.telephones.create({
+        await prisma.telephone.create({
             data: { telephone, email }
         });
     };
 
-    const existingZipcode = await prisma.zipcodes.findUnique({
+    const existingZipcode = await prisma.zipcode.findUnique({
         where: { zipcode }
     });
 
     if (!existingZipcode) {
-        await prisma.zipcodes.create({
+        await prisma.zipcode.create({
             data: { zipcode, street, district, city }
         });
     };
 
-    let addressId = await prisma.addresss.findFirst({
+    let addressId = await prisma.address.findFirst({
         where: { zipcode, residencenumber, building, buildingblock, apartment },
         select: { address_id: true }
     });
 
     if (!addressId) {
-        const newAddress = await prisma.addresss.create({
+        const newAddress = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
         addressId = newAddress;
     };
 
-    const newPatient = await prisma.patients.create({
+    const newPatient = await prisma.patient.create({
         data: { cpf, telephone, address_id: addressId.address_id }
     });
     patientId = newPatient;
 
-    await prisma.consultations.create({
+    await prisma.consultation.create({
         data: {
-            cpf, crm, plan: covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+            cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
             user_id: 1 // add user_id do cookeis
         }
     });

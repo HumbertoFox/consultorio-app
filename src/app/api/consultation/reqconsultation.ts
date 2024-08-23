@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 
 export async function SearchConsults(crm: string) {
 
-    const consultation = await prisma.consultations.findMany({
-        include: { cpfs: true },
-        where: { crm }
+    const consultation = await prisma.consultation.findMany({
+        where: { crm },
+        include: { consultation_cpf: true }
     });
 
     if (consultation.length === 0) {
@@ -18,8 +18,8 @@ export async function SearchConsults(crm: string) {
                 id: consult.consultation_id,
                 crm: consult.crm,
                 cpf: consult.cpf,
-                name: consult.cpfs.name,
-                plan: consult.plan,
+                name: consult.consultation_cpf.name,
+                covenant: consult.covenant,
                 start: consult.consultdatestart
             };
         }));

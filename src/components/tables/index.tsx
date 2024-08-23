@@ -4,12 +4,12 @@ import styles from './table.module.css';
 import { SearchConsults } from '@/app/api/consultation/reqconsultation';
 
 type Consult = {
-    id: number;
-    crm: string;
-    cpf: string;
-    name: string;
-    plan: string;
-    start: string;
+    id?: number;
+    crm?: number;
+    cpf?: string;
+    name?: string;
+    covenant?: string;
+    start?: string;
 }
 
 interface CrmDoctor {
@@ -70,7 +70,7 @@ export default function TableReport({ crm }: CrmDoctor) {
                         <td>{consul.crm}</td>
                         <td>{consul.cpf}</td>
                         <td>{consul.name}</td>
-                        <td>{consul.plan}</td>
+                        <td>{consul.covenant}</td>
                         <td>{consul.start}</td>
                     </tr>
                 ))}

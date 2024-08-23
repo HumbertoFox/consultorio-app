@@ -9,6 +9,7 @@ import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
+import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
 
@@ -39,7 +40,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'doctor' | 'user' | 'consultation';
+    docpatuser: 'patient' | 'doctor' | 'user' | 'consultation' | 'editdoctor';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -85,7 +86,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
     const handlePass = () => setIspass(!ispass);
     const handlePassChecked = () => setIspasschecked(!ispasschecked);
-    const { register, handleSubmit, setError, setValue, setFocus, watch, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<Inputs>();
     const value = watch('particular');
     const password = watch('password');
     const getCheckedCpf = (data: string) => {
@@ -222,9 +223,17 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 case 'consultation':
                     response = await RegisterConsultation(formData);
                     break;
+                case 'editdoctor':
+                    response = await EditDoctor(formData);
+                    break;
             };
 
-            setEventAlert(response);
+            if (response.Error === false) {
+                reset();
+                setEventAlert(response);
+            } else {
+                setEventAlert(response);
+            };
 
         } catch (error) {
             console.error('Erro ao Conectar ao Banco:', error);
@@ -235,7 +244,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         };
     };
     useEffect(() => {
-        const formatValue = formatAsCurrency(value ?? '');
+        const formatValue = formatAsCurrency(value ?? '0');
         setValue('particular', formatValue, { shouldValidate: true });
     }, [value, setValue]);
     useEffect(() => {
@@ -269,7 +278,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Remover' ? true : false}>
-                {(docpatuser === 'doctor' || docpatuser === 'consultation') && <label htmlFor='crm'>CRM
+                {(docpatuser === 'doctor' || docpatuser === 'consultation' || docpatuser === 'editdoctor') && <label htmlFor='crm'>CRM
                     <input
                         type='number'
                         id='crm'
@@ -492,7 +501,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         id='covenant'
                         placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
                         className={`${errors.covenant ? styles.required : ''}`}
-                        {...register('covenant', { required: true })}
+                        {...register('covenant', { required: true, value: '...' })}
                     />
                 </label>
                 }
@@ -500,7 +509,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     <input
                         type='text'
                         id='particular'
-                        {...register('particular')}
+                        {...register('particular', { value: '0' })}
                     />
                 </label>
                 }

@@ -1,10 +1,9 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-export async function RegisterUser(formData: FormData) {
+export async function EditDoctor(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -18,34 +17,45 @@ export async function RegisterUser(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
-    const password = formData.get('password') as string;
+    const crm = formData.get('crm') as string;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const existingUser = await prisma.user.findFirst({
-        where: { cpf }
+    let doctorId = await prisma.doctor.findFirst({
+        where: { crm },
+        select: { doctor_id: true }
     });
+
+    if (doctorId) {
+        await prisma.crm.create({
+            data: { crm }
+        });
+    };
+
+    if (!doctorId) {
+        const newDoctorId = await prisma.doctor.findFirst({
+            where: { cpf },
+            select: { doctor_id: true }
+        });
+        doctorId = newDoctorId;
+    };
 
     const existingCpf = await prisma.cpf.findFirst({
         where: { cpf }
     });
 
-    if (existingUser) {
-        return { status: 400, Error: true, message: 'Usuário já cadastrado!' };
-    };
-
-    if (!existingCpf) {
-        await prisma.cpf.create({
+    if (existingCpf) {
+        await prisma.cpf.update({
+            where: { cpf },
             data: { cpf, name, dateofbirth }
         });
     };
 
-    const existingTelephone = await prisma.telephone.findFirst({
+    const existingTelephone = await prisma.telephone.findUnique({
         where: { telephone }
     });
 
-    if (!existingTelephone) {
-        await prisma.telephone.create({
+    if (existingTelephone) {
+        await prisma.telephone.update({
+            where: { telephone },
             data: { telephone, email }
         });
     };
@@ -54,8 +64,9 @@ export async function RegisterUser(formData: FormData) {
         where: { zipcode }
     });
 
-    if (!existingZipcode) {
-        await prisma.zipcode.create({
+    if (existingZipcode) {
+        await prisma.zipcode.update({
+            where: { zipcode },
             data: { zipcode, street, district, city }
         });
     };
@@ -65,18 +76,23 @@ export async function RegisterUser(formData: FormData) {
         select: { address_id: true }
     });
 
-    if (!addressId) {
-        const newAddress = await prisma.address.create({
+    if (addressId) {
+        const newAddress = await prisma.address.update({
+            where: { address_id: addressId.address_id },
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
         addressId = newAddress;
     };
 
-    await prisma.user.create({
-        data: {
-            cpf, telephone, password: hashedPassword, address_id: addressId.address_id
-        }
-    });
+    if (doctorId) {
+        await prisma.doctor.update({
+            where: { doctor_id: doctorId.doctor_id },
+            data: {
+                crm, cpf, telephone, address_id: addressId?.address_id,
+                user_id: 1 // add user_id do cookeis
+            }
+        });
+    };
 
-    return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' }
+    return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
 };

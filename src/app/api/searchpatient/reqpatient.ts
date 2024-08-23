@@ -10,17 +10,17 @@ export async function SearchPatient(formData: FormData) {
         return { status: 400, Error: true, message: 'CPF Não encontrado!' }
     };
 
-    const patient = await prisma.patients.findFirst({
+    const patient = await prisma.patient.findFirst({
         where: { cpf },
         include: {
-            cpfs: true,
-            addresss: {
+            patient_cpf: true,
+            parient_address: {
                 include: {
-                    zipcodes: true
+                    address_zipcode: true
                 }
             },
-            telephones: true,
-            consultations: true
+            patient_telephone: true,
+            patient_consultation: true
         }
     });
 
@@ -29,21 +29,19 @@ export async function SearchPatient(formData: FormData) {
     } else {
         const listpatient = {
             cpf: patient.cpf,
-            name: patient.cpfs.name,
-            dateofbirth: patient.cpfs.dateofbirth,
+            name: patient.patient_cpf.name,
+            dateofbirth: patient.patient_cpf.dateofbirth,
             telephone: patient.telephone,
-            email: patient.telephones.email,
+            email: patient.patient_telephone.email,
             address_id: patient.address_id,
-            zipcode: patient.addresss.zipcode,
-            street: patient.addresss.zipcodes.street,
-            district: patient.addresss.zipcodes.district,
-            city: patient.addresss.zipcodes.city,
-            plan: patient.consultations[0].plan,
-            residencenumber: patient.addresss.residencenumber,
-            building: patient.addresss.building,
-            buildingblock: patient.addresss.buildingblock,
-            apartment: patient.addresss.apartment,
-            observation: patient.consultations[0].observation
+            zipcode: patient.parient_address.zipcode,
+            street: patient.parient_address.address_zipcode.street,
+            district: patient.parient_address.address_zipcode.district,
+            city: patient.parient_address.address_zipcode.city,
+            residencenumber: patient.parient_address.residencenumber,
+            building: patient.parient_address.building,
+            buildingblock: patient.parient_address.buildingblock,
+            apartment: patient.parient_address.apartment,
         };
 
         return { status: 200, Error: false, message: 'Paciente encontrado!', listpatient };
