@@ -1,9 +1,28 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
+import { cookies } from 'next/headers';
+import { openSessionToken } from '@/services/opentoken';
 
 const prisma = new PrismaClient();
 
 export async function RegisterConsultation(formData: FormData) {
+    const sessionCookies = cookies().get('session');
+
+    let userCpf: string | undefined;
+    if (sessionCookies) {
+        const { value } = sessionCookies;
+        const { sub } = await openSessionToken(value);
+        userCpf = sub;
+    };
+
+    const existingUser = await prisma.user.findFirst({
+        where: { cpf: userCpf }
+    });
+
+    if (!existingUser) {
+        return { status: 401, Error: true, message: 'Usuário não autenticado!' };
+    };
+
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -33,12 +52,8 @@ export async function RegisterConsultation(formData: FormData) {
         where: {
             crm,
             OR: [{
-                consultdatestart: {
-                    lte: consultdatestart
-                },
-                consultdateend: {
-                    gte: consultdateend
-                }
+                consultdatestart: { lte: consultdatestart },
+                consultdateend: { gte: consultdateend }
             }]
         }
     });
@@ -48,11 +63,10 @@ export async function RegisterConsultation(formData: FormData) {
     };
 
     if (existingPatient) {
-
         await prisma.consultation.create({
             data: {
                 cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: existingPatient.patient_id,
-                user_id: 1 // add user_id do cookeis
+                user_id: existingUser.user_id
             }
         });
 
@@ -109,7 +123,7 @@ export async function RegisterConsultation(formData: FormData) {
     await prisma.consultation.create({
         data: {
             cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: existingPatient.patient_id,
-            user_id: 1 // add user_id do cookeis
+            user_id: existingUser.user_id
         }
     });
 

@@ -31,7 +31,7 @@ export async function loginAuth(formData: FormData) {
         where: { telephone: user.telephone }
     });
 
-    await createSessionToken({ sub: user.user_id, email: user_telephone?.email });
+    await createSessionToken({ sub: user.cpf, email: user_telephone?.email });
 
     return { status: 200, Error: false, message: 'Login realizado com sucesso' };
 };

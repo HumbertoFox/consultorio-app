@@ -29,9 +29,9 @@ model Consultation {
   consultation_id      Int      @id @default(autoincrement())
   cpf                  String
   crm                  String
-  covenant             String   @db.VarChar(50)
-  particular           String   @db.VarChar(50)
-  courtesy             String   @db.VarChar(20)
+  covenant             String?  @db.VarChar(50)
+  particular           String?  @db.VarChar(50)
+  courtesy             String?  @db.VarChar(20)
   observation          String
   consultdatestart     String
   consultdateend       String
