@@ -9,7 +9,6 @@ export const config = {
 const publicRoutes = ['/login'];
 
 export async function middleware(req: NextRequest) {
-
     const pathname = req.nextUrl.pathname;
 
     if (publicRoutes.includes(pathname)) {
@@ -17,6 +16,7 @@ export async function middleware(req: NextRequest) {
     };
 
     const session = await isSessionValid();
+
     if (!session) {
         const isAPIRoute = pathname.startsWith('/api');
 

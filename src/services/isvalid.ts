@@ -2,7 +2,7 @@
 import { cookies } from 'next/headers';
 import { openSessionToken } from './opentoken';
 
-export async function isSessionValid() {
+export async function isSessionValid(): Promise<boolean> {
     const sessionCookies = cookies().get('session');
     if (sessionCookies) {
         const { value } = sessionCookies;
