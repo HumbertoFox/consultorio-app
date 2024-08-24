@@ -25,9 +25,8 @@ export async function RegisterConsultation(formData: FormData) {
     const courtesy = formData.get('courtesy') as string;
     const particular = formData.get('particular') as string;
 
-    let patientId = await prisma.patient.findFirst({
-        where: { cpf },
-        select: { patient_id: true }
+    let existingPatient = await prisma.patient.findFirst({
+        where: { cpf }
     });
 
     const existingConsultation = await prisma.consultation.findFirst({
@@ -48,11 +47,11 @@ export async function RegisterConsultation(formData: FormData) {
         return { status: 400, Error: true, message: 'Horário da Consulta já Agendado!' };
     };
 
-    if (patientId) {
+    if (existingPatient) {
 
         await prisma.consultation.create({
             data: {
-                cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+                cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: existingPatient.patient_id,
                 user_id: 1 // add user_id do cookeis
             }
         });
@@ -105,11 +104,11 @@ export async function RegisterConsultation(formData: FormData) {
     const newPatient = await prisma.patient.create({
         data: { cpf, telephone, address_id: addressId.address_id }
     });
-    patientId = newPatient;
+    existingPatient = newPatient;
 
     await prisma.consultation.create({
         data: {
-            cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: patientId.patient_id,
+            cpf, crm, covenant, particular, courtesy, observation, consultdatestart, consultdateend, patient_id: existingPatient.patient_id,
             user_id: 1 // add user_id do cookeis
         }
     });
