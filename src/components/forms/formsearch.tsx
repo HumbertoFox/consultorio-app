@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
-import { SearchUser } from '@/app/api/searchuser/route';
+import { SearchUser } from '@/app/api/searchuser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css'
 
