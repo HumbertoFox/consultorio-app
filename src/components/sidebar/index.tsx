@@ -9,6 +9,7 @@ import ImageMedicine from '@/assets/simbolo-de-medicina.png';
 import ImageDoctorX from '@/assets/doutorx.png';
 import ImageDoctorY from '@/assets/doutory.png';
 import styles from './sidebar.module.css';
+import { cookies } from 'next/headers';
 
 export default function SideBar() {
     const router = useRouter();
@@ -16,6 +17,9 @@ export default function SideBar() {
     const handleBarClick = (element: string) => {
         setSelectBar(element);
         localStorage.setItem('activeBarSelection', element);
+    };
+    const DeleteCookies = () => {
+        cookies().delete('session');
     };
     useEffect(() => {
         const activeBarSelection = localStorage.getItem('activeBarSelection');
@@ -85,7 +89,7 @@ export default function SideBar() {
                     </Link>
                 </div>
                 <div>
-                    <Link href={'/api/logout'} title='Sair do Sistema'>
+                    <Link href={'/api/logout'} onClick={() => { DeleteCookies }} title='Sair do Sistema'>
                         <FontAwesomeIcon className={styles.iconexit} icon={faArrowRightFromBracket} />
                         <span>Sair do Sistema</span>
                     </Link>
