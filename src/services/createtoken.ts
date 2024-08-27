@@ -16,6 +16,7 @@ export async function createSessionToken(payload = {}) {
         expires: new Date((exp as number) * 1000),
         path: '/',
         httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax'
     });
 };
