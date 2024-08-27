@@ -15,6 +15,7 @@ export async function createSessionToken(payload = {}) {
     cookies().set('session', session, {
         expires: new Date((exp as number) * 1000),
         path: '/',
-        httpOnly: true
+        httpOnly: true,
+        sameSite: 'lax'
     });
 };
