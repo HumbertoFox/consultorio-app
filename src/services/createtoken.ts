@@ -16,10 +16,10 @@ export async function createSessionToken(payload = {}) {
         cookies().set('session', session, {
             expires: new Date((exp as number) * 1000),
             path: '/',
-            domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || 'consultorio-app.vercel.app',
+            domain: 'consultorio-app.vercel.app',
             secure: true,
             httpOnly: true,
-            sameSite: 'strict'
+            sameSite: 'strict',
         });
     } catch (error) {
         console.error('Error creating session token:', error);

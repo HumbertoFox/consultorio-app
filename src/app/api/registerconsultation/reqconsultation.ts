@@ -8,11 +8,11 @@ const prisma = new PrismaClient();
 export async function RegisterConsultation(formData: FormData) {
     const sessionCookies = cookies().get('session');
 
-    let userCpf: string | undefined;
+    let userCpf: string | any;
     if (sessionCookies) {
         const { value } = sessionCookies;
-        const { sub } = await openSessionToken(value);
-        userCpf = sub;
+        const { cpf } = await openSessionToken(value);
+        userCpf = cpf;
     };
 
     const existingUser = await prisma.user.findFirst({
