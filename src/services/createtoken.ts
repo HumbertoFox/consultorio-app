@@ -18,6 +18,6 @@ export async function createSessionToken(payload = {}) {
         domain: 'consultorio-app.vercel.app',
         httpOnly: true,
         secure: true,
-        sameSite: 'none'
+        sameSite: 'lax'
     });
 };
