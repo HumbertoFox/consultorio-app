@@ -15,7 +15,9 @@ export async function createSessionToken(payload = {}) {
     cookies().set('session', session, {
         expires: new Date((exp as number) * 1000),
         path: '/',
+        domain: 'vercel.app',
         httpOnly: true,
+        secure: true,
         sameSite: 'none'
     });
 };
