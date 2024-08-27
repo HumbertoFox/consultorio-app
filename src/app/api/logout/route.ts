@@ -1,4 +1,4 @@
-'use server';
+'use client';
 import { destroySession } from '@/services/removecookies';
 import { NextRequest, NextResponse } from 'next/server';
 
