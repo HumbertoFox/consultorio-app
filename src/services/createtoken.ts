@@ -17,7 +17,7 @@ export async function createSessionToken(payload = {}) {
             expires: new Date((exp as number) * 1000),
             path: '/',
             domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || 'consultorio-app.vercel.app',
-            secure: process.env.NODE_ENV === 'production' || true,
+            secure: true,
             httpOnly: true,
             sameSite: 'strict'
         });
