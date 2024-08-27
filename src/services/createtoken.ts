@@ -10,13 +10,12 @@ export async function createSessionToken(payload = {}) {
         .setExpirationTime('1d')
         .sign(secret);
 
-    const { exp, role } = await openSessionToken(session);
+    const { exp } = await openSessionToken(session);
 
     cookies().set('session', session, {
         expires: new Date((exp as number) * 1000),
         path: '/',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax'
+        sameSite: 'none'
     });
 };
