@@ -66,16 +66,13 @@ export async function RegisterUser(formData: FormData) {
     });
 
     if (!addressId) {
-        const newAddress = await prisma.address.create({
+        addressId = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-        addressId = newAddress;
     };
 
     await prisma.user.create({
-        data: {
-            cpf, telephone, password: hashedPassword, address_id: addressId.address_id
-        }
+        data: { cpf, telephone, password: hashedPassword, address_id: addressId.address_id }
     });
 
     return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' }

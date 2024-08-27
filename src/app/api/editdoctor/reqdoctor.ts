@@ -50,11 +50,10 @@ export async function EditDoctor(formData: FormData) {
     };
 
     if (!doctorId) {
-        const newDoctorId = await prisma.doctor.findFirst({
+        doctorId = await prisma.doctor.findFirst({
             where: { cpf },
             select: { doctor_id: true }
         });
-        doctorId = newDoctorId;
     };
 
     const existingCpf = await prisma.cpf.findFirst({
@@ -96,11 +95,10 @@ export async function EditDoctor(formData: FormData) {
     });
 
     if (addressId) {
-        const newAddress = await prisma.address.update({
+        addressId = await prisma.address.update({
             where: { address_id: addressId.address_id },
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-        addressId = newAddress;
     };
 
     if (doctorId) {

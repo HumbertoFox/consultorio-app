@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function SearchPatient(formData: FormData) {
-    const cpf = formData.get('cpf')?.toString();
+    const cpf = formData.get('cpf') as string;
 
     if (!cpf) {
         return { status: 400, Error: true, message: 'CPF Não encontrado!' }

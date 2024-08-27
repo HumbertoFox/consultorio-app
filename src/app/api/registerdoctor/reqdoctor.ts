@@ -66,7 +66,6 @@ export async function RegisterDoctor(formData: FormData) {
         });
     };
 
-
     const existingTelephone = await prisma.telephone.findUnique({
         where: { telephone }
     });
@@ -93,10 +92,9 @@ export async function RegisterDoctor(formData: FormData) {
     });
 
     if (!addressId) {
-        const newAddress = await prisma.address.create({
+        addressId = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-        addressId = newAddress;
     };
 
     await prisma.doctor.create({

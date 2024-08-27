@@ -109,16 +109,14 @@ export async function RegisterConsultation(formData: FormData) {
     });
 
     if (!addressId) {
-        const newAddress = await prisma.address.create({
+        addressId = await prisma.address.create({
             data: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-        addressId = newAddress;
     };
 
-    const newPatient = await prisma.patient.create({
+    existingPatient = await prisma.patient.create({
         data: { cpf, telephone, address_id: addressId.address_id }
     });
-    existingPatient = newPatient;
 
     await prisma.consultation.create({
         data: {
