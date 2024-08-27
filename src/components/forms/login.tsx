@@ -90,7 +90,7 @@ export default function FormLogin() {
                     </button>
                 </label>
             </div>
-            <input type='submit' title='Entrar' value='Entrar' />
+            <input type='submit' title='Entrar' value='Entrar' aria-label='Fechar Login' />
             {eventAlert && <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />}
         </form>
     );

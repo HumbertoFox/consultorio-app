@@ -554,7 +554,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             </fieldset>
             <div className={styles.divbtn}>
                 <input type='submit' title={buttons} value={buttons} />
-                {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')}>Menu</button>}
+                {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')} aria-label='Voltar ao Menu'>Menu</button>}
             </div>
             {eventAlert && <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />}
         </form >

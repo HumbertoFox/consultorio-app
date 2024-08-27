@@ -14,12 +14,12 @@ export async function createSessionToken(payload = {}) {
         const { exp } = await openSessionToken(session);
 
         cookies().set('session', session, {
-            expires: new Date((exp as number) * 1000),
             path: '/',
             domain: 'consultorio-app.vercel.app',
             secure: true,
             httpOnly: true,
             sameSite: 'strict',
+            expires: new Date((exp as number) * 1000)
         });
     } catch (error) {
         console.error('Error creating session token:', error);
