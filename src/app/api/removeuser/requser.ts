@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function DeleteUser(formData: FormData) {
+export async function RemoveUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     try {
         const existingUser = await prisma.user.findFirst({

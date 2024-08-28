@@ -12,6 +12,7 @@ import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
+import { RemoveUser } from '@/app/api/removeuser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
 
@@ -42,7 +43,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'consultation';
+    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'removeuser' | 'consultation';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -230,6 +231,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     break;
                 case 'edituser':
                     response = await EditUser(formData);
+                    break;
+                case 'removeuser':
+                    response = await RemoveUser(formData);
                     break;
                 case 'consultation':
                     response = await RegisterConsultation(formData);

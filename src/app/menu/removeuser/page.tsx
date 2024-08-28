@@ -35,7 +35,7 @@ export default function RemoveUserPage() {
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserXmark} className={styles.icons} />
                 <SearchForm type='user' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='user' buttons='Remover' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <FormPacDocUserConsult docpatuser='removeuser' buttons='Remover' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );
