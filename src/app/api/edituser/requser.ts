@@ -24,68 +24,69 @@ export async function EditUser(formData: FormData) {
             where: { cpf }
         });
 
-        if (existingUser) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const checkedCpf = await prisma.cpf.findUnique({
-                where: { cpf }
-            });
-
-            const checkedTelephone = await prisma.telephone.findUnique({
-                where: { telephone }
-            });
-
-            const checkedZipcode = await prisma.zipcode.findUnique({
-                where: { zipcode }
-            });
-
-            let checkedAddress = await prisma.address.findFirst({
-                where: { zipcode, residencenumber, building, buildingblock, apartment }
-            });
-
-            if (checkedCpf) {
-                await prisma.cpf.update({
-                    where: { cpf },
-                    data: { name, dateofbirth }
-                });
-            } else {
-                await prisma.cpf.create({
-                    data: { cpf, name, dateofbirth }
-                });
-            };
-
-            if (checkedTelephone) {
-                await prisma.telephone.update({
-                    where: { telephone },
-                    data: { email }
-                });
-            } else {
-                await prisma.telephone.create({
-                    data: { telephone, email }
-                });
-            };
-
-            if (!checkedZipcode) {
-                await prisma.zipcode.create({
-                    data: { zipcode, street, district, city }
-                });
-            };
-
-            if (!checkedAddress) {
-                checkedAddress = await prisma.address.create({
-                    data: { zipcode, residencenumber, building, buildingblock, apartment }
-                });
-            };
-
-            await prisma.user.update({
-                where: { user_id: existingUser.address_id },
-                data: { cpf, telephone, password: hashedPassword, address_id: checkedAddress.address_id }
-            });
-
-            return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' };
-        } else {
+        if (!existingUser) {
             return { status: 404, Error: true, message: 'Usuário não Encontrado!' };
         };
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const checkedCpf = await prisma.cpf.findUnique({
+            where: { cpf }
+        });
+
+        const checkedTelephone = await prisma.telephone.findUnique({
+            where: { telephone }
+        });
+
+        const checkedZipcode = await prisma.zipcode.findUnique({
+            where: { zipcode }
+        });
+
+        let checkedAddress = await prisma.address.findFirst({
+            where: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+
+        if (checkedCpf) {
+            await prisma.cpf.update({
+                where: { cpf },
+                data: { name, dateofbirth }
+            });
+        } else {
+            await prisma.cpf.create({
+                data: { cpf, name, dateofbirth }
+            });
+        };
+
+        if (checkedTelephone) {
+            await prisma.telephone.update({
+                where: { telephone },
+                data: { email }
+            });
+        } else {
+            await prisma.telephone.create({
+                data: { telephone, email }
+            });
+        };
+
+        if (!checkedZipcode) {
+            await prisma.zipcode.create({
+                data: { zipcode, street, district, city }
+            });
+        };
+
+        if (!checkedAddress) {
+            checkedAddress = await prisma.address.create({
+                data: { zipcode, residencenumber, building, buildingblock, apartment }
+            });
+        };
+
+        await prisma.user.update({
+            where: { user_id: existingUser.address_id },
+            data: { cpf, telephone, password: hashedPassword, address_id: checkedAddress.address_id }
+        });
+
+        return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' };
+
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };

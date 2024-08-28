@@ -42,76 +42,76 @@ export async function EditDoctor(formData: FormData) {
             where: { cpf }
         });
 
-        if (existingdoctor) {
-            const checkedCrm = await prisma.crm.findUnique({
-                where: { crm }
-            });
-
-            const checkedCpf = await prisma.cpf.findUnique({
-                where: { cpf }
-            });
-
-            const checkedTelephone = await prisma.telephone.findUnique({
-                where: { telephone }
-            });
-
-            const checkedZipcode = await prisma.zipcode.findUnique({
-                where: { zipcode }
-            });
-
-            let checkedAddress = await prisma.address.findFirst({
-                where: { zipcode, residencenumber, building, buildingblock, apartment },
-            });
-
-            if (!checkedCrm) {
-                await prisma.crm.create({
-                    data: { crm }
-                });
-            };
-
-            if (checkedCpf) {
-                await prisma.cpf.update({
-                    where: { cpf },
-                    data: { name, dateofbirth }
-                });
-            } else {
-                await prisma.cpf.create({
-                    data: { cpf, name, dateofbirth }
-                });
-            };
-
-            if (checkedTelephone) {
-                await prisma.telephone.update({
-                    where: { telephone },
-                    data: { email }
-                });
-            } else {
-                await prisma.telephone.create({
-                    data: { telephone, email }
-                });
-            };
-
-            if (!checkedZipcode) {
-                await prisma.zipcode.create({
-                    data: { zipcode, street, district, city }
-                });
-            };
-
-            if (!checkedAddress) {
-                checkedAddress = await prisma.address.create({
-                    data: { zipcode, residencenumber, building, buildingblock, apartment }
-                });
-            };
-
-            await prisma.doctor.update({
-                where: { doctor_id: existingdoctor.doctor_id },
-                data: { crm, cpf, telephone, address_id: checkedAddress.address_id, user_id: existingUser.user_id }
-            });
-
-            return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
-        } else {
+        if (!existingdoctor) {
             return { status: 404, Error: true, message: 'Doutor(a) não Encontrado(a)!' };
         };
+
+        const checkedCrm = await prisma.crm.findUnique({
+            where: { crm }
+        });
+
+        const checkedCpf = await prisma.cpf.findUnique({
+            where: { cpf }
+        });
+
+        const checkedTelephone = await prisma.telephone.findUnique({
+            where: { telephone }
+        });
+
+        const checkedZipcode = await prisma.zipcode.findUnique({
+            where: { zipcode }
+        });
+
+        let checkedAddress = await prisma.address.findFirst({
+            where: { zipcode, residencenumber, building, buildingblock, apartment },
+        });
+
+        if (!checkedCrm) {
+            await prisma.crm.create({
+                data: { crm }
+            });
+        };
+
+        if (checkedCpf) {
+            await prisma.cpf.update({
+                where: { cpf },
+                data: { name, dateofbirth }
+            });
+        } else {
+            await prisma.cpf.create({
+                data: { cpf, name, dateofbirth }
+            });
+        };
+
+        if (checkedTelephone) {
+            await prisma.telephone.update({
+                where: { telephone },
+                data: { email }
+            });
+        } else {
+            await prisma.telephone.create({
+                data: { telephone, email }
+            });
+        };
+
+        if (!checkedZipcode) {
+            await prisma.zipcode.create({
+                data: { zipcode, street, district, city }
+            });
+        };
+
+        if (!checkedAddress) {
+            checkedAddress = await prisma.address.create({
+                data: { zipcode, residencenumber, building, buildingblock, apartment }
+            });
+        };
+
+        await prisma.doctor.update({
+            where: { doctor_id: existingdoctor.doctor_id },
+            data: { crm, cpf, telephone, address_id: checkedAddress.address_id, user_id: existingUser.user_id }
+        });
+
+        return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
