@@ -14,7 +14,7 @@ export async function RemoveUser(formData: FormData) {
             return { status: 404, Error: true, message: 'Usuário não Encontrado!' };
         };
 
-        await prisma.user.delete({
+        await prisma.user.deleteMany({
             where: { user_id: existingUser.address_id }
         });
 
