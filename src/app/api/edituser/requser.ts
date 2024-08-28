@@ -1,28 +1,10 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-import { cookies } from 'next/headers';
-import { openSessionToken } from '@/services/opentoken';
+import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-export async function EditDoctor(formData: FormData) {
-    const sessionCookies = cookies().get('session');
-
-    let userCpf: string | any;
-    if (sessionCookies) {
-        const { value } = sessionCookies;
-        const { cpf } = await openSessionToken(value);
-        userCpf = cpf;
-    };
-
-    const existingUser = await prisma.user.findFirst({
-        where: { cpf: userCpf }
-    });
-
-    if (!existingUser) {
-        return { status: 401, Error: true, message: 'Usuário não autenticado!' };
-    };
-
+export async function EditUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -36,16 +18,14 @@ export async function EditDoctor(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
-    const crm = formData.get('crm') as string;
+    const password = formData.get('password') as string;
     try {
-        const existingdoctor = await prisma.doctor.findFirst({
+        const existingUser = await prisma.user.findFirst({
             where: { cpf }
         });
 
-        if (existingdoctor) {
-            const checkedCrm = await prisma.crm.findUnique({
-                where: { crm }
-            });
+        if (existingUser) {
+            const hashedPassword = await bcrypt.hash(password, 10);
 
             const checkedCpf = await prisma.cpf.findUnique({
                 where: { cpf }
@@ -60,14 +40,8 @@ export async function EditDoctor(formData: FormData) {
             });
 
             let checkedAddress = await prisma.address.findFirst({
-                where: { zipcode, residencenumber, building, buildingblock, apartment },
+                where: { zipcode, residencenumber, building, buildingblock, apartment }
             });
-
-            if (!checkedCrm) {
-                await prisma.crm.create({
-                    data: { crm }
-                });
-            };
 
             if (checkedCpf) {
                 await prisma.cpf.update({
@@ -103,14 +77,14 @@ export async function EditDoctor(formData: FormData) {
                 });
             };
 
-            await prisma.doctor.update({
-                where: { doctor_id: existingdoctor.doctor_id },
-                data: { crm, cpf, telephone, address_id: checkedAddress.address_id, user_id: existingUser.user_id }
+            await prisma.user.update({
+                where: { user_id: existingUser.address_id },
+                data: { cpf, telephone, password: hashedPassword, address_id: checkedAddress.address_id }
             });
 
-            return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
+            return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' };
         } else {
-            return { status: 404, Error: true, message: 'Doutor(a) não Encontrado(a)!' };
+            return { status: 404, Error: true, message: 'Usuário não Encontrado!' };
         };
     } catch (Error) {
         console.error(Error);

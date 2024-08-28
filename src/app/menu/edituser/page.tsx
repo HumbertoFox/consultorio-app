@@ -28,14 +28,14 @@ export default function EditUserPage() {
     const handleCpfSearch = (result: PatDocUserSearchResult) => {
         setSearchPatDocUserCpf(result);
     };
-    
+
     return (
         <main className={styles.mainmenu}>
             <h1>Editar Usuário</h1>
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faUserPen} className={styles.icons} />
                 <SearchForm type='user' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='user' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <FormPacDocUserConsult docpatuser='edituser' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );

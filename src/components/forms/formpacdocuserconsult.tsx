@@ -5,12 +5,13 @@ import { viaCepApi } from '@/app/api/viacep';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
-import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { EditPatient } from '@/app/api/editpatient/reqpatient';
+import { EditUser } from '@/app/api/edituser/requser';
+import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
+import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
-import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
 
@@ -41,7 +42,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'user' | 'consultation' | 'editdoctor';
+    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'consultation';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -221,14 +222,17 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 case 'doctor':
                     response = await RegisterDoctor(formData);
                     break;
+                case 'editdoctor':
+                    response = await EditDoctor(formData);
+                    break;
                 case 'user':
                     response = await RegisterUser(formData);
                     break;
+                case 'edituser':
+                    response = await EditUser(formData);
+                    break;
                 case 'consultation':
                     response = await RegisterConsultation(formData);
-                    break;
-                case 'editdoctor':
-                    response = await EditDoctor(formData);
                     break;
             };
 

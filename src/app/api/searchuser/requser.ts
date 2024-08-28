@@ -32,7 +32,6 @@ export async function SearchUser(formData: FormData) {
             dateofbirth: user.user_cpf.dateofbirth,
             telephone: user.telephone,
             email: user.user_telephone.email,
-            password: user.password,
             address_id: user.address_id,
             zipcode: user.user_address.zipcode,
             street: user.user_address.address_zipcode.street,

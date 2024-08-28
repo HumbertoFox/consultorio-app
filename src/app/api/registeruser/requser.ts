@@ -75,5 +75,5 @@ export async function RegisterUser(formData: FormData) {
         data: { cpf, telephone, password: hashedPassword, address_id: addressId.address_id }
     });
 
-    return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' }
+    return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' };
 };
