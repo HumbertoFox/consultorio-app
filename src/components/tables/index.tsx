@@ -18,7 +18,7 @@ interface CrmDoctor {
 
 export default function TableReport({ crm }: CrmDoctor) {
     const [consults, setConsults] = useState<Consult[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getConsults = async () => {
@@ -37,11 +37,11 @@ export default function TableReport({ crm }: CrmDoctor) {
             } catch (Error) {
                 console.error({
                     Error: true,
-                    message: 'Erro ao Conectar ao Banco !'
+                    message: 'Erro ao Conectar ao Banco!'
                 });
             } finally {
                 setLoading(false);
-            }
+            };
         };
 
         getConsults();
