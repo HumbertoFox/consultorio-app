@@ -37,72 +37,75 @@ export async function RegisterDoctor(formData: FormData) {
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
     const crm = formData.get('crm') as string;
-
-    const existingDoctor = await prisma.doctor.findFirst({
-        where: { crm, cpf }
-    });
-
-    if (existingDoctor) {
-        return { status: 400, Error: true, message: 'Doutor já cadastrado!' };
-    };
-
-    const existingCrm = await prisma.crm.findUnique({
-        where: { crm }
-    });
-
-    if (!existingCrm) {
-        await prisma.crm.create({
-            data: { crm }
+    try {
+        const existingDoctor = await prisma.doctor.findFirst({
+            where: { crm, cpf }
         });
-    };
 
-    const existingCpf = await prisma.cpf.findUnique({
-        where: { cpf }
-    });
+        if (existingDoctor) {
+            return { status: 400, Error: true, message: 'Doutor já cadastrado!' };
+        };
 
-    if (!existingCpf) {
-        await prisma.cpf.create({
-            data: { cpf, name, dateofbirth }
+        const existingCrm = await prisma.crm.findUnique({
+            where: { crm }
         });
-    };
 
-    const existingTelephone = await prisma.telephone.findUnique({
-        where: { telephone }
-    });
+        if (!existingCrm) {
+            await prisma.crm.create({
+                data: { crm }
+            });
+        };
 
-    if (!existingTelephone) {
-        await prisma.telephone.create({
-            data: { telephone, email }
+        const existingCpf = await prisma.cpf.findUnique({
+            where: { cpf }
         });
-    };
 
-    const existingZipcode = await prisma.zipcode.findUnique({
-        where: { zipcode }
-    });
+        if (!existingCpf) {
+            await prisma.cpf.create({
+                data: { cpf, name, dateofbirth }
+            });
+        };
 
-    if (!existingZipcode) {
-        await prisma.zipcode.create({
-            data: { zipcode, street, district, city }
+        const existingTelephone = await prisma.telephone.findUnique({
+            where: { telephone }
         });
-    };
 
-    let addressId = await prisma.address.findFirst({
-        where: { zipcode, residencenumber, building, buildingblock, apartment },
-        select: { address_id: true }
-    });
+        if (!existingTelephone) {
+            await prisma.telephone.create({
+                data: { telephone, email }
+            });
+        };
 
-    if (!addressId) {
-        addressId = await prisma.address.create({
-            data: { zipcode, residencenumber, building, buildingblock, apartment }
+        const existingZipcode = await prisma.zipcode.findUnique({
+            where: { zipcode }
         });
+
+        if (!existingZipcode) {
+            await prisma.zipcode.create({
+                data: { zipcode, street, district, city }
+            });
+        };
+
+        let existingAddress = await prisma.address.findFirst({
+            where: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+
+        if (!existingAddress) {
+            existingAddress = await prisma.address.create({
+                data: { zipcode, residencenumber, building, buildingblock, apartment }
+            });
+        };
+
+        await prisma.doctor.create({
+            data: {
+                crm, cpf, telephone, address_id: existingAddress.address_id,
+                user_id: existingUser.user_id
+            }
+        });
+
+        return { status: 200, Error: false, message: 'Doutor(a) Cadastrado com Sucesso!' };
+    } catch (Error) {
+        console.error(Error);
+        return { status: 500, Error: true, message: 'Erro interno do BD!' };
     };
-
-    await prisma.doctor.create({
-        data: {
-            crm, cpf, telephone, address_id: addressId.address_id,
-            user_id: existingUser.user_id
-        }
-    });
-
-    return { status: 200, Error: false, message: 'Doutor(a) Cadastrado com Sucesso!' };
 };

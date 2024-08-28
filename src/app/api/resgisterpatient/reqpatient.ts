@@ -17,59 +17,62 @@ export async function RegisterPatient(formData: FormData) {
     const building = formData.get('building') as string;
     const buildingblock = formData.get('buildingblock') as string;
     const apartment = formData.get('apartment') as string;
-
-    const existingPatient = await prisma.patient.findFirst({
-        where: { cpf }
-    });
-
-    if (existingPatient) {
-        return { status: 400, Error: true, message: 'Paciente já cadastrado!' };
-    };
-
-    const existingCpf = await prisma.cpf.findFirst({
-        where: { cpf }
-    });
-
-    if (!existingCpf) {
-        await prisma.cpf.create({
-            data: { cpf, name, dateofbirth }
+    try {
+        const existingPatient = await prisma.patient.findFirst({
+            where: { cpf }
         });
-    };
 
-    const existingTelephone = await prisma.telephone.findUnique({
-        where: { telephone }
-    });
+        if (existingPatient) {
+            return { status: 400, Error: true, message: 'Paciente já cadastrado!' };
+        };
 
-    if (!existingTelephone) {
-        await prisma.telephone.create({
-            data: { telephone, email }
+        const existingCpf = await prisma.cpf.findUnique({
+            where: { cpf }
         });
-    };
 
-    const existingZipcode = await prisma.zipcode.findUnique({
-        where: { zipcode }
-    });
+        if (!existingCpf) {
+            await prisma.cpf.create({
+                data: { cpf, name, dateofbirth }
+            });
+        };
 
-    if (!existingZipcode) {
-        await prisma.zipcode.create({
-            data: { zipcode, street, district, city }
+        const existingTelephone = await prisma.telephone.findUnique({
+            where: { telephone }
         });
-    };
 
-    let addressId = await prisma.address.findFirst({
-        where: { zipcode, residencenumber, building, buildingblock, apartment },
-        select: { address_id: true }
-    });
+        if (!existingTelephone) {
+            await prisma.telephone.create({
+                data: { telephone, email }
+            });
+        };
 
-    if (!addressId) {
-        addressId = await prisma.address.create({
-            data: { zipcode, residencenumber, building, buildingblock, apartment }
+        const existingZipcode = await prisma.zipcode.findUnique({
+            where: { zipcode }
         });
+
+        if (!existingZipcode) {
+            await prisma.zipcode.create({
+                data: { zipcode, street, district, city }
+            });
+        };
+
+        let existingAddress = await prisma.address.findFirst({
+            where: { zipcode, residencenumber, building, buildingblock, apartment }
+        });
+
+        if (!existingAddress) {
+            existingAddress = await prisma.address.create({
+                data: { zipcode, residencenumber, building, buildingblock, apartment }
+            });
+        };
+
+        await prisma.patient.create({
+            data: { cpf, telephone, address_id: existingAddress.address_id }
+        });
+
+        return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
+    } catch (Error) {
+        console.error(Error);
+        return { status: 500, Error: true, message: 'Erro interno do BD!' };
     };
-
-    await prisma.patient.create({
-        data: { cpf, telephone, address_id: addressId.address_id }
-    });
-
-    return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
 };
