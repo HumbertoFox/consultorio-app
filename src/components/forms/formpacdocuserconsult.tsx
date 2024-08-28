@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
 import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
+import { EditPatient } from '@/app/api/editpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
@@ -40,7 +41,7 @@ type Inputs = {
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'doctor' | 'user' | 'consultation' | 'editdoctor';
+    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'user' | 'consultation' | 'editdoctor';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -213,6 +214,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             switch (docpatuser) {
                 case 'patient':
                     response = await RegisterPatient(formData);
+                    break;
+                case 'editpatient':
+                    response = await EditPatient(formData);
                     break;
                 case 'doctor':
                     response = await RegisterDoctor(formData);

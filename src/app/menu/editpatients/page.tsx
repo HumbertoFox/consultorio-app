@@ -34,7 +34,7 @@ export default function EditPatientsPage() {
             <section className={styles.menusection}>
                 <FontAwesomeIcon icon={faBedPulse} className={styles.icons} />
                 <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='patient' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <FormPacDocUserConsult docpatuser='editpatient' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );

@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function RegisterPatient(formData: FormData) {
+export async function EditPatient(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
