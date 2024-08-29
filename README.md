@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
 
-## Getting Started
+<a href="https://portfolio-react-betofoxnet-info-projects.vercel.app/"><img src="https://github.com/user-attachments/assets/8e37b052-5c84-4c25-bcb3-56f36e875326" width="150px"/></a>
 
-First, run the development server:
+# BetoFoxNet_Info
+
+</div>
+
+### App para agendamento de consulta exemplo
+
+##
+
+Para rodar localmente.
 
 ```bash
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tela de Login.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<img src="https://github.com/user-attachments/assets/9a77b493-4afc-4b0c-bf3c-c24eebdc1bef" width="250px"/>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<img src="https://github.com/user-attachments/assets/89bc5e20-846c-42f0-bc4a-ce7d87bdcff7" width="250px"/>
 
-## Learn More
+<img src="https://github.com/user-attachments/assets/578f0414-3a60-4f15-9734-c807e71a8f09" width="250px"/>
 
-To learn more about Next.js, take a look at the following resources:
+##
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### React Hook Form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Usando errors do form para informar no proprio input no placeholder especificamente que o campo é obrigatório e fazendo a verificação de número maximo de caracteres e sinalizando com bordas vermelhas.
 
-## Deploy on Vercel
+```js html
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    <label htmlFor='searchcpf'>Pesquisar</label>
+        <input
+            type='search'
+            id='searchcpf'
+            placeholder={`${errors.searchcpf ? 'Campo Obrigatório' : ''}`}
+            className={`${errors.searchcpf ? styles.required : ''}`}
+            {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
+        />
+    <input type='submit' title='Pesquisar Por CPF' value='Pesquisar' />
+            
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+##
+
+<img src="https://github.com/user-attachments/assets/314e43fe-4307-42b5-a4fe-edbdfd13694a" width="250px"/>
+
+
+Fazendo uma verificação se o CPF informado é valido antes de enviar.
+
+```js html
+
+    const getCheckedCpf = (data: string) => {
+        const isRepeatedCPF = (cpf: string) => {
+            const firstDigit = cpf[0];
+            return cpf.split('').every(digit => digit === firstDigit);
+        };
+        if (isRepeatedCPF(data)) {
+            return;
+        };
+        const calculateCheckDigit = (input: string) => {
+            let sum = 0;
+            for (let i = 0; i < input.length; i++) {
+                const digit = input.charAt(i);
+                const weight = (input.length + 1 - i);
+                sum += Number(digit) * weight;
+            };
+            const remainder = sum % 11;
+            return remainder < 2 ? '0' : (11 - remainder);
+        };
+        let primaryCheckDigit = calculateCheckDigit(data.substring(0, 9));
+        let secondaryCheckDigit = calculateCheckDigit(data.substring(0, 9) + primaryCheckDigit);
+        let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
+        return data === correctCpf;
+    };
+
+```
+
+<div align="center">
+
+### Full Stack
+
+</div>
+
+##
+
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" width="30px" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" width="30px" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-line.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-plain.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/axios/axios-plain.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-plain.svg" width="30px"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg" width="30px"/>
+</div>
