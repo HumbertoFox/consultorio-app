@@ -53,7 +53,7 @@ export default function FormLogin() {
             console.error('Erro ao Conectar ao Banco:', error);
             setEventAlert({
                 Error: true,
-                message: 'Erro ao Conectar ao Banco !'
+                message: 'Erro ao Conectar ao Banco!'
             });
             setTimeout(() => {
                 window.location.reload();

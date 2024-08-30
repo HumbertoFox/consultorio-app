@@ -152,7 +152,10 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         if (!element.target.value) {
             clearZipCode();
             setFocus('email');
-            alert('Formato de CEP inválido.');
+            setEventAlert({
+                Error: true,
+                message: 'Formato de CEP inválido!'
+            });
             return;
         };
         const zipcode = element.target.value.replace(/\D/g, '');
@@ -169,20 +172,29 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 } else {
                     clearZipCode();
                     setFocus('email');
-                    alert('CEP não encontrado.');
+                    setEventAlert({
+                        Error: true,
+                        message: 'CEP não encontrado!'
+                    });
                 }
             } else {
                 clearZipCode();
                 setFocus('email');
-                alert('Formato de CEP inválido.');
-            }
+                setEventAlert({
+                    Error: true,
+                    message: 'Formato de CEP inválido!'
+                });
+            };
         } catch (error) {
             console.error(error);
             clearZipCode();
             setFocus('email');
-            alert(`Formato de CEP inválido ou não encontrado.`);
+            setEventAlert({
+                Error: true,
+                message: 'Formato de CEP inválido ou não encontrado!'
+            });
             return;
-        }
+        };
     };
     const swapRadioSelect = (element: ChangeEvent<HTMLInputElement>) => {
         const selectValue = element.target.value;
@@ -251,7 +263,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             console.error('Erro ao Conectar ao Banco:', error);
             setEventAlert({
                 Error: true,
-                message: 'Erro ao Conectar ao Banco !'
+                message: 'Erro ao Conectar ao Banco!'
             });
         };
     };

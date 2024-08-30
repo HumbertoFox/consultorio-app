@@ -83,7 +83,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             console.error('Erro', error);
             setEventAlert({
                 Error: true,
-                message: 'Erro ao Conectar ao Banco !'
+                message: 'Erro ao Conectar ao Banco!'
             });
         };
     };
@@ -91,7 +91,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         if (patdocuserSearch) {
             const res = Object.values(patdocuserSearch);
             searchPatDocUserCpf(res[3]);
-        }
+        };
     }, [patdocuserSearch, searchPatDocUserCpf]);
 
     return (
