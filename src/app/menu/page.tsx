@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
 
 export default function MenuPage() {
     return (
@@ -38,8 +38,8 @@ export default function MenuPage() {
                         <Link href={'/menu/edituser'} title='Editar Usuário'>
                             <FontAwesomeIcon icon={faUserPen} />
                         </Link>
-                        <Link href={'/menu/removeuser'} title='Excluir Usuário'>
-                            <FontAwesomeIcon icon={faUserXmark} />
+                        <Link href={'/menu/blockeduser'} title='Bloquear Usuário'>
+                            <FontAwesomeIcon icon={faUserLock} />
                         </Link>
                     </div>
                 </nav>

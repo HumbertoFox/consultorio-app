@@ -19,13 +19,19 @@
     transition: .4s ease-in-out;
 }
 
-.radiolabeldiv {
+.radiolabeldiv,
+.radiolabeldivuser {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
-.radiolabeldiv label {
+.radiolabeldivuser {
+    padding-bottom: 20px;
+}
+
+.radiolabeldiv label,
+.radiolabeldivuser label {
     display: flex;
     flex-direction: row;
     gap: 5px;

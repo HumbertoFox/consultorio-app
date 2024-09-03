@@ -12,7 +12,7 @@ import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
 import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
-import { RemoveUser } from '@/app/api/removeuser/requser';
+import { BlockedUser } from '@/app/api/blockeduser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
 
@@ -37,13 +37,14 @@ type Inputs = {
     covenant?: string;
     courtesy?: string;
     particular?: string;
+    userblock?: string;
     password?: string;
     passwordchecked?: string;
 };
 
 interface PatDocUserSearchResult {
     crm?: number;
-    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'removeuser' | 'consultation';
+    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'blockeduser' | 'consultation';
     buttons?: string;
     searchPatDocUserCpf: {
         cpf: number;
@@ -66,6 +67,7 @@ interface PatDocUserSearchResult {
         covenant: string;
         courtesy: string;
         particular: string;
+        userblock: string;
         password: string;
     } | any;
 };
@@ -244,8 +246,8 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 case 'edituser':
                     response = await EditUser(formData);
                     break;
-                case 'removeuser':
-                    response = await RemoveUser(formData);
+                case 'blockeduser':
+                    response = await BlockedUser(formData);
                     break;
                 case 'consultation':
                     response = await RegisterConsultation(formData);
@@ -301,7 +303,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
 
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <fieldset disabled={buttons === 'Remover' ? true : false}>
+            <fieldset disabled={buttons === 'Des/Bloquear' ? true : false}>
                 {(docpatuser === 'doctor' || docpatuser === 'consultation' || docpatuser === 'editdoctor') && <label htmlFor='crm'>CRM
                     <input
                         type='number'
@@ -576,6 +578,28 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 </label>
                 }
             </fieldset>
+            {docpatuser === 'blockeduser' && <div className={styles.radiolabeldivuser}>
+                <label htmlFor='userblock'>
+                    <input
+                        type='radio'
+                        value='true'
+                        id='userblock'
+                        {...register('userblock')}
+                    />
+                    Bloquear
+                </label>
+                <label htmlFor='userunblock'>
+                    <input
+                        type='radio'
+                        value='false'
+                        id='userunblock'
+                        defaultChecked
+                        {...register('userblock')}
+                    />
+                    Desbloquear
+                </label>
+            </div>
+            }
             <div className={styles.divbtn}>
                 <input type='submit' title={buttons} value={buttons} />
                 {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')} aria-label='Voltar ao Menu'>Menu</button>}

@@ -118,6 +118,7 @@ model User {
   telephone         String
   password          String         @db.VarChar(200)
   address_id        Int
+  isblocked         Boolean        @default(false)
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt()
   user_address      Address        @relation(fields: [address_id], references: [address_id])

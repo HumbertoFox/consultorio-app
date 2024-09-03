@@ -21,6 +21,10 @@ export async function loginAuth(formData: FormData) {
         return { status: 400, Error: true, message: 'Usuário ou senha invalido!' };
     };
 
+    if (user.isblocked === true) {
+        return { status: 401, Error: true, message: 'Usuário ou senha invalido!' }
+    };
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {

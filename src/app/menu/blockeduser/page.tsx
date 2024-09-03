@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserXmark } from '@fortawesome/free-solid-svg-icons';
+import { faUserLock } from '@fortawesome/free-solid-svg-icons';
 import SearchForm from '@/components/forms/formsearch';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import styles from '@/app/menu/page.module.css';
@@ -31,11 +31,11 @@ export default function RemoveUserPage() {
 
     return (
         <main className={styles.mainmenu}>
-            <h1>Deletar Usuário</h1>
+            <h1>Bloquear Usuário</h1>
             <section className={styles.menusection}>
-                <FontAwesomeIcon icon={faUserXmark} className={styles.icons} />
+                <FontAwesomeIcon icon={faUserLock} className={styles.icons} />
                 <SearchForm type='user' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='removeuser' buttons='Remover' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <FormPacDocUserConsult docpatuser='blockeduser' buttons='Des/Bloquear' searchPatDocUserCpf={searchPatDocUserCpf} />
             </section>
         </main>
     );
