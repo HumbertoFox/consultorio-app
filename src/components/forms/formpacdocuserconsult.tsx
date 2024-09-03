@@ -33,6 +33,7 @@ type Inputs = {
     crm?: number;
     consultdatestart?: string;
     consultdateend?: string;
+    status?: string;
     observation?: string;
     covenant?: string;
     courtesy?: string;
@@ -63,6 +64,7 @@ interface PatDocUserSearchResult {
         crm: number;
         consultdatestart: string;
         consultdateend: string;
+        status: string;
         observation: string;
         covenant: string;
         courtesy: string;

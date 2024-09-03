@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import styles from './table.module.css';
 import { SearchConsults } from '@/app/api/consultation/reqconsultation';
-
+import { UpdateConsultationStatus } from '@/app/api/consultation/reqconsultationstatus';
+import ReactLoading from 'react-loading';
+import styles from './table.module.css';
 type Consult = {
     id?: number;
     crm?: number;
@@ -10,16 +11,14 @@ type Consult = {
     name?: string;
     covenant?: string;
     start?: string;
+    status?: string;
 }
-
 interface CrmDoctor {
     crm: number;
 };
-
 export default function TableReport({ crm }: CrmDoctor) {
     const [consults, setConsults] = useState<Consult[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-
     useEffect(() => {
         const getConsults = async () => {
             try {
@@ -43,14 +42,28 @@ export default function TableReport({ crm }: CrmDoctor) {
                 setLoading(false);
             };
         };
-
         getConsults();
     }, [crm]);
-
-    if (loading) {
-        return <div>Carregando...</div>;
+    const handleStatusChange = async (consultId: number, newStatus: string) => {
+        try {
+            await UpdateConsultationStatus(consultId, newStatus);
+            setConsults(prevConsults =>
+                prevConsults.map(consult =>
+                    consult.id === consultId ? { ...consult, status: newStatus } : consult
+                )
+            );
+        } catch (error) {
+            console.error('Erro ao atualizar o status:', error);
+        };
     };
-
+    const getStatusClass = (status: string) => {
+        if (status === 'Confirmada') return styles.confirmed;
+        if (status === 'Cancelada') return styles.cancel;
+        return styles.confirm;
+    };
+    if (loading) {
+        return <div className={styles.loading}><ReactLoading type='spin' color='#3C91E6' height={100} width={100} /></div>;
+    };
     return (
         <table className={styles.table}>
             <thead>
@@ -61,6 +74,7 @@ export default function TableReport({ crm }: CrmDoctor) {
                     <th>Nome</th>
                     <th>Covênio</th>
                     <th>Horário e Data</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +86,17 @@ export default function TableReport({ crm }: CrmDoctor) {
                         <td>{consul.name}</td>
                         <td>{consul.covenant}</td>
                         <td>{consul.start}</td>
+                        <td>
+                            <select title='Status'
+                                value={consul.status}
+                                onChange={(e) => handleStatusChange(consul.id, e.target.value)}
+                                className={getStatusClass(consul.status)}
+                            >
+                                <option value='Confirmar'>Confirmar</option>
+                                <option value='Confirmada'>Confirmada</option>
+                                <option value='Cancelada'>Cancelada</option>
+                            </select>
+                        </td>
                     </tr>
                 ))}
             </tbody>
