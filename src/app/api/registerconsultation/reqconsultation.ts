@@ -53,59 +53,43 @@ export async function RegisterConsultation(formData: FormData) {
         if (existingConsultation) {
             return { status: 400, Error: true, message: 'Horário da Consulta já Agendado!' };
         };
-        if (existingPatient) {
-            await prisma.consultation.create({
-                data: {
-                    cpf,
-                    crm,
-                    covenant,
-                    particular,
-                    courtesy,
-                    observation,
-                    consultdatestart,
-                    consultdateend,
-                    patient_id: existingPatient.patient_id,
-                    user_id: existingUser.user_id
-                }
+        if (!existingPatient) {
+            const existingCpf = await prisma.cpf.findUnique({
+                where: { cpf }
             });
-
-            return { status: 400, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
-        };
-        const existingCpf = await prisma.cpf.findUnique({
-            where: { cpf }
-        });
-        if (!existingCpf) {
-            await prisma.cpf.create({
-                data: { cpf, name, dateofbirth }
+            if (!existingCpf) {
+                await prisma.cpf.create({
+                    data: { cpf, name, dateofbirth }
+                });
+            };
+            const existingTelephone = await prisma.telephone.findUnique({
+                where: { telephone }
             });
-        };
-        const existingTelephone = await prisma.telephone.findUnique({
-            where: { telephone }
-        });
-        if (!existingTelephone) {
-            await prisma.telephone.create({
-                data: { telephone, email }
+            if (!existingTelephone) {
+                await prisma.telephone.create({
+                    data: { telephone, email }
+                });
+            };
+            const existingZipcode = await prisma.zipcode.findUnique({
+                where: { zipcode }
             });
-        };
-        const existingZipcode = await prisma.zipcode.findUnique({
-            where: { zipcode }
-        });
-        if (!existingZipcode) {
-            await prisma.zipcode.create({
-                data: { zipcode, street, district, city }
+            if (!existingZipcode) {
+                await prisma.zipcode.create({
+                    data: { zipcode, street, district, city }
+                });
+            };
+            let existingAddress = await prisma.address.findFirst({
+                where: { zipcode, residencenumber, building, buildingblock, apartment }
+            });
+            if (!existingAddress) {
+                existingAddress = await prisma.address.create({
+                    data: { zipcode, residencenumber, building, buildingblock, apartment }
+                });
+            };
+            existingPatient = await prisma.patient.create({
+                data: { cpf, telephone, address_id: existingAddress.address_id }
             });
         };
-        let existingAddress = await prisma.address.findFirst({
-            where: { zipcode, residencenumber, building, buildingblock, apartment }
-        });
-        if (!existingAddress) {
-            existingAddress = await prisma.address.create({
-                data: { zipcode, residencenumber, building, buildingblock, apartment }
-            });
-        };
-        existingPatient = await prisma.patient.create({
-            data: { cpf, telephone, address_id: existingAddress.address_id }
-        });
         await prisma.consultation.create({
             data: {
                 cpf,
