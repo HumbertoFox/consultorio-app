@@ -89,12 +89,12 @@ export default function TableReport({ crm }: CrmDoctor) {
                         <td>
                             <select title='Status'
                                 value={consul.status}
-                                onChange={(e) => handleStatusChange(consul.id, e.target.value)}
+                                onChange={(element) => handleStatusChange(consul.id, element.target.value)}
                                 className={getStatusClass(consul.status)}
                             >
-                                <option value='Confirmar'>Confirmar</option>
-                                <option value='Confirmada'>Confirmada</option>
-                                <option value='Cancelada'>Cancelada</option>
+                                <option value='Confirmar' className={styles.confirm}>Confirmar</option>
+                                <option value='Confirmada' className={styles.confirmed}>Confirmada</option>
+                                <option value='Cancelada' className={styles.cancel}>Cancelada</option>
                             </select>
                         </td>
                     </tr>
