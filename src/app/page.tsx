@@ -6,6 +6,7 @@ import { AgendaPacient } from './api/agendapatient/reqpatients';
 import CustomToolbar from '@/components/toobar';
 import ConsultClick from '@/components/modal/eventconsults';
 import moment from 'moment';
+import 'moment/locale/pt-br';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import styles from './page.module.css';
@@ -20,7 +21,7 @@ interface CalendarEvent {
   title: string;
   [key: string]: any;
 };
-moment.locale('pt-BR');
+moment.locale('pt-br');
 const localizer = momentLocalizer(moment);
 export default function CalendarPage() {
   const [consults, setConsults] = useState<CalendarEvent[]>([]);
