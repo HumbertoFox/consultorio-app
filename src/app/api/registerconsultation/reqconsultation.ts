@@ -43,7 +43,7 @@ export async function RegisterConsultation(formData: FormData) {
         });
         const existingConsultation = await prisma.consultation.findFirst({
             where: {
-                crm, status: 'Confirmar' || 'Confirmada',
+                crm, status: { in: ['Confirmar', 'Confirmada'] },
                 OR: [{
                     consultdatestart: { lte: consultdatestart },
                     consultdateend: { gte: consultdateend }
