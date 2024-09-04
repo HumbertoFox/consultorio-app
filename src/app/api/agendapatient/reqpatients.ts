@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 export async function AgendaPacient() {
     try {
         const consultations = await prisma.consultation.findMany({
+            where: { status: 'Confirmada' },
             include: {
                 consultation_cpf: true,
                 consultation_crm: true,
