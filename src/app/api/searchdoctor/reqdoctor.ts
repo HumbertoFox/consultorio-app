@@ -1,32 +1,28 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-
 const prisma = new PrismaClient();
-
 export async function SearchDoctor(formData: FormData) {
     const cpf = formData.get('cpf') as string;
-
-    if (!cpf) {
-        return { status: 400, Error: true, message: 'CPF Não encontrado!' }
-    };
-
-    const doctor = await prisma.doctor.findFirst({
-        where: { cpf },
-        include: {
-            doctor_crm: true,
-            doctor_cpf: true,
-            doctor_telephone: true,
-            doctor_address: {
-                include: {
-                    address_zipcode: true
+    try {
+        if (!cpf) {
+            return { status: 400, Error: true, message: 'CPF Não encontrado!' }
+        };
+        const doctor = await prisma.doctor.findFirst({
+            where: { cpf },
+            include: {
+                doctor_crm: true,
+                doctor_cpf: true,
+                doctor_telephone: true,
+                doctor_address: {
+                    include: {
+                        address_zipcode: true
+                    }
                 }
             }
-        }
-    });
-
-    if (!doctor) {
-        return { status: 400, Error: true, message: 'Doutor(a) Não encontrado!' }
-    } else {
+        });
+        if (!doctor) {
+            return { status: 400, Error: true, message: 'Doutor(a) Não encontrado!' }
+        };
         const listdoctor = {
             crm: doctor.crm,
             cpf: doctor.cpf,
@@ -44,7 +40,10 @@ export async function SearchDoctor(formData: FormData) {
             buildingblock: doctor.doctor_address.buildingblock,
             apartment: doctor.doctor_address.apartment
         };
-
         return { status: 200, Error: false, message: 'Doutor(a) encontrado!', listdoctor };
+    } catch (Error) {
+        return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };

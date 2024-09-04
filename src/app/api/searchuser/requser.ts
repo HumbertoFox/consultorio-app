@@ -1,31 +1,27 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-
 const prisma = new PrismaClient();
-
 export async function SearchUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
-
-    if (!cpf) {
-        return { status: 400, Error: true, message: 'CPF Não encontrado!' }
-    };
-
-    const user = await prisma.user.findFirst({
-        where: { cpf },
-        include: {
-            user_cpf: true,
-            user_telephone: true,
-            user_address: {
-                include: {
-                    address_zipcode: true
+    try {
+        if (!cpf) {
+            return { status: 400, Error: true, message: 'CPF Não encontrado!' }
+        };
+        const user = await prisma.user.findFirst({
+            where: { cpf },
+            include: {
+                user_cpf: true,
+                user_telephone: true,
+                user_address: {
+                    include: {
+                        address_zipcode: true
+                    }
                 }
             }
-        }
-    });
-
-    if (!user) {
-        return { status: 400, Error: true, message: 'Usuário Não encontrado!' }
-    } else {
+        });
+        if (!user) {
+            return { status: 400, Error: true, message: 'Usuário Não encontrado!' }
+        };
         const listuser = {
             cpf: user.cpf,
             name: user.user_cpf.name,
@@ -42,7 +38,10 @@ export async function SearchUser(formData: FormData) {
             buildingblock: user.user_address.buildingblock,
             apartment: user.user_address.apartment
         };
-
         return { status: 200, Error: false, message: 'Usuário encontrado!', listuser };
+    } catch (error) {
+        return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };

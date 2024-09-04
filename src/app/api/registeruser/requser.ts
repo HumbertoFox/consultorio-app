@@ -1,9 +1,7 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
-
 const prisma = new PrismaClient();
-
 export async function RegisterUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
@@ -21,62 +19,52 @@ export async function RegisterUser(formData: FormData) {
     const password = formData.get('password') as string;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-
         const existingUser = await prisma.user.findFirst({
             where: { cpf }
         });
-
         const existingCpf = await prisma.cpf.findUnique({
             where: { cpf }
         });
-
         if (existingUser) {
             return { status: 400, Error: true, message: 'Usuário já cadastrado!' };
         };
-
         if (!existingCpf) {
             await prisma.cpf.create({
                 data: { cpf, name, dateofbirth }
             });
         };
-
         const existingTelephone = await prisma.telephone.findUnique({
             where: { telephone }
         });
-
         if (!existingTelephone) {
             await prisma.telephone.create({
                 data: { telephone, email }
             });
         };
-
         const existingZipcode = await prisma.zipcode.findUnique({
             where: { zipcode }
         });
-
         if (!existingZipcode) {
             await prisma.zipcode.create({
                 data: { zipcode, street, district, city }
             });
         };
-
         let existingAddress = await prisma.address.findFirst({
             where: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-
         if (!existingAddress) {
             existingAddress = await prisma.address.create({
                 data: { zipcode, residencenumber, building, buildingblock, apartment }
             });
         };
-
         await prisma.user.create({
             data: { cpf, telephone, password: hashedPassword, address_id: existingAddress.address_id }
         });
-
         return { status: 200, Error: false, message: 'Usuário Cadastrado com Sucesso!' };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };

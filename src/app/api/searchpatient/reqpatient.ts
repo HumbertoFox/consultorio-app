@@ -1,32 +1,28 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-
 const prisma = new PrismaClient();
-
 export async function SearchPatient(formData: FormData) {
     const cpf = formData.get('cpf') as string;
-
-    if (!cpf) {
-        return { status: 400, Error: true, message: 'CPF Não encontrado!' }
-    };
-
-    const patient = await prisma.patient.findFirst({
-        where: { cpf },
-        include: {
-            patient_cpf: true,
-            parient_address: {
-                include: {
-                    address_zipcode: true
-                }
-            },
-            patient_telephone: true,
-            patient_consultation: true
-        }
-    });
-
-    if (!patient) {
-        return { status: 400, Error: true, message: 'Paciente Não encontrado!' }
-    } else {
+    try {
+        if (!cpf) {
+            return { status: 400, Error: true, message: 'CPF Não encontrado!' }
+        };
+        const patient = await prisma.patient.findFirst({
+            where: { cpf },
+            include: {
+                patient_cpf: true,
+                parient_address: {
+                    include: {
+                        address_zipcode: true
+                    }
+                },
+                patient_telephone: true,
+                patient_consultation: true
+            }
+        });
+        if (!patient) {
+            return { status: 400, Error: true, message: 'Paciente Não encontrado!' }
+        };
         const listpatient = {
             cpf: patient.cpf,
             name: patient.patient_cpf.name,
@@ -41,9 +37,12 @@ export async function SearchPatient(formData: FormData) {
             residencenumber: patient.parient_address.residencenumber,
             building: patient.parient_address.building,
             buildingblock: patient.parient_address.buildingblock,
-            apartment: patient.parient_address.apartment,
+            apartment: patient.parient_address.apartment
         };
-
         return { status: 200, Error: false, message: 'Paciente encontrado!', listpatient };
+    } catch (Error) {
+        return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };

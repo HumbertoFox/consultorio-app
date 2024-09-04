@@ -1,8 +1,6 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
-
 const prisma = new PrismaClient();
-
 export async function AgendaPacient() {
     try {
         const consultations = await prisma.consultation.findMany({
@@ -12,9 +10,7 @@ export async function AgendaPacient() {
                 consultation_patient: true
             }
         });
-
         const listConsults = await Promise.all(consultations.map(async (consultation) => {
-
             return {
                 id: consultation.consultation_id,
                 title: consultation.cpf,
@@ -27,10 +23,11 @@ export async function AgendaPacient() {
                 observation: consultation.observation,
             };
         }));
-
         return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!', listConsults };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };

@@ -4,8 +4,6 @@ const prisma = new PrismaClient();
 export async function UpdateConsultationStatus(consultId: number, newStatus: string) {
     try {
         const status = newStatus as Consultationstatus;
-        console.log(status);
-        
         const statuscosultation = await prisma.consultation.update({
             where: { consultation_id: consultId },
             data: { status }

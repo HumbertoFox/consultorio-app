@@ -2,27 +2,21 @@
 import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
 import { openSessionToken } from '@/services/opentoken';
-
 const prisma = new PrismaClient();
-
 export async function RegisterConsultation(formData: FormData) {
     const sessionCookies = cookies().get('session');
-
     let userCpf: string | any;
     if (sessionCookies) {
         const { value } = sessionCookies;
         const { cpf } = await openSessionToken(value);
         userCpf = cpf;
     };
-
     const existingUser = await prisma.user.findFirst({
         where: { cpf: userCpf }
     });
-
     if (!existingUser) {
         return { status: 401, Error: true, message: 'Usuário não autenticado!' };
     };
-
     const cpf = formData.get('cpf') as string;
     const name = formData.get('name') as string;
     const dateofbirth = formData.get('dateofbirth') as string;
@@ -47,21 +41,18 @@ export async function RegisterConsultation(formData: FormData) {
         let existingPatient = await prisma.patient.findFirst({
             where: { cpf }
         });
-
         const existingConsultation = await prisma.consultation.findFirst({
             where: {
-                crm,
+                crm, status: 'Confirmada',
                 OR: [{
                     consultdatestart: { lte: consultdatestart },
                     consultdateend: { gte: consultdateend }
                 }]
             }
         });
-
         if (existingConsultation) {
             return { status: 400, Error: true, message: 'Horário da Consulta já Agendado!' };
         };
-
         if (existingPatient) {
             await prisma.consultation.create({
                 data: {
@@ -80,51 +71,41 @@ export async function RegisterConsultation(formData: FormData) {
 
             return { status: 400, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
         };
-
         const existingCpf = await prisma.cpf.findUnique({
             where: { cpf }
         });
-
         if (!existingCpf) {
             await prisma.cpf.create({
                 data: { cpf, name, dateofbirth }
             });
         };
-
         const existingTelephone = await prisma.telephone.findUnique({
             where: { telephone }
         });
-
         if (!existingTelephone) {
             await prisma.telephone.create({
                 data: { telephone, email }
             });
         };
-
         const existingZipcode = await prisma.zipcode.findUnique({
             where: { zipcode }
         });
-
         if (!existingZipcode) {
             await prisma.zipcode.create({
                 data: { zipcode, street, district, city }
             });
         };
-
         let existingAddress = await prisma.address.findFirst({
             where: { zipcode, residencenumber, building, buildingblock, apartment }
         });
-
         if (!existingAddress) {
             existingAddress = await prisma.address.create({
                 data: { zipcode, residencenumber, building, buildingblock, apartment }
             });
         };
-
         existingPatient = await prisma.patient.create({
             data: { cpf, telephone, address_id: existingAddress.address_id }
         });
-
         await prisma.consultation.create({
             data: {
                 cpf,
@@ -139,10 +120,11 @@ export async function RegisterConsultation(formData: FormData) {
                 user_id: existingUser.user_id
             }
         });
-
         return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
+    } finally {
+        await prisma.$disconnect();
     };
 };
