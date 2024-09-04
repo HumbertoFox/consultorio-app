@@ -9,7 +9,6 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import styles from './page.module.css';
-
 interface CalendarEvent {
   name: string;
   telephone: string;
@@ -20,10 +19,9 @@ interface CalendarEvent {
   end: Date;
   title: string;
   [key: string]: any;
-}
-
+};
+moment.locale('pt-BR');
 const localizer = momentLocalizer(moment);
-
 export default function CalendarPage() {
   const [consults, setConsults] = useState<CalendarEvent[]>([]);
   const [consultSelected, setConsultSelected] = useState<CalendarEvent | any>(null);
@@ -61,7 +59,6 @@ export default function CalendarPage() {
     };
     eventAgendCalendar();
   }, []);
-
   return (
     <main className={styles.main}>
       <SideBar />
