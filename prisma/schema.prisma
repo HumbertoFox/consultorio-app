@@ -145,4 +145,5 @@ enum Consultationstatus {
   Confirmar
   Confirmada
   Cancelada
+  Atendido
 }

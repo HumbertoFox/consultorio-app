@@ -59,6 +59,7 @@ export default function TableReport({ crm }: CrmDoctor) {
     const getStatusClass = (status: string) => {
         if (status === 'Confirmada') return styles.confirmed;
         if (status === 'Cancelada') return styles.cancel;
+        if (status === 'Atendido') return styles.serviced;
         return styles.confirm;
     };
     if (loading) {
@@ -95,6 +96,7 @@ export default function TableReport({ crm }: CrmDoctor) {
                                 <option value='Confirmar' className={styles.confirm}>Confirmar</option>
                                 <option value='Confirmada' className={styles.confirmed}>Confirmada</option>
                                 <option value='Cancelada' className={styles.cancel}>Cancelada</option>
+                                <option value='Cancelada' className={styles.serviced}>Atendido</option>
                             </select>
                         </td>
                     </tr>
