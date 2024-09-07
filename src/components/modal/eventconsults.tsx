@@ -1,6 +1,6 @@
 'use client';
+import { useState } from 'react';
 import styles from './event.module.css';
-
 interface CalendarEvent {
     name: string;
     telephone: string;
@@ -13,21 +13,26 @@ interface CalendarEvent {
     [key: string]: any;
     onClose?: () => void;
 };
-
 export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, onClose }: CalendarEvent) {
-
+    const [isClosing, setIsClosing] = useState<boolean>(false);
+    const handleClose = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            onClose && onClose();
+        }, 400);
+    };
     return (
         <div className={styles.diveventmain}>
-            <section>
-                <h2>CPF: {title}</h2>
-                <h3>Nome: {name}</h3>
-                <p>Telefone: {telephone}</p>
-                <p>Plano: {covenant}</p>
-                <span>CRM: {desc}</span>
-                <p>OBS: {observation}</p>
-                <p>Início: {start.toLocaleString()}</p>
-                <p>Termino: {end.toLocaleString()}</p>
-                <button type='button' title='Fechar' onClick={onClose}>Fechar</button>
+            <section className={isClosing ? styles.sectionUp : styles.sectionDown}>
+                <h2><strong>CPF:</strong> {title}</h2>
+                <h3><strong>Nome:</strong> {name}</h3>
+                <p><strong>Telefone:</strong> {telephone}</p>
+                <p><strong>Plano:</strong> {covenant}</p>
+                <span><strong>CRM:</strong> {desc}</span>
+                <p><strong>OBS:</strong> {observation}</p>
+                <p><strong>Início:</strong> {start.toLocaleString()}</p>
+                <p><strong>Termino:</strong> {end.toLocaleString()}</p>
+                <button type='button' title='Fechar' onClick={handleClose}>Fechar</button>
             </section>
         </div>
     );
