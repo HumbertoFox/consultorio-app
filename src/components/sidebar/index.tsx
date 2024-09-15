@@ -9,7 +9,6 @@ import ImageMedicine from '@/assets/simbolo-de-medicina.png';
 import ImageDoctorX from '@/assets/doutorx.png';
 import ImageDoctorY from '@/assets/doutory.png';
 import styles from './sidebar.module.css';
-
 export default function SideBar() {
     const router = useRouter();
     const [selectBar, setSelectBar] = useState<string>('');
@@ -35,15 +34,14 @@ export default function SideBar() {
             router.push('/');
         };
     }, [router]);
-
     return (
         <div className={styles.divsidebar}>
-            <Link href={'/menu'} onClick={() => handleBarClick('Menu')}>
+            <Link href={'/menu'} onClick={() => handleBarClick('Menu')} title='Menu'>
                 <Image src={ImageMedicine} className={styles.imgnedicina} width={150} height={150} alt='Imagem Logo Medicina' priority />
             </Link>
             <nav className={styles.navsidebar}>
                 <div className={selectBar == 'Calendar' ? styles.active : ''} onClick={() => handleBarClick('Calendar')}>
-                    <Link href={'/'}>
+                    <Link href={'/'} title='Agenda de Pacientes Confirmados'>
                         <FontAwesomeIcon icon={faBookOpenReader} />
                         <span>Calendario</span>
                     </Link>
@@ -55,13 +53,13 @@ export default function SideBar() {
                     </div>
                 </div>
                 <div className={selectBar == 'DoctorxConsultation' ? styles.active : ''} onClick={() => handleBarClick('DoctorxConsultation')}>
-                    <Link href={'/consultations/doctorx'}>
+                    <Link href={'/consultations/doctorx'} title='Agendar Consulta para Doutora'>
                         <FontAwesomeIcon icon={faNotesMedical} />
                         <span>Agendar Consulta</span>
                     </Link>
                 </div>
                 <div className={selectBar == 'PatientsDoctorx' ? styles.active : ''} onClick={() => handleBarClick('PatientsDoctorx')}>
-                    <Link href={'/consultations/reportx'}>
+                    <Link href={'/consultations/reportx'} title='Lista de Pacientes do Dia Doutora'>
                         <FontAwesomeIcon icon={faCheck} />
                         <span>Listar Pacientes</span>
                     </Link>
@@ -73,13 +71,13 @@ export default function SideBar() {
                     </div>
                 </div>
                 <div className={selectBar == 'DoctoryConsultation' ? styles.active : ''} onClick={() => handleBarClick('DoctoryConsultation')}>
-                    <Link href={'/consultations/doctory'}>
+                    <Link href={'/consultations/doctory'} title='Agendar Consulta para Doutor'>
                         <FontAwesomeIcon icon={faNotesMedical} />
                         <span>Agendar Consulta</span>
                     </Link>
                 </div>
                 <div className={selectBar == 'PatientsDoctory' ? styles.active : ''} onClick={() => handleBarClick('PatientsDoctory')}>
-                    <Link href={'/consultations/reporty'}>
+                    <Link href={'/consultations/reporty'} title='Lista de Pacientes do Dia Doutor'>
                         <FontAwesomeIcon icon={faCheck} />
                         <span>Listar Pacientes</span>
                     </Link>

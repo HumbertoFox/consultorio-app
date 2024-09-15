@@ -6,23 +6,19 @@ import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
 import { SearchUser } from '@/app/api/searchuser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css'
-
 type Inputs = {
     searchcpf: number;
 };
-
 interface PatDocUserSearchResult {
     type: 'patient' | 'doctor' | 'user';
     searchPatDocUserCpf: (patientSearch: any) => void;
 };
-
 interface EventMessage {
     message?: string;
     Error: boolean;
     title?: string;
     onClose?: () => void;
 };
-
 export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
     const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
@@ -93,7 +89,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             searchPatDocUserCpf(res[3]);
         };
     }, [patdocuserSearch, searchPatDocUserCpf]);
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='searchcpf'>Pesquisar</label>

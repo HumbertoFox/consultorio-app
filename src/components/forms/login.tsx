@@ -7,19 +7,16 @@ import { loginAuth } from '@/app/modules/auth/actions/authactions';
 import { useRouter } from 'next/navigation';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
-
 type Inputs = {
     cpf: string;
     password: string;
 };
-
 interface EventMessage {
     message?: string;
     Error: boolean;
     title?: string;
     onClose?: () => void;
 };
-
 export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);
     const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
@@ -61,7 +58,6 @@ export default function FormLogin() {
             }, 3000);
         };
     };
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='cpf'>CPF
@@ -91,7 +87,7 @@ export default function FormLogin() {
                 </label>
             </div>
             <input type='submit' title='Entrar' value='Entrar' aria-label='Fechar Login' />
-            {eventAlert && <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />}
+            {eventAlert && (<EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />)}
         </form>
     );
 };

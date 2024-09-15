@@ -10,10 +10,11 @@ interface CalendarEvent {
     start: Date;
     end: Date;
     title: string;
+    status: string;
     [key: string]: any;
     onClose?: () => void;
 };
-export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, onClose }: CalendarEvent) {
+export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, status, onClose }: CalendarEvent) {
     const [isClosing, setIsClosing] = useState<boolean>(false);
     const handleClose = () => {
         setIsClosing(true);
@@ -24,8 +25,9 @@ export default function ConsultClick({ name, telephone, covenant, desc, observat
     return (
         <div className={styles.diveventmain}>
             <section className={isClosing ? styles.sectionUp : styles.sectionDown}>
-                <h2><strong>CPF:</strong> {title}</h2>
-                <h3><strong>Nome:</strong> {name}</h3>
+                <h3><strong>Status:</strong> {status}</h3>
+                <h4><strong>CPF:</strong> {title}</h4>
+                <h5><strong>Nome:</strong> {name}</h5>
                 <p><strong>Telefone:</strong> {telephone}</p>
                 <p><strong>Plano:</strong> {covenant}</p>
                 <span><strong>CRM:</strong> {desc}</span>

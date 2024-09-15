@@ -2,9 +2,21 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 export async function SearchConsults(crm: string) {
+    if (!crm || typeof crm !== 'string') {
+        return { status: 400, Error: true, message: 'CRM inválido!' };
+    };
     try {
+        const now = new Date();
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+        const todayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, -1).toISOString();
         const consultation = await prisma.consultation.findMany({
-            where: { crm },
+            where: {
+                crm,
+                consultdatestart: {
+                    gte: todayStart,
+                    lte: todayEnd
+                }
+            },
             include: { consultation_cpf: true }
         });
         if (consultation.length === 0) {

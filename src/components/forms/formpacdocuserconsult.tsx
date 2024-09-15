@@ -15,7 +15,6 @@ import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsulta
 import { BlockedUser } from '@/app/api/blockeduser/requser';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
-
 type Inputs = {
     cpf?: number;
     name?: string;
@@ -42,7 +41,6 @@ type Inputs = {
     password?: string;
     passwordchecked?: string;
 };
-
 interface PatDocUserSearchResult {
     crm?: number;
     docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'blockeduser' | 'consultation';
@@ -73,14 +71,12 @@ interface PatDocUserSearchResult {
         password: string;
     } | any;
 };
-
 interface EventMessage {
     message?: string;
     Error: boolean;
     title?: string;
     onClose?: () => void;
-}
-
+};
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResult) {
     const router = useRouter();
     const [ispass, setIspass] = useState(false);
@@ -302,7 +298,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         };
 
     }, [crm, searchPatDocUserCpf, setValue]);
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Des/Bloquear' ? true : false}>
@@ -606,7 +601,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 <input type='submit' title={buttons} value={buttons} />
                 {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')} aria-label='Voltar ao Menu'>Menu</button>}
             </div>
-            {eventAlert && <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />}
+            {eventAlert && (<EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />)}
         </form >
     );
 };

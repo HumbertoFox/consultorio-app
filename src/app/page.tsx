@@ -73,7 +73,7 @@ export default function CalendarPage() {
           endAccessor='end'
           components={{ toolbar: CustomToolbar }}
         />
-        {consultSelected && <ConsultClick {...consultSelected} onClose={handleConsultSelectClose} />}
+        {consultSelected && (<ConsultClick {...consultSelected} onClose={handleConsultSelectClose} />)}
       </div>
     </main>
   );

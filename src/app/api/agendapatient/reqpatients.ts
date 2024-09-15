@@ -22,6 +22,7 @@ export async function AgendaPacient() {
                 desc: consultation.crm,
                 covenant: consultation.covenant,
                 observation: consultation.observation,
+                status: consultation.status
             };
         }));
         return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!', listConsults };

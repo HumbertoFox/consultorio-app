@@ -96,7 +96,7 @@ export default function TableReport({ crm }: CrmDoctor) {
                                 <option value='Confirmar' className={styles.confirm}>Confirmar</option>
                                 <option value='Confirmada' className={styles.confirmed}>Confirmada</option>
                                 <option value='Cancelada' className={styles.cancel}>Cancelada</option>
-                                <option value='Cancelada' className={styles.serviced}>Atendido</option>
+                                <option value='Atendido' className={styles.serviced}>Atendido</option>
                             </select>
                         </td>
                     </tr>

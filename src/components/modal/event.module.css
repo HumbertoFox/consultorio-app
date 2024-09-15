@@ -34,13 +34,22 @@
     animation: EventAnimeUp .4s ease-in-out;
 }
 
-.diveventmain section h2,
-.diveventmain section h3 {
+.diveventmain section h3,
+.diveventmain section h4,
+.diveventmain section h5 {
     font-size: 1.1rem;
 }
 
 .diveventmain section h2 {
     color: #3C91E6;
+}
+
+.diveventmain section h3 {
+    color: green;
+}
+
+.diveventmain section h4 {
+    color: red;
 }
 
 .diveventmain h2.sectionerror {

@@ -5,7 +5,6 @@ import { faUserNurse } from '@fortawesome/free-solid-svg-icons';
 import SearchForm from '@/components/forms/formsearch';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import styles from '@/app/menu/page.module.css';
-
 interface PatDocUserSearchResult {
     crm?: number;
     cpf?: number;
@@ -21,14 +20,12 @@ interface PatDocUserSearchResult {
     building?: string;
     buildingblock?: string;
     apartment?: string;
-}
-
+};
 export default function EditDoctorPage() {
     const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<PatDocUserSearchResult | null>(null);
     const handleCpfSearch = (result: PatDocUserSearchResult) => {
         setSearchPatDocUserCpf(result);
     };
-
     return (
         <main className={styles.mainmenu}>
             <h1>Editar Doutor(a)</h1>

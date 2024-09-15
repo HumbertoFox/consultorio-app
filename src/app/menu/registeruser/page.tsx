@@ -1,8 +1,8 @@
+'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import styles from '@/app/menu/page.module.css';
-
 export default function RegisterUserPage() {
     return (
         <main className={styles.mainmenu}>
