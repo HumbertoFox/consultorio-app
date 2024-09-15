@@ -20,14 +20,16 @@ npm run dev
 
 Tela de Login.
 
+##
 <img src="https://github.com/user-attachments/assets/9a77b493-4afc-4b0c-bf3c-c24eebdc1bef" width="250px"/>
 
+##
 <img src="https://github.com/user-attachments/assets/89bc5e20-846c-42f0-bc4a-ce7d87bdcff7" width="250px"/>
 
+##
 <img src="https://github.com/user-attachments/assets/578f0414-3a60-4f15-9734-c807e71a8f09" width="250px"/>
 
 ##
-
 ### React Hook Form
 
 Usando errors do form para informar no proprio input no placeholder especificamente que o campo é obrigatório e fazendo a verificação de número maximo de caracteres e sinalizando com bordas vermelhas.
@@ -53,7 +55,7 @@ Usando errors do form para informar no proprio input no placeholder especificame
 
 Fazendo uma verificação se o CPF informado é valido antes de enviar.
 
-```js html
+```ts html
 
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
@@ -81,7 +83,30 @@ Fazendo uma verificação se o CPF informado é valido antes de enviar.
 
 ```
 
-## Continui...
+Enviando erro para o input useForm caso o cpf digitado seja invalido, focando no input name cpf!
+
+```ts html
+
+    const cpf = data.searchcpf as string;
+    if (!getCheckedCpf(cpf)) {
+        setError('searchcpf', { type: 'focus' }, { shouldFocus: true });
+        return;
+    };
+
+```
+Tela da Agenda com os pacientes confirmados!
+
+<img src="https://github.com/user-attachments/assets/71bdbd0b-e390-4fd9-b791-af1648f41d3c" width="250px"/>
+
+Tela da agenda e modal ao clicar no paciente agendado...
+
+<img src="https://github.com/user-attachments/assets/0db04941-a8d0-4519-a9e7-4cb5abf73b5a" width="250px"/>
+
+Tela do Menu!
+
+<img src="https://github.com/user-attachments/assets/96d17f9c-657a-4629-820c-9b5547f353f1" width="250px"/>
+
+## Continue...
 
 <div align="center">
 

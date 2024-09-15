@@ -50,7 +50,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         setEventAlert(null);
     };
     const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-        const cpf = data.searchcpf;
+        const cpf = data.searchcpf as string;
         if (!getCheckedCpf(cpf)) {
             setError('searchcpf', { type: 'focus' }, { shouldFocus: true });
             return;
