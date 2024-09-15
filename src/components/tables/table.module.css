@@ -14,10 +14,12 @@
 .table thead th {
     font-size: .9rem;
     text-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+    cursor: help;
 }
 
 .table tbody td {
     font-size: .8rem;
+    cursor: default;
 }
 
 .table select {
@@ -27,6 +29,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    cursor: pointer;
 }
 
 .table select::-ms-expand {

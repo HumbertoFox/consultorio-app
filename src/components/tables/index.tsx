@@ -69,13 +69,13 @@ export default function TableReport({ crm }: CrmDoctor) {
         <table className={styles.table}>
             <thead>
                 <tr>
-                    <th>Cód. Con.</th>
-                    <th>CRM</th>
-                    <th>CPF</th>
-                    <th>Nome</th>
-                    <th>Covênio</th>
-                    <th>Horário e Data</th>
-                    <th>Status</th>
+                    <th title='Código da consulta'>Cód.</th>
+                    <th title='CRM do Médico'>CRM</th>
+                    <th title='CPF do Paciente'>CPF</th>
+                    <th title='Nome do Paciente'>Nome</th>
+                    <th title='Convênio do Paciente'>Covênio</th>
+                    <th title='Horário e Data da consulta'>H/D</th>
+                    <th title='Status da Consulta'>Status</th>
                 </tr>
             </thead>
             <tbody>

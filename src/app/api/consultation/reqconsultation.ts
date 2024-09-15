@@ -19,7 +19,7 @@ export async function SearchConsults(crm: string) {
             },
             include: { consultation_cpf: true }
         });
-        if (consultation.length === 0) {
+        if (!consultation) {
             return { status: 400, Error: true, message: 'Consultas Não encontrada!' };
         };
         const listconsultation = await Promise.all(consultation.map((consult: any) => {
