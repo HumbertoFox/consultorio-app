@@ -1,7 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { SearchConsults } from '@/app/api/consultation/reqconsultation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { UpdateConsultationStatus } from '@/app/api/consultation/reqconsultationstatus';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import ReactLoading from 'react-loading';
 import styles from './table.module.css';
 type Consult = {
@@ -18,12 +20,16 @@ interface CrmDoctor {
 };
 export default function TableReport({ crm }: CrmDoctor) {
     const [consults, setConsults] = useState<Consult[]>([]);
+    const [notConsults, setNotConsults] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(() => {
         const getConsults = async () => {
             try {
                 const response = await SearchConsults(crm.toString());
                 const resArray = Object.values(response);
+                if (resArray[0] === 204) {
+                    return setNotConsults(resArray[2]);
+                };
                 const consultArray = resArray[3];
                 for (const key in consultArray) {
                     consultArray[key].cpf = consultArray[key].cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
@@ -79,6 +85,14 @@ export default function TableReport({ crm }: CrmDoctor) {
                 </tr>
             </thead>
             <tbody>
+                {notConsults && (
+                    <tr className={styles.error}>
+                        <td></td><td></td><td></td>
+                        <td>
+                            {notConsults}
+                        </td>
+                    </tr>
+                )}
                 {consults.map((consul: any) => (
                     <tr key={consul.id}>
                         <td>{consul.id}</td>
@@ -101,7 +115,14 @@ export default function TableReport({ crm }: CrmDoctor) {
                         </td>
                     </tr>
                 ))}
+                {consults.length !== 0 && (<tr>
+                    <td className={styles.print}>
+                        <FontAwesomeIcon icon={faPrint} />
+                    </td>
+                </tr>
+                )}
             </tbody>
+
         </table>
     );
 };

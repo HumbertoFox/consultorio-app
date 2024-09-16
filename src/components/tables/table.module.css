@@ -22,6 +22,11 @@
     cursor: default;
 }
 
+.table tbody tr.error td {
+    color: red;
+    padding-top: 20px;
+}
+
 .table select {
     text-align: center;
     border: none;
@@ -49,5 +54,24 @@
 }
 
 .serviced {
+    color: blue;
+}
+
+.print {
+    text-align: start;
+    padding-top: 20px;
+}
+
+.print svg {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: .4s ease-in-out;
+}
+
+.print svg:hover {
+    color: green;
+}
+
+.print svg:active {
     color: blue;
 }
