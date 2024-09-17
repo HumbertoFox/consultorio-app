@@ -1,8 +1,8 @@
 'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed } from '@fortawesome/free-solid-svg-icons';
-import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '@/app/menu/page.module.css';
+import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 export default function RegisterPatientsPage() {
     return (
         <main className={styles.mainmenu}>

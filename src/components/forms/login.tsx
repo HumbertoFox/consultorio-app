@@ -1,32 +1,21 @@
 'use client';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { loginAuth } from '@/app/modules/auth/actions/authactions';
 import { useRouter } from 'next/navigation';
-import EventClick from '../modal/eventclick';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { EventMessageProps, InputsLoginProps } from '@/interfaces/interfaces';
 import styles from './form.module.css';
-type Inputs = {
-    cpf: string;
-    password: string;
-};
-interface EventMessage {
-    message?: string;
-    Error: boolean;
-    title?: string;
-    onClose?: () => void;
-};
+import EventClick from '../modal/eventclick';
 export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);
-    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
+    const { register, handleSubmit, formState: { errors } } = useForm<InputsLoginProps>();
     const router = useRouter();
     const handlePass = () => setIspass(!ispass);
-    const handleEventAlertClose = () => {
-        setEventAlert(null);
-    };
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const handleEventAlertClose = () => setEventAlert(null);
+    const onSubmit: SubmitHandler<InputsLoginProps> = async (data) => {
         try {
             const formData = new FormData();
             formData.append('cpf', data.cpf);

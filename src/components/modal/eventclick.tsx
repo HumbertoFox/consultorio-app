@@ -1,13 +1,8 @@
 'use client';
 import { useState } from 'react';
+import { EventMessageProps } from '@/interfaces/interfaces';
 import styles from './event.module.css';
-interface EventMessage {
-    message?: string;
-    Error: boolean;
-    title?: string;
-    onClose?: () => void;
-};
-export default function EventClick({ message, Error, title, onClose }: EventMessage) {
+export default function EventClick({ message, Error, title, onClose }: EventMessageProps) {
     const [isClosing, setIsClosing] = useState<boolean>(false);
     const handleClose = () => {
         setIsClosing(true);

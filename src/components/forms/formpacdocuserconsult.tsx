@@ -12,72 +12,11 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, useEffect, useState } from 'react';
-import EventClick from '../modal/eventclick';
-import styles from './form.module.css';
+import { EventMessageProps, InputsProps, PatDocUserSearchResultFormProps } from '@/interfaces/interfaces';
 import Link from 'next/link';
-type Inputs = {
-    cpf?: number;
-    name?: string;
-    dateofbirth?: number;
-    telephone?: string;
-    email?: string;
-    zipcode?: string;
-    residencenumber?: string;
-    street?: string;
-    district?: string;
-    city?: string;
-    building?: string;
-    buildingblock?: string;
-    apartment?: string;
-    crm?: number;
-    consultdatestart?: string;
-    consultdateend?: string;
-    status?: string;
-    observation?: string;
-    covenant?: string;
-    courtesy?: string;
-    particular?: string;
-    userblock?: string;
-    password?: string;
-    passwordchecked?: string;
-};
-interface PatDocUserSearchResult {
-    crm?: number;
-    docpatuser: 'patient' | 'editpatient' | 'doctor' | 'editdoctor' | 'user' | 'edituser' | 'blockeduser' | 'consultation';
-    buttons?: string;
-    searchPatDocUserCpf: {
-        cpf: number;
-        name: string;
-        dateofbirth: number;
-        telephone: string;
-        email: string;
-        zipcode: string;
-        residencenumber: string;
-        street: string;
-        district: string;
-        city: string;
-        building: string;
-        buildingblock: string;
-        apartment: string;
-        crm: number;
-        consultdatestart: string;
-        consultdateend: string;
-        status: string;
-        observation: string;
-        covenant: string;
-        courtesy: string;
-        particular: string;
-        userblock: string;
-        password: string;
-    } | any;
-};
-interface EventMessage {
-    message?: string;
-    Error: boolean;
-    title?: string;
-    onClose?: () => void;
-};
-export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResult) {
+import styles from './form.module.css';
+import EventClick from '../modal/eventclick';
+export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResultFormProps) {
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
     const [age, setAge] = useState<number>(0);
@@ -85,10 +24,10 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
-    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
+    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
     const handlePass = () => setIspass(!ispass);
     const handlePassChecked = () => setIspasschecked(!ispasschecked);
-    const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const value = watch('particular');
     const password = watch('password');
     const getCheckedCpf = (data: string) => {
@@ -208,10 +147,8 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
         setValue('covenant', selectedValue !== 'covenantradio' ? '...' : '');
     };
-    const handleEventAlertClose = () => {
-        setEventAlert(null);
-    };
-    const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    const handleEventAlertClose = () => setEventAlert(null);
+    const onSubmit: SubmitHandler<InputsProps> = async (data: any) => {
         const cpf = data.cpf;
         if (!getCheckedCpf(cpf)) {
             setError('cpf', { type: 'focus' }, { shouldFocus: true });
@@ -220,7 +157,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         try {
             const formData = new FormData();
             Object.keys(data).forEach(key => {
-                formData.append(key, data[key as keyof Inputs]);
+                formData.append(key, data[key as keyof InputsProps]);
             });
 
             let response;

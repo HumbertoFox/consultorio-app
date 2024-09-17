@@ -1,8 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import ReactLoading from 'react-loading';
 import styles from '../page.module.css';
+import ReactLoading from 'react-loading';
 export default function LogoutPage() {
     const router = useRouter();
     useEffect(() => {

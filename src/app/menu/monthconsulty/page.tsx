@@ -1,10 +1,8 @@
 'use client';
-import TableReport from '@/components/tables';
-import styles from '@/app/menu/page.module.css';
 import Link from 'next/link';
-
+import styles from '@/app/menu/page.module.css';
+import TableReport from '@/components/tables';
 const CurrentMonth = new Date();
-
 export default function ReportListYMonth() {
     return (
         <table className={styles.tableconsults}>

@@ -1,8 +1,8 @@
 'use client';
-import Link from 'next/link';
-import styles from './page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookMedical, faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import styles from './page.module.css';
 export default function MenuPage() {
     return (
         <main className={styles.menu}>

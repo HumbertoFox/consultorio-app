@@ -5,23 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { SearchConsultsMonth } from '@/app/api/consultation/reqconsultationmonth';
 import { UpdateConsultationStatus } from '@/app/api/consultation/reqconsultationstatus';
-import ReactLoading from 'react-loading';
+import { ConsultProps, CrmDoctorConsultProps } from '@/interfaces/interfaces';
 import styles from './table.module.css';
-type Consult = {
-    id?: number;
-    crm?: number;
-    cpf?: string;
-    name?: string;
-    covenant?: string;
-    start?: string;
-    status?: string;
-}
-interface CrmDoctorConsultProps {
-    crm: number;
-    month: boolean;
-};
+import ReactLoading from 'react-loading';
 export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
-    const [consults, setConsults] = useState<Consult[]>([]);
+    const [consults, setConsults] = useState<ConsultProps[]>([]);
     const [notConsults, setNotConsults] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(() => {

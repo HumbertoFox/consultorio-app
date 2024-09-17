@@ -1,10 +1,9 @@
+import { faUserLock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import styles from '@/app/page.module.css';
 import FormLogin from '@/components/forms/login';
-import Image from 'next/image';
 import ImageMedicine from '@/assets/simbolo-de-medicina.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserLock } from '@fortawesome/free-solid-svg-icons';
-
 export default function LoginPage() {
     return (
         <main className={styles.mainmenu}>

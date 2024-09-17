@@ -1,20 +1,8 @@
 'use client';
 import { useState } from 'react';
+import { CalendarEventProps } from '@/interfaces/interfaces';
 import styles from './event.module.css';
-interface CalendarEvent {
-    name: string;
-    telephone: string;
-    covenant: string;
-    desc: string;
-    observation: string;
-    start: Date;
-    end: Date;
-    title: string;
-    status: string;
-    [key: string]: any;
-    onClose?: () => void;
-};
-export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, status, onClose }: CalendarEvent) {
+export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, status, onClose }: CalendarEventProps) {
     const [isClosing, setIsClosing] = useState<boolean>(false);
     const handleClose = () => {
         setIsClosing(true);

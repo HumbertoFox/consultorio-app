@@ -1,40 +1,26 @@
 'use client';
-import SideBar from '@/components/sidebar';
+import { AgendaPacient } from './api/agendapatient/reqpatients';
+import { CalendarEventProps } from '@/interfaces/interfaces';
 import { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { AgendaPacient } from './api/agendapatient/reqpatients';
-import CustomToolbar from '@/components/toobar';
-import ConsultClick from '@/components/modal/eventconsults';
 import moment from 'moment';
+import styles from './page.module.css';
+import SideBar from '@/components/sidebar';
+import ConsultClick from '@/components/modal/eventconsults';
+import CustomToolbar from '@/components/toobar';
 import 'moment/locale/pt-br';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
-import styles from './page.module.css';
-interface CalendarEvent {
-  name: string;
-  telephone: string;
-  covenant: string;
-  desc: string;
-  observation: string;
-  start: Date;
-  end: Date;
-  title: string;
-  [key: string]: any;
-};
 moment.locale('pt-br');
 const localizer = momentLocalizer(moment);
 export default function CalendarPage() {
-  const [consults, setConsults] = useState<CalendarEvent[]>([]);
-  const [consultSelected, setConsultSelected] = useState<CalendarEvent | any>(null);
-  const styleColor = (event: CalendarEvent): { style: { backgroundColor: string } } => ({
+  const [consults, setConsults] = useState<CalendarEventProps[]>([]);
+  const [consultSelected, setConsultSelected] = useState<CalendarEventProps | any>(null);
+  const styleColor = (event: CalendarEventProps): { style: { backgroundColor: string } } => ({
     style: { backgroundColor: event.color }
   });
-  const handleConsultSelectClick = (element: any) => {
-    setConsultSelected(element);
-  };
-  const handleConsultSelectClose = () => {
-    setConsultSelected(null);
-  };
+  const handleConsultSelectClick = (element: any) => setConsultSelected(element);
+  const handleConsultSelectClose = () => setConsultSelected(null);
   useEffect(() => {
     const eventAgendCalendar = async () => {
       try {

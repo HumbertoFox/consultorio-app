@@ -1,28 +1,16 @@
 'use client';
+import { SearchUser } from '@/app/api/searchuser/requser';
+import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
+import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
-import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
-import { SearchUser } from '@/app/api/searchuser/requser';
-import EventClick from '../modal/eventclick';
+import { EventMessageProps, InputsSearchCpfProps, PatDocUserSearchResultProps } from '@/interfaces/interfaces';
 import styles from './form.module.css'
-type Inputs = {
-    searchcpf: number;
-};
-interface PatDocUserSearchResult {
-    type: 'patient' | 'doctor' | 'user';
-    searchPatDocUserCpf: (patientSearch: any) => void;
-};
-interface EventMessage {
-    message?: string;
-    Error: boolean;
-    title?: string;
-    onClose?: () => void;
-};
-export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResult) {
+import EventClick from '../modal/eventclick';
+export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResultProps) {
     const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
-    const [eventAlert, setEventAlert] = useState<EventMessage | null>(null);
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>();
+    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<InputsSearchCpfProps>();
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
             const firstDigit = cpf[0];
@@ -46,10 +34,8 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
         return data === correctCpf;
     };
-    const handleEventAlertClose = () => {
-        setEventAlert(null);
-    };
-    const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    const handleEventAlertClose = () => setEventAlert(null);
+    const onSubmit: SubmitHandler<InputsSearchCpfProps> = async (data: any) => {
         const cpf = data.searchcpf as string;
         if (!getCheckedCpf(cpf)) {
             setError('searchcpf', { type: 'focus' }, { shouldFocus: true });

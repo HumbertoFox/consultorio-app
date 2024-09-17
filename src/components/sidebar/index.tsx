@@ -1,14 +1,14 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
 import { faBookOpenReader, faCheck, faNotesMedical, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Image from 'next/image';
+import styles from './sidebar.module.css';
 import ImageMedicine from '@/assets/simbolo-de-medicina.png';
 import ImageDoctorX from '@/assets/doutorx.png';
 import ImageDoctorY from '@/assets/doutory.png';
-import styles from './sidebar.module.css';
 export default function SideBar() {
     const router = useRouter();
     const [selectBar, setSelectBar] = useState<string>('');
