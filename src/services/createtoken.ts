@@ -15,7 +15,7 @@ export async function createSessionToken(payload = {}) {
             domain: 'consultorio-app.vercel.app',
             secure: true,
             httpOnly: true,
-            sameSite: 'strict',
+            sameSite: 'none',
             expires: new Date((exp as number) * 1000)
         });
     } catch (error) {

@@ -137,9 +137,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const swapRadioSelect = (element: ChangeEvent<HTMLInputElement>) => {
         const selectValue = element.target.value;
         setRadioSelect(selectValue);
-        setValue('building', selectValue !== 'buildingradio' ? '...' : '');
-        setValue('buildingblock', selectValue !== 'buildingradio' ? '...' : '');
-        setValue('apartment', selectValue !== 'buildingradio' ? '...' : '');
     };
     const swapSelectedRadio = (element: ChangeEvent<HTMLInputElement>) => {
         const selectedValue = element.target.value;
@@ -353,21 +350,25 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             <input
                                 type='text'
                                 id='building'
-                                {...register('building', { required: true, value: '...' })}
+                                placeholder={`${errors.building ? 'Campo Obrigatório' : ''}`}
+                                className={`${errors.building ? styles.required : ''}`}
+                                {...register('building', { required: true })}
                             />
                         </label>
                         <label htmlFor='buildingblock'>Bloco
                             <input
                                 type='text'
                                 id='buildingblock'
-                                {...register('buildingblock', { required: true, value: '...' })}
+                                {...register('buildingblock')}
                             />
                         </label>
                         <label htmlFor='apartment'>Apartamento
                             <input
                                 type='text'
                                 id='apartment'
-                                {...register('apartment', { required: true, value: '...' })}
+                                placeholder={`${errors.apartment ? 'Campo Obrigatório' : ''}`}
+                                className={`${errors.apartment ? styles.required : ''}`}
+                                {...register('apartment', { required: true })}
                             />
                         </label>
                     </div>
