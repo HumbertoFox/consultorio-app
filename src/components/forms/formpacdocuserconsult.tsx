@@ -206,31 +206,31 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     }, [value, setValue]);
     useEffect(() => {
         if (searchPatDocUserCpf) {
-            setValue('cpf', searchPatDocUserCpf?.cpf);
-            setValue('name', searchPatDocUserCpf?.name);
-            setValue('dateofbirth', searchPatDocUserCpf?.dateofbirth);
-            setValue('telephone', searchPatDocUserCpf?.telephone);
-            setValue('email', searchPatDocUserCpf?.email);
-            setValue('zipcode', searchPatDocUserCpf?.zipcode);
-            setValue('residencenumber', searchPatDocUserCpf?.residencenumber);
-            setValue('typeresidence', searchPatDocUserCpf.typeservice);
-            setValue('street', searchPatDocUserCpf?.street)
-            setValue('district', searchPatDocUserCpf?.district);
-            setValue('city', searchPatDocUserCpf?.city);
-            setValue('building', searchPatDocUserCpf?.building);
-            setValue('buildingblock', searchPatDocUserCpf?.buildingblock);
-            setValue('apartment', searchPatDocUserCpf?.apartment);
-            { !crm && setValue('crm', searchPatDocUserCpf?.crm); };
-            setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart);
-            setValue('consultdateend', searchPatDocUserCpf?.consultdateend);
-            setValue('observation', searchPatDocUserCpf?.observation);
+            setValue('cpf', searchPatDocUserCpf.cpf);
+            setValue('name', searchPatDocUserCpf.name);
+            setValue('dateofbirth', searchPatDocUserCpf.dateofbirth);
+            setValue('telephone', searchPatDocUserCpf.telephone);
+            setValue('email', searchPatDocUserCpf.email);
+            setValue('zipcode', searchPatDocUserCpf.zipcode);
+            setValue('residencenumber', searchPatDocUserCpf.residencenumber);
+            setValue('typeresidence', searchPatDocUserCpf.typeresidence);
+            setValue('street', searchPatDocUserCpf.street)
+            setValue('district', searchPatDocUserCpf.district);
+            setValue('city', searchPatDocUserCpf.city);
+            setValue('building', searchPatDocUserCpf.building);
+            setValue('buildingblock', searchPatDocUserCpf.buildingblock);
+            setValue('apartment', searchPatDocUserCpf.apartment);
+            { !crm && setValue('crm', searchPatDocUserCpf.crm); };
+            setValue('consultdatestart', searchPatDocUserCpf.consultdatestart);
+            setValue('consultdateend', searchPatDocUserCpf.consultdateend);
+            setValue('observation', searchPatDocUserCpf.observation);
             setValue('typeservice', searchPatDocUserCpf.typeservice);
-            setValue('covenant', searchPatDocUserCpf?.covenant);
-            setValue('courtesy', searchPatDocUserCpf?.courtesy);
-            setValue('particular', searchPatDocUserCpf?.particular);
-            setValue('password', searchPatDocUserCpf?.password);
-            setRadioSelect(searchPatDocUserCpf?.typeresidence);
-            setSelectRadio(searchPatDocUserCpf?.typeservice);
+            setValue('covenant', searchPatDocUserCpf.covenant);
+            setValue('courtesy', searchPatDocUserCpf.courtesy);
+            setValue('particular', searchPatDocUserCpf.particular);
+            setValue('password', searchPatDocUserCpf.password);
+            setRadioSelect(searchPatDocUserCpf.typeresidence);
+            setSelectRadio(searchPatDocUserCpf.typeservice);
         };
     }, [crm, searchPatDocUserCpf, setValue]);
     return (
