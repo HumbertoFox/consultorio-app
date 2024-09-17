@@ -13,7 +13,7 @@ export async function createSessionToken(payload = {}) {
         cookies().set('session', session, {
             name: 'session',
             path: '/',
-            domain: 'localhost',
+            domain: 'consultorio-app.vercel.app',
             secure: true,
             httpOnly: true,
             sameSite: 'none',
