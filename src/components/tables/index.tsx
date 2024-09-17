@@ -75,9 +75,7 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
         if (status === 'Atendido') return styles.serviced;
         return styles.confirm;
     };
-    const handlePrint = () => {
-        window.print();
-    };
+    const handlePrint = () => window.print();
     if (loading) {
         return <div className={styles.loading}><ReactLoading type='spin' color='#3C91E6' height={100} width={100} /></div>;
     };
@@ -101,6 +99,7 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                         <td>
                             {notConsults}
                         </td>
+                        <td></td><td></td>
                     </tr>
                 )}
                 {consults.map((consul: any) => (
@@ -125,16 +124,16 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                         </td>
                     </tr>
                 ))}
-                {consults.length !== 0 && (<tr>
-                    <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={7}>
-                        <button title='Imprimir' type='button' onClick={handlePrint}>
-                            <FontAwesomeIcon icon={faPrint} />
-                        </button>
-                    </td>
-                </tr>
+                {consults.length !== 0 && (
+                    <tr>
+                        <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={7}>
+                            <button title='Imprimir' type='button' onClick={handlePrint}>
+                                <FontAwesomeIcon icon={faPrint} />
+                            </button>
+                        </td>
+                    </tr>
                 )}
             </tbody>
-
         </table>
     );
 };

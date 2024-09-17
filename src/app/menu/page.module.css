@@ -132,8 +132,10 @@
     text-shadow: none;
   }
 
-  .tableconsults tbody {
-    width: 100%;
+  .tableconsults tbody table {
+    width: auto;
+    display: inline-block;
+    padding-top: 10px;
   }
 
   .no-print {

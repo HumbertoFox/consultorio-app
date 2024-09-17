@@ -106,6 +106,86 @@ Tela do Menu!
 
 <img src="https://github.com/user-attachments/assets/96d17f9c-657a-4629-820c-9b5547f353f1" width="250px"/>
 
+##
+
+Função de Impressão Js.
+
+<img src="https://github.com/user-attachments/assets/5f8ae06d-2574-48a8-8c9b-f8ada104034c" width="250px"/>
+
+```Js
+
+    const handlePrint = () => window.print();
+
+```
+
+##
+
+<img src="https://github.com/user-attachments/assets/a25b960b-f9b9-463c-8e26-77e1a6b20c80" width="250px"/>
+
+verificando se o resultado é vazio não exibir o botão de imprimir se over resultado exiba.
+
+```tsx
+
+    {consults.length !== 0 && (
+        <tr>
+            <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={7}>
+                <button title='Imprimir' type='button' onClick={handlePrint}>
+                    <FontAwesomeIcon icon={faPrint} />
+                </button>
+            </td>
+        </tr>
+    )}
+
+```
+
+##
+
+Impressão de tabela ajuste css.
+
+<img src="https://github.com/user-attachments/assets/9fbee648-0fed-4b8b-a779-593ae49d6689" width="250px"/>
+
+##
+
+```css
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .print-content {
+        width: 100vw;
+        display: block;
+        border-collapse: collapse; /* Remove o espaço entre as bordas */
+        page-break-inside: avoid; /* Evita quebra de página dentro da tabela */
+    }
+
+    .table thead th,
+    .table tbody td {
+        font-size: 0.8rem;
+        padding: 9px;
+        border: 1px solid #DDD;
+    }
+
+    .table thead th {
+        background-color: #F2F2F2;
+        text-shadow: none;
+    }
+
+    .printtd svg {
+        display: none;
+    }
+
+    .confirmed,
+    .cancel,
+    .serviced,
+    .confirm {
+        color: black;
+    }
+}
+
+```
+
 ## Continue...
 
 <div align="center">

@@ -90,6 +90,7 @@
         width: 100vw;
         display: block;
         border-collapse: collapse;
+        page-break-inside: avoid;
     }
 
     .table thead th,
@@ -114,5 +115,4 @@
     .confirm {
         color: black;
     }
-
 }
