@@ -36,6 +36,7 @@ export async function SearchDoctor(formData: FormData) {
             district: doctor.doctor_address.address_zipcode.district,
             city: doctor.doctor_address.address_zipcode.city,
             residencenumber: doctor.doctor_address.residencenumber,
+            typeresidence: doctor.doctor_address.typeresidence,
             building: doctor.doctor_address.building,
             buildingblock: doctor.doctor_address.buildingblock,
             apartment: doctor.doctor_address.apartment

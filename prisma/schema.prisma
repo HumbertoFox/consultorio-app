@@ -10,8 +10,9 @@ datasource db {
 
 model Address {
   address_id      Int       @id @default(autoincrement())
-  zipcode         String
+  zipcode         String    @db.VarChar(50)
   residencenumber String    @db.VarChar(50)
+  typeresidence   String    @db.VarChar(50)
   building        String?   @db.VarChar(100)
   buildingblock   String?   @db.VarChar(50)
   apartment       String?   @db.VarChar(50)
@@ -27,12 +28,13 @@ model Address {
 
 model Consultation {
   consultation_id      Int                @id @default(autoincrement())
-  cpf                  String
-  crm                  String
+  cpf                  String             @db.VarChar(50)
+  crm                  String             @db.VarChar(50)
+  typeservice          String             @db.VarChar(50)
   covenant             String?            @db.VarChar(50)
   particular           String?            @db.VarChar(50)
   courtesy             String?            @db.VarChar(20)
-  observation          String
+  observation          String             @db.VarChar(250)
   consultdatestart     String
   consultdateend       String
   status               Consultationstatus @default(Confirmar)

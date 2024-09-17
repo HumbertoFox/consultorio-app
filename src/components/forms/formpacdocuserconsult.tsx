@@ -25,9 +25,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
     const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
+    const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const handlePass = () => setIspass(!ispass);
     const handlePassChecked = () => setIspasschecked(!ispasschecked);
-    const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const value = watch('particular');
     const password = watch('password');
     const getCheckedCpf = (data: string) => {
@@ -208,7 +208,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setValue('particular', formatValue, { shouldValidate: true });
     }, [value, setValue]);
     useEffect(() => {
-
         if (searchPatDocUserCpf) {
             setValue('cpf', searchPatDocUserCpf?.cpf);
             setValue('name', searchPatDocUserCpf?.name);
@@ -217,22 +216,25 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('email', searchPatDocUserCpf?.email);
             setValue('zipcode', searchPatDocUserCpf?.zipcode);
             setValue('residencenumber', searchPatDocUserCpf?.residencenumber);
+            setValue('typeresidence', searchPatDocUserCpf.typeservice);
             setValue('street', searchPatDocUserCpf?.street)
             setValue('district', searchPatDocUserCpf?.district);
             setValue('city', searchPatDocUserCpf?.city);
             setValue('building', searchPatDocUserCpf?.building);
             setValue('buildingblock', searchPatDocUserCpf?.buildingblock);
             setValue('apartment', searchPatDocUserCpf?.apartment);
-            { !crm && setValue('crm', searchPatDocUserCpf?.crm); }
+            { !crm && setValue('crm', searchPatDocUserCpf?.crm); };
             setValue('consultdatestart', searchPatDocUserCpf?.consultdatestart);
             setValue('consultdateend', searchPatDocUserCpf?.consultdateend);
             setValue('observation', searchPatDocUserCpf?.observation);
+            setValue('typeservice', searchPatDocUserCpf.typeservice);
             setValue('covenant', searchPatDocUserCpf?.covenant);
             setValue('courtesy', searchPatDocUserCpf?.courtesy);
             setValue('particular', searchPatDocUserCpf?.particular);
             setValue('password', searchPatDocUserCpf?.password);
+            setRadioSelect(searchPatDocUserCpf?.typeresidence);
+            setSelectRadio(searchPatDocUserCpf?.typeservice);
         };
-
     }, [crm, searchPatDocUserCpf, setValue]);
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -330,8 +332,8 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             id='house'
                             value='house'
-                            checked={radioSelect === 'house' ? true : false}
-                            onChange={swapRadioSelect}
+                            defaultChecked
+                            {...register('typeresidence', { onChange: swapRadioSelect })}
                         />
                         Casa
                     </label>
@@ -340,8 +342,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             id='buildingradio'
                             value='buildingradio'
-                            checked={radioSelect === 'buildingradio' ? true : false}
-                            onChange={swapRadioSelect}
+                            {...register('typeresidence')}
                         />
                         Edifício
                     </label>
@@ -426,8 +427,8 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             id='covenantradio'
                             value='covenantradio'
-                            checked={selectRadio === 'covenantradio' ? true : false}
-                            onChange={swapSelectedRadio}
+                            defaultChecked
+                            {...register('typeservice', { onChange: swapSelectedRadio })}
                         />
                         Covênio
                     </label>
@@ -436,8 +437,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             id='particularradio'
                             value='particularradio'
-                            checked={selectRadio === 'particularradio' ? true : false}
-                            onChange={swapSelectedRadio}
+                            {...register('typeservice')}
                         />
                         Particular
                     </label>
@@ -446,8 +446,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             id='courtesyradio'
                             value='courtesyradio'
-                            checked={selectRadio === 'courtesyradio' ? true : false}
-                            onChange={swapSelectedRadio}
+                            {...register('typeservice')}
                         />
                         Cortesia
                     </label>

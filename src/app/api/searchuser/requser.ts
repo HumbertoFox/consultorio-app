@@ -34,6 +34,7 @@ export async function SearchUser(formData: FormData) {
             district: user.user_address.address_zipcode.district,
             city: user.user_address.address_zipcode.city,
             residencenumber: user.user_address.residencenumber,
+            typeresidence: user.user_address.typeresidence,
             building: user.user_address.building,
             buildingblock: user.user_address.buildingblock,
             apartment: user.user_address.apartment

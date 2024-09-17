@@ -35,6 +35,7 @@ export async function SearchPatient(formData: FormData) {
             district: patient.parient_address.address_zipcode.district,
             city: patient.parient_address.address_zipcode.city,
             residencenumber: patient.parient_address.residencenumber,
+            typeresidence: patient.parient_address.typeresidence,
             building: patient.parient_address.building,
             buildingblock: patient.parient_address.buildingblock,
             apartment: patient.parient_address.apartment

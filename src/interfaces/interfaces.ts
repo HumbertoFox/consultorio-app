@@ -6,6 +6,7 @@ export interface InputsProps {
     email?: string;
     zipcode?: string;
     residencenumber?: string;
+    typeresidence?: string;
     street?: string;
     district?: string;
     city?: string;
@@ -17,6 +18,7 @@ export interface InputsProps {
     consultdateend?: string;
     status?: string;
     observation?: string;
+    typeservice?: string;
     covenant?: string;
     courtesy?: string;
     particular?: string;
@@ -95,6 +97,7 @@ export interface PatDocUserSearchResultFormProps {
         email: string;
         zipcode: string;
         residencenumber: string;
+        typeresidence: string;
         street: string;
         district: string;
         city: string;
@@ -106,6 +109,7 @@ export interface PatDocUserSearchResultFormProps {
         consultdateend: string;
         status: string;
         observation: string;
+        typeservice: string;
         covenant: string;
         courtesy: string;
         particular: string;

@@ -9,6 +9,7 @@ export async function EditPatient(formData: FormData) {
     const email = formData.get('email') as string;
     const zipcode = formData.get('zipcode') as string;
     const residencenumber = formData.get('residencenumber') as string;
+    const typeresidence = formData.get('typeresidence') as string;
     const street = formData.get('street') as string;
     const district = formData.get('district') as string;
     const city = formData.get('city') as string;
@@ -32,7 +33,7 @@ export async function EditPatient(formData: FormData) {
             where: { zipcode }
         });
         let checkedAddress = await prisma.address.findFirst({
-            where: { zipcode, residencenumber, building, buildingblock, apartment }
+            where: { zipcode, residencenumber, typeresidence, building, buildingblock, apartment }
         });
         if (checkedCpf) {
             await prisma.cpf.update({
@@ -61,7 +62,7 @@ export async function EditPatient(formData: FormData) {
         };
         if (!checkedAddress) {
             checkedAddress = await prisma.address.create({
-                data: { zipcode, residencenumber, building, buildingblock, apartment }
+                data: { zipcode, residencenumber, typeresidence, building, buildingblock, apartment }
             });
         };
         await prisma.patient.update({

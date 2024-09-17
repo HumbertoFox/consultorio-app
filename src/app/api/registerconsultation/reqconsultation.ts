@@ -24,6 +24,7 @@ export async function RegisterConsultation(formData: FormData) {
     const email = formData.get('email') as string;
     const zipcode = formData.get('zipcode') as string;
     const residencenumber = formData.get('residencenumber') as string;
+    const typeresidence = formData.get('typeresidence') as string;
     const street = formData.get('street') as string;
     const district = formData.get('district') as string;
     const city = formData.get('city') as string;
@@ -34,6 +35,7 @@ export async function RegisterConsultation(formData: FormData) {
     const consultdatestart = formData.get('consultdatestart') as string;
     const consultdateend = formData.get('consultdateend') as string;
     const observation = formData.get('observation') as string;
+    const typeservice = formData.get('typeservice') as string;
     const covenant = formData.get('covenant') as string;
     const courtesy = formData.get('courtesy') as string;
     const particular = formData.get('particular') as string;
@@ -79,11 +81,11 @@ export async function RegisterConsultation(formData: FormData) {
                 });
             };
             let existingAddress = await prisma.address.findFirst({
-                where: { zipcode, residencenumber, building, buildingblock, apartment }
+                where: { zipcode, residencenumber, typeresidence, building, buildingblock, apartment }
             });
             if (!existingAddress) {
                 existingAddress = await prisma.address.create({
-                    data: { zipcode, residencenumber, building, buildingblock, apartment }
+                    data: { zipcode, residencenumber, typeresidence, building, buildingblock, apartment }
                 });
             };
             existingPatient = await prisma.patient.create({
@@ -94,6 +96,7 @@ export async function RegisterConsultation(formData: FormData) {
             data: {
                 cpf,
                 crm,
+                typeservice,
                 covenant,
                 particular,
                 courtesy,
