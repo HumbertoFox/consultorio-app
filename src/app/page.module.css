@@ -48,14 +48,12 @@
   gap: 15px;
 }
 
-.menu h1,
 .login h1 {
   font-size: 1rem;
   color: hsl(205.46, 86.5%, 46.47%);
   text-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
 }
 
-.menusection,
 .loginsection {
   display: flex;
   justify-content: center;
@@ -69,24 +67,9 @@
   margin: 0 30px;
 }
 
-.menusection div {
-  display: flex;
-  gap: 30px;
-}
-
-.menusection svg,
 .iconlogin {
   font-size: 72px;
   color: hsl(205.46, 86.5%, 46.47%);
-}
-
-.menusection a {
-  transition: .4s ease-in-out;
-}
-
-.menusection a:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(hsl(120, 73.44%, 74.9%) 0 0 5px);
 }
 
 .loginsection {

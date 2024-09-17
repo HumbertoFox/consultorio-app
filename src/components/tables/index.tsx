@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import { SearchConsults } from '@/app/api/consultation/reqconsultation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import { SearchConsultsMonth } from '@/app/api/consultation/reqconsultationmonth';
 import { UpdateConsultationStatus } from '@/app/api/consultation/reqconsultationstatus';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
 import ReactLoading from 'react-loading';
 import styles from './table.module.css';
 type Consult = {
@@ -15,17 +16,23 @@ type Consult = {
     start?: string;
     status?: string;
 }
-interface CrmDoctor {
+interface CrmDoctorConsultProps {
     crm: number;
+    month: boolean;
 };
-export default function TableReport({ crm }: CrmDoctor) {
+export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
     const [consults, setConsults] = useState<Consult[]>([]);
     const [notConsults, setNotConsults] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(() => {
         const getConsults = async () => {
             try {
-                const response = await SearchConsults(crm.toString());
+                let response;
+                if (month) {
+                    response = await SearchConsultsMonth(crm.toString());
+                } else {
+                    response = await SearchConsults(crm.toString());
+                };
                 const resArray = Object.values(response);
                 if (resArray[0] === 204) {
                     return setNotConsults(resArray[2]);
@@ -49,7 +56,7 @@ export default function TableReport({ crm }: CrmDoctor) {
             };
         };
         getConsults();
-    }, [crm]);
+    }, [crm, month]);
     const handleStatusChange = async (consultId: number, newStatus: string) => {
         try {
             await UpdateConsultationStatus(consultId, newStatus);
@@ -68,11 +75,14 @@ export default function TableReport({ crm }: CrmDoctor) {
         if (status === 'Atendido') return styles.serviced;
         return styles.confirm;
     };
+    const handlePrint = () => {
+        window.print();
+    };
     if (loading) {
         return <div className={styles.loading}><ReactLoading type='spin' color='#3C91E6' height={100} width={100} /></div>;
     };
     return (
-        <table className={styles.table}>
+        <table className={`${styles.table} ${styles['print-content']}`}>
             <thead>
                 <tr>
                     <th title='Código da consulta'>Cód.</th>
@@ -116,8 +126,10 @@ export default function TableReport({ crm }: CrmDoctor) {
                     </tr>
                 ))}
                 {consults.length !== 0 && (<tr>
-                    <td className={styles.print}>
-                        <FontAwesomeIcon icon={faPrint} />
+                    <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={7}>
+                        <button title='Imprimir' type='button' onClick={handlePrint}>
+                            <FontAwesomeIcon icon={faPrint} />
+                        </button>
                     </td>
                 </tr>
                 )}

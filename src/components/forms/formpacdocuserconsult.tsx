@@ -1,20 +1,20 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { EditUser } from '@/app/api/edituser/requser';
 import { viaCepApi } from '@/app/api/viacep';
+import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
+import { EditPatient } from '@/app/api/editpatient/reqpatient';
+import { BlockedUser } from '@/app/api/blockeduser/requser';
+import { RegisterUser } from '@/app/api/registeruser/requser';
+import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
+import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
-import { EditPatient } from '@/app/api/editpatient/reqpatient';
-import { EditUser } from '@/app/api/edituser/requser';
-import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
-import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
-import { RegisterDoctor } from '@/app/api/registerdoctor/reqdoctor';
-import { RegisterUser } from '@/app/api/registeruser/requser';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
-import { BlockedUser } from '@/app/api/blockeduser/requser';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ChangeEvent, useEffect, useState } from 'react';
 import EventClick from '../modal/eventclick';
 import styles from './form.module.css';
+import Link from 'next/link';
 type Inputs = {
     cpf?: number;
     name?: string;
@@ -78,7 +78,6 @@ interface EventMessage {
     onClose?: () => void;
 };
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResult) {
-    const router = useRouter();
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
     const [age, setAge] = useState<number>(0);
@@ -410,7 +409,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         Edifício
                     </label>
                 </div>
-                {radioSelect === 'buildingradio' &&
+                {radioSelect === 'buildingradio' && (
                     <div className={styles.divbuilding}>
                         <label htmlFor='building'>Nome do Edifício
                             <input
@@ -434,7 +433,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             />
                         </label>
                     </div>
-                }
+                )}
                 <label htmlFor='district'>Bairro/Distrito
                     <input
                         type='text'
@@ -599,7 +598,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             }
             <div className={styles.divbtn}>
                 <input type='submit' title={buttons} value={buttons} />
-                {buttons !== 'Agendar' && <button type='button' title='Voltar ao Menu' onClick={() => router.push('/menu')} aria-label='Voltar ao Menu'>Menu</button>}
+                {buttons !== 'Agendar' && (<Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu'>Menu</Link>)}
             </div>
             {eventAlert && (<EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />)}
         </form >

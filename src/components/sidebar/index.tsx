@@ -35,7 +35,7 @@ export default function SideBar() {
         };
     }, [router]);
     return (
-        <div className={styles.divsidebar}>
+        <div className={`${styles.divsidebar} ${styles['no-print']}`}>
             <Link href={'/menu'} onClick={() => handleBarClick('Menu')} title='Menu'>
                 <Image src={ImageMedicine} className={styles.imgnedicina} width={150} height={150} alt='Imagem Logo Medicina' priority />
             </Link>

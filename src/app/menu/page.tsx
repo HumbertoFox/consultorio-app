@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
+import { faBookMedical, faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
 export default function MenuPage() {
     return (
         <main className={styles.menu}>
@@ -15,6 +15,14 @@ export default function MenuPage() {
                         </Link>
                         <Link href={'/menu/registerpatients'} title='Cadastrar Paciente'>
                             <FontAwesomeIcon icon={faBed} />
+                        </Link>
+                    </div>
+                    <div>
+                        <Link href={'/menu/monthconsultx'} title='Exibir Consulta do Mês, CRM 8185'>
+                            <FontAwesomeIcon icon={faBookMedical} />
+                        </Link>
+                        <Link href={'/menu/monthconsulty'} title='Exibir Consulta do Mês, CRM 6733'>
+                            <FontAwesomeIcon icon={faBookMedical} />
                         </Link>
                     </div>
                     <div>

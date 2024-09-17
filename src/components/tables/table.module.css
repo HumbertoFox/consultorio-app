@@ -57,21 +57,62 @@
     color: blue;
 }
 
-.print {
+.printtd {
     text-align: start;
     padding-top: 20px;
 }
 
-.print svg {
+.printtd button {
+    background: none;
+    border: none;
+}
+
+.printtd svg {
     font-size: 2rem;
     cursor: pointer;
     transition: .4s ease-in-out;
 }
 
-.print svg:hover {
+.printtd svg:hover {
     color: green;
 }
 
-.print svg:active {
+.printtd svg:active {
     color: blue;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .print-content {
+        width: 100vw;
+        display: block;
+        border-collapse: collapse;
+    }
+
+    .table thead th,
+    .table tbody td {
+        font-size: 0.8rem;
+        padding: 9px;
+        border: 1px solid #DDD;
+    }
+
+    .table thead th {
+        background-color: #F2F2F2;
+        text-shadow: none;
+    }
+
+    .printtd svg {
+        display: none;
+    }
+
+    .confirmed,
+    .cancel,
+    .serviced,
+    .confirm {
+        color: black;
+    }
+
 }
