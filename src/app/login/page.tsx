@@ -10,7 +10,7 @@ export default function LoginPage() {
             <div className={styles.login}>
                 <h1>Usuário do Sistema</h1>
                 <section className={styles.loginsection}>
-                    <Image src={ImageMedicine} className={styles.imgnedicina} width={110} height={110} alt='Imagem Logo Medicina' priority />
+                    <Image src={ImageMedicine} className={styles.imgnedicina} width={110} height={110} alt='Imagem Logo Medicina' rel='preload' priority />
                     <FontAwesomeIcon icon={faUserLock} className={styles.iconlogin} />
                     <FormLogin />
                 </section>
