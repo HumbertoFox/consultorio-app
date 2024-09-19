@@ -9,7 +9,7 @@ export default function LogoutPage() {
     useEffect(() => {
         const logout = async () => {
             await GetLogout();
-            router.push('/login');
+            // router.push('/login');
         };
         const timer = setTimeout(logout, 3000);
         return () => clearTimeout(timer);
