@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { loginAuth } from '@/app/modules/auth/actions/authactions';
+import { loginAuth } from '@/app/api/modules/actions/auth/authactions';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';

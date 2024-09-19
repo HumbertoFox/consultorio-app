@@ -1,7 +1,7 @@
 'use server';
 import * as jose from 'jose';
 import { cookies } from 'next/headers';
-import { openSessionToken } from './opentoken';
+import { openSessionToken } from '@/app/api/modules/actions/opentoken';
 export async function createSessionToken(payload = {}) {
     try {
         const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
@@ -13,7 +13,7 @@ export async function createSessionToken(payload = {}) {
         cookies().set('session', session, {
             httpOnly: true,
             path: '/',
-            domain: 'consultorio-app.vercel.app',
+            domain: 'localhost',
             secure: true,
             sameSite: 'none',
             expires: new Date((exp as number) * 1000)

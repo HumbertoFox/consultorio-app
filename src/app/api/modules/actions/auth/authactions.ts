@@ -1,5 +1,5 @@
 'use server';
-import { createSessionToken } from '@/services/createtoken';
+import { createSessionToken } from '@/app/api/modules/actions/createtoken';
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();

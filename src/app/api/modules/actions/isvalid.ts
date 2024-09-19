@@ -1,6 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
-import { openSessionToken } from './opentoken';
+import { openSessionToken } from '@/app/api/modules/actions/opentoken';
 export async function isSessionValid(): Promise<boolean> {
     const sessionCookies = cookies().get('session');
     if (sessionCookies) {

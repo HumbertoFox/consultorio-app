@@ -1,7 +1,7 @@
 'use server';
 import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
-import { openSessionToken } from '@/services/opentoken';
+import { openSessionToken } from '@/app/api/modules/actions/opentoken';
 const prisma = new PrismaClient();
 export async function RegisterDoctor(formData: FormData) {
     const sessionCookies = cookies().get('session');

@@ -1,5 +1,5 @@
 'use server';
-import { isSessionValid } from '@/services/isvalid';
+import { isSessionValid } from '@/app/api/modules/actions/isvalid';
 import { NextRequest, NextResponse } from 'next/server';
 export const config = {
     matcher: '/((?!_next/static|_next/image|favicon.ico).*)'
