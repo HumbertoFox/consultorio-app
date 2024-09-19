@@ -1,14 +1,14 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { GetLogout } from '../api/logout/logoutcookies';
+import { destroySession } from '../api/modules/actions/removecookies';
 import styles from '../page.module.css';
 import ReactLoading from 'react-loading';
 export default function LogoutPage() {
     const router = useRouter();
     useEffect(() => {
         const logout = async () => {
-            await GetLogout();
+            await destroySession();
             router.push('/login');
         };
         const timer = setTimeout(logout, 3000);
