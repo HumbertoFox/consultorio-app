@@ -11,7 +11,7 @@ export async function createSessionToken(payload = {}) {
             .sign(secret);
         const { exp } = await openSessionToken(session);
         cookies().set('session', session, {
-            httpOnly: false,
+            httpOnly: true,
             path: '/',
             domain: 'consultorio-app.vercel.app',
             secure: true,
