@@ -1,14 +1,17 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { GetLogout } from '../api/logout/logoutcookies';
 import styles from '../page.module.css';
 import ReactLoading from 'react-loading';
 export default function LogoutPage() {
     const router = useRouter();
     useEffect(() => {
-        const timer = setTimeout(() => {
-            router.push('../api/logout');
-        }, 3000);
+        const logout = async () => {
+            await GetLogout();
+            router.push('/login');
+        };
+        const timer = setTimeout(logout, 3000);
         return () => clearTimeout(timer);
     }, [router]);
     return (
