@@ -81,7 +81,7 @@
     color: blue;
 }
 
-@media screen {
+@media screen and (max-width: 480px) {
     .table thead th {
         font-size: .69rem;
     }
