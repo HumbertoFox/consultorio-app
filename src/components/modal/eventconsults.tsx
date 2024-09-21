@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { CalendarEventProps } from '@/interfaces/interfaces';
 import styles from './event.module.css';
-export default function ConsultClick({ name, telephone, covenant, desc, observation, start, end, title, status, onClose }: CalendarEventProps) {
+export default function ConsultClick({ name, telephone, returnconsult, covenant, desc, observation, start, end, title, status, onClose }: CalendarEventProps) {
     const [isClosing, setIsClosing] = useState<boolean>(false);
     const handleClose = () => {
         setIsClosing(true);
@@ -14,6 +14,9 @@ export default function ConsultClick({ name, telephone, covenant, desc, observat
         <div className={styles.diveventmain}>
             <section className={isClosing ? styles.sectionUp : styles.sectionDown}>
                 <h3><strong>Status:</strong> {status}</h3>
+                {returnconsult === 'Sim' && (
+                    <p><strong>Volta:</strong> {returnconsult}</p>
+                )}
                 <h4><strong>CPF:</strong> {title}</h4>
                 <h5><strong>Nome:</strong> {name}</h5>
                 <p><strong>Telefone:</strong> {telephone}</p>

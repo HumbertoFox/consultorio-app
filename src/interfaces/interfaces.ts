@@ -1,3 +1,7 @@
+enum Returnconsult {
+    yes = 'Sim',
+    no = 'Não'
+};
 export interface InputsProps {
     cpf?: number;
     name?: string;
@@ -19,6 +23,7 @@ export interface InputsProps {
     status?: string;
     observation?: string;
     typeservice?: string;
+    returnconsult?: Returnconsult;
     covenant?: string;
     courtesy?: string;
     particular?: string;
@@ -48,6 +53,7 @@ export interface EventMessageProps {
 export interface CalendarEventProps {
     name: string;
     telephone: string;
+    returnconsult: string;
     covenant: string;
     desc: string;
     observation: string;

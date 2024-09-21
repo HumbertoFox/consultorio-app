@@ -39,6 +39,11 @@
     cursor: pointer;
 }
 
+.form select {
+    width: 220px;
+    background: none;
+}
+
 .form input[type=text],
 .form input[type=number],
 .form input[type=tel],
@@ -48,7 +53,8 @@
 .form input[type=search],
 .form input[type=date],
 .form input[type=datetime-local],
-.form textarea {
+.form textarea,
+.form select {
     height: 30px;
     border: 1px solid #D2D4DE;
     border-radius: 5px;
@@ -67,8 +73,10 @@
 .form input[type=search]:focus,
 .form input[type=date]:focus,
 .form input[type=datetime-local]:focus,
-.form textarea:focus {
+.form textarea:focus,
+.form select:focus {
     border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    border-radius: 5px;
     box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
 }
 

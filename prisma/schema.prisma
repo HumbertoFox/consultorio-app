@@ -31,6 +31,7 @@ model Consultation {
   cpf                  String             @db.VarChar(50)
   crm                  String             @db.VarChar(50)
   typeservice          String             @db.VarChar(50)
+  returnconsult        String             @db.VarChar(50)
   covenant             String?            @db.VarChar(50)
   particular           String?            @db.VarChar(50)
   courtesy             String?            @db.VarChar(20)

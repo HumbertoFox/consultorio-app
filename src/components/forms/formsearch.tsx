@@ -44,7 +44,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         try {
             const formData = new FormData();
             formData.append('cpf', cpf);
-
             let result;
             switch (type) {
                 case 'patient':
@@ -57,7 +56,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                     result = await SearchUser(formData);
                     break;
             };
-
             setPatDocUserSearch(result);
             setEventAlert(result);
 

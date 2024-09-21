@@ -7,14 +7,26 @@ export async function SearchPatient(formData: FormData) {
         if (!cpf) {
             return { status: 400, Error: true, message: 'CPF Não encontrado!' }
         };
+        const latestConsultation = await prisma.consultation.findFirst({
+            where: { cpf },
+            orderBy: { consultdatestart: 'desc' },
+            select: { consultdatestart: true }
+        });
+        let isLastConsultationOld = false;
+        if (latestConsultation) {
+            const lastConsultationDate = new Date(latestConsultation.consultdatestart);
+            const currentDate = new Date();
+            const daysDifference = Math.floor((currentDate.getTime() - lastConsultationDate.getTime()) / (1000 * 60 * 60 * 24));
+            if (daysDifference <= 30) {
+                isLastConsultationOld = true;
+            };
+        };
         const patient = await prisma.patient.findFirst({
             where: { cpf },
             include: {
                 patient_cpf: true,
                 parient_address: {
-                    include: {
-                        address_zipcode: true
-                    }
+                    include: { address_zipcode: true }
                 },
                 patient_telephone: true,
                 patient_consultation: true
@@ -38,7 +50,13 @@ export async function SearchPatient(formData: FormData) {
             typeresidence: patient.parient_address.typeresidence,
             building: patient.parient_address.building,
             buildingblock: patient.parient_address.buildingblock,
-            apartment: patient.parient_address.apartment
+            apartment: patient.parient_address.apartment,
+            typeservice: patient.patient_consultation[0].typeservice,
+            covenant: patient.patient_consultation[0].covenant,
+            particular: patient.patient_consultation[0].particular,
+            courtesy: patient.patient_consultation[0].courtesy,
+            observation: patient.patient_consultation[0].observation,
+            isLastConsultationOld
         };
         return { status: 200, Error: false, message: 'Paciente encontrado!', listpatient };
     } catch (Error) {

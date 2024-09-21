@@ -36,13 +36,17 @@ export async function RegisterConsultation(formData: FormData) {
     const consultdateend = formData.get('consultdateend') as string;
     const observation = formData.get('observation') as string;
     const typeservice = formData.get('typeservice') as string;
+    const returnconsult = formData.get('returnconsult') as string;
     const covenant = formData.get('covenant') as string;
     const courtesy = formData.get('courtesy') as string;
     const particular = formData.get('particular') as string;
+    const returnConsultValue = returnconsult === null ? 'Não' : returnconsult;
     try {
-        let existingPatient = await prisma.patient.findFirst({
-            where: { cpf }
-        });
+        const existingDoctor = await prisma.doctor.findFirst({ where: { crm } });
+        if (!existingDoctor) {
+            return { status: 400, Error: true, message: 'Doutor não Cadastrado!' };
+        };
+        let existingPatient = await prisma.patient.findFirst({ where: { cpf } });
         const existingConsultation = await prisma.consultation.findFirst({
             where: {
                 crm, status: { in: ['Confirmar', 'Confirmada'] },
@@ -97,6 +101,7 @@ export async function RegisterConsultation(formData: FormData) {
                 cpf,
                 crm,
                 typeservice,
+                returnconsult: returnConsultValue,
                 covenant,
                 particular,
                 courtesy,

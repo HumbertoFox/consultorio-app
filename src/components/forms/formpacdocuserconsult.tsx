@@ -25,6 +25,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
     const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
+    const [isReturn, setIsReturn] = useState<boolean>(false);
     const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const handlePass = () => setIspass(!ispass);
     const handlePassChecked = () => setIspasschecked(!ispasschecked);
@@ -142,7 +143,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         const selectedValue = element.target.value;
         setSelectRadio(selectedValue);
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
-        setValue('covenant', selectedValue !== 'covenantradio' ? '...' : '');
     };
     const handleEventAlertClose = () => setEventAlert(null);
     const onSubmit: SubmitHandler<InputsProps> = async (data: any) => {
@@ -156,7 +156,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             Object.keys(data).forEach(key => {
                 formData.append(key, data[key as keyof InputsProps]);
             });
-
             let response;
             switch (docpatuser) {
                 case 'patient':
@@ -184,14 +183,12 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     response = await RegisterConsultation(formData);
                     break;
             };
-
             if (response.Error === false) {
                 reset();
                 setEventAlert(response);
             } else {
                 setEventAlert(response);
             };
-
         } catch (error) {
             console.error('Erro ao Conectar ao Banco:', error);
             setEventAlert({
@@ -229,6 +226,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('courtesy', searchPatDocUserCpf.courtesy);
             setValue('particular', searchPatDocUserCpf.particular);
             setValue('password', searchPatDocUserCpf.password);
+            setIsReturn(searchPatDocUserCpf.isLastConsultationOld);
             setRadioSelect(searchPatDocUserCpf.typeresidence);
             setSelectRadio(searchPatDocUserCpf.typeservice);
         };
@@ -460,7 +458,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         id='covenant'
                         placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
                         className={`${errors.covenant ? styles.required : ''}`}
-                        {...register('covenant', { required: true, value: '...' })}
+                        {...register('covenant', { required: true })}
                     />
                 </label>
                 }
@@ -483,6 +481,15 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     />
                 </label>
                 }
+                {isReturn && (
+                    <label htmlFor='returnconsult'>Volta/Retorno
+                        <select
+                            {...register('returnconsult')}>
+                            <option value='yes'>Sim</option>
+                            <option value='no'>Não</option>
+                        </select>
+                    </label>
+                )}
                 {buttons === 'Agendar' && <label htmlFor='consultdatestart'>Data da Consulta Inicio
                     <input
                         type='datetime-local'

@@ -22,6 +22,7 @@ export async function AgendaPacient() {
                 desc: consultation.crm,
                 covenant: consultation.covenant,
                 observation: consultation.observation,
+                returnconsult: consultation.returnconsult,
                 status: consultation.status
             };
         }));
