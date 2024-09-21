@@ -28,6 +28,7 @@ export async function SearchConsultsMonth(crm: string) {
                 crm: consult.crm,
                 cpf: consult.cpf,
                 name: consult.consultation_cpf.name,
+                returnconsult: consult.returnconsult,
                 covenant: consult.covenant,
                 start: consult.consultdatestart,
                 status: consult.status

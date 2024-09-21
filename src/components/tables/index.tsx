@@ -78,12 +78,13 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                     <th title='Convênio do Paciente'>Covênio</th>
                     <th title='Horário e Data da consulta'>H/D</th>
                     <th title='Status da Consulta'>Status</th>
+                    <th title='Volta/Retorno'>Retorno</th>
                 </tr>
             </thead>
             <tbody>
                 {notConsults && (
                     <tr className={styles.error}>
-                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
                         <td>
                             {notConsults}
                         </td>
@@ -110,6 +111,7 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                                 <option value='Atendido' className={styles.serviced}>Atendido</option>
                             </select>
                         </td>
+                        <td>{consul.returnconsult}</td>
                     </tr>
                 ))}
                 {consults.length !== 0 && (

@@ -36,6 +36,7 @@ export interface ConsultProps {
     crm?: number;
     cpf?: string;
     name?: string;
+    returnconsult?: Returnconsult;
     covenant?: string;
     start?: string;
     status?: string;
@@ -116,6 +117,7 @@ export interface PatDocUserSearchResultFormProps {
         status: string;
         observation: string;
         typeservice: string;
+        returnconsult: Returnconsult;
         covenant: string;
         courtesy: string;
         particular: string;
