@@ -14,6 +14,7 @@
 .form label {
     display: flex;
     flex-direction: column;
+    text-align: start;
     color: gray;
     font-size: .9rem;
     transition: .4s ease-in-out;
@@ -141,6 +142,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    text-align: center;
     color: gray;
     font-size: .9rem;
     transition: .4s ease-in-out;
@@ -176,4 +178,27 @@
 .divbtn {
     display: flex;
     justify-content: space-around;
+}
+
+@media screen {
+
+    .form input[type=text],
+    .form input[type=number],
+    .form input[type=tel],
+    .form input[type=email],
+    .form input[type=date],
+    .form input[type=password],
+    .form input[type=search],
+    .form input[type=date],
+    .form input[type=datetime-local] {
+        height: 25px;
+        font-size: .69rem;
+    }
+
+    .form label,
+    .form input[type=submit],
+    .form textarea,
+    .form a {
+        font-size: .69rem;
+    }
 }

@@ -81,6 +81,12 @@
     color: blue;
 }
 
+@media screen {
+    .table thead th {
+        font-size: .69rem;
+    }
+}
+
 @media print {
     .no-print {
         display: none;
