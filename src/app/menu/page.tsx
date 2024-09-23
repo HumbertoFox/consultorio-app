@@ -1,17 +1,22 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { GetCrmY } from '@/app/api/getcrms/crmy';
+import { GetCrmX } from '@/app/api/getcrms/crmx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
 import { faBookMedical, faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import styles from './page.module.css';
 export default function MenuPage() {
-    const [CrmyEnv, setCrmyEnv] = useState<string>('N/A');
-    const [CrmxEnv, setCrmxEnv] = useState<string>('N/A');
+    const [crmy, setCrmy] = useState<string>('N/A');
+    const [crmx, setCrmx] = useState<string>('N/A');
     useEffect(() => {
-        const crmy = process.env.NEXT_PUBLIC_DOCTORY_CRM || 'N/A';
-        const crmx = process.env.NEXT_PUBLIC_DOCTORX_CRM || 'N/A';
-        setCrmyEnv(crmy);
-        setCrmxEnv(crmx);
+        const fetchCRMs = async () => {
+            const crmy = await GetCrmY();
+            const crmx = await GetCrmX();
+            setCrmy(crmy.toString());
+            setCrmx(crmx.toString());
+        };
+        fetchCRMs();
     }, [])
     return (
         <main className={styles.menu}>
@@ -27,10 +32,10 @@ export default function MenuPage() {
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/menu/monthconsultx'} title={`Exibir Consulta do Mês, CRM ${CrmxEnv}`} aria-label={`Exibir Consulta do Mês, CRM ${CrmxEnv}`}>
+                        <Link href={'/menu/monthconsultx'} title={`Exibir Consulta do Mês, CRM ${crmx}`} aria-label={`Exibir Consulta do Mês, CRM ${crmx}`}>
                             <FontAwesomeIcon icon={faBookMedical} />
                         </Link>
-                        <Link href={'/menu/monthconsulty'} title={`Exibir Consulta do Mês, CRM ${CrmyEnv}`} aria-label={`Exibir Consulta do Mês, CRM ${CrmyEnv}`}>
+                        <Link href={'/menu/monthconsulty'} title={`Exibir Consulta do Mês, CRM ${crmy}`} aria-label={`Exibir Consulta do Mês, CRM ${crmy}`}>
                             <FontAwesomeIcon icon={faBookMedical} />
                         </Link>
                     </div>

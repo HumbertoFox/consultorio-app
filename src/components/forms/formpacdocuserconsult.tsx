@@ -1,4 +1,5 @@
 'use client';
+import { GetCrmY } from '@/app/api/getcrms/crmy';
 import { EditUser } from '@/app/api/edituser/requser';
 import { viaCepApi } from '@/app/api/viacep';
 import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
@@ -17,7 +18,7 @@ import Link from 'next/link';
 import styles from './form.module.css';
 import EventClick from '../modal/eventclick';
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResultFormProps) {
-    const [CrmyEnv, setCrmyEnv] = useState<number>(0);
+    const [crmyEnv, setCrmyEnv] = useState<number>(0);
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
     const [age, setAge] = useState<number>(0);
@@ -218,7 +219,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('building', searchPatDocUserCpf.building);
             setValue('buildingblock', searchPatDocUserCpf.buildingblock);
             setValue('apartment', searchPatDocUserCpf.apartment);
-            { !crm && setValue('crm', searchPatDocUserCpf.crm); };
+            setValue('crm', searchPatDocUserCpf.crm);
             setValue('consultdatestart', searchPatDocUserCpf.consultdatestart);
             setValue('consultdateend', searchPatDocUserCpf.consultdateend);
             setValue('observation', searchPatDocUserCpf.observation);
@@ -231,22 +232,30 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setRadioSelect(searchPatDocUserCpf.typeresidence);
             setSelectRadio(searchPatDocUserCpf.typeservice);
         };
-        setCrmyEnv(Number(process.env.NEXT_PUBLIC_DOCTORY_CRM));
     }, [crm, searchPatDocUserCpf, setValue]);
+    useEffect(() => {
+        const getCrmEnv = async () => {
+            const crmy = await GetCrmY();
+            setCrmyEnv(crmy);
+        };
+        getCrmEnv();
+        setValue('crm', crm);
+    }, [crm, setValue]);
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Des/Bloquear' ? true : false}>
-                {(docpatuser === 'doctor' || docpatuser === 'consultation' || docpatuser === 'editdoctor') && <label htmlFor='crm'>CRM
-                    <input
-                        type='number'
-                        id='crm'
-                        disabled={(buttons === 'Editar' || buttons === 'Cadastrar') ? false : true}
-                        placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.crm ? styles.required : ''}`}
-                        {...register('crm', { required: true, maxLength: 4, pattern: /\d{4}/g, value: crm })}
-                    />
-                </label>
-                }
+                {(docpatuser === 'doctor' || docpatuser === 'consultation' || docpatuser === 'editdoctor') && (
+                    <label htmlFor='crm'>CRM
+                        <input
+                            type='number'
+                            id='crm'
+                            disabled={(buttons === 'Editar' || buttons === 'Cadastrar') ? false : true}
+                            placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
+                            className={`${errors.crm ? styles.required : ''}`}
+                            {...register('crm', { required: true, maxLength: 4, pattern: /\d{4}/g })}
+                        />
+                    </label>
+                )}
                 <label htmlFor='cpf'>CPF
                     <input
                         type='number'
@@ -442,7 +451,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         />
                         Particular
                     </label>
-                    {crm == CrmyEnv && <label htmlFor='courtesyradio'>
+                    {crm == crmyEnv && <label htmlFor='courtesyradio'>
                         <input
                             type='radio'
                             id='courtesyradio'

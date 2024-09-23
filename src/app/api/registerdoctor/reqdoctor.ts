@@ -36,7 +36,7 @@ export async function RegisterDoctor(formData: FormData) {
     try {
         if (!VALID_CRM_NUMBERS.includes(crm)) {
             return { status: 400, Error: true, message: 'CRM Não Pode Ser Cadastrado!' };
-        }
+        };
         const existingDoctor = await prisma.doctor.findFirst({
             where: { crm, cpf }
         });
