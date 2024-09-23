@@ -1,10 +1,11 @@
 'use server';
 import { cookies } from 'next/headers';
 export async function destroySession() {
-    const sessionCookies = cookies().get('session');
+    const cookieStore = cookies();
+    const sessionCookies = cookieStore.get('session');
     if (sessionCookies) {
-        cookies().delete('session');
+        cookieStore.delete('session');
     } else {
-        cookies().set('session', 'value', { maxAge: 0 });
+        cookieStore.set('session', 'value', { maxAge: 0 });
     };
 };

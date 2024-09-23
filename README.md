@@ -120,7 +120,7 @@ Função de Impressão Js.
 
 ##
 
-<img src="https://github.com/user-attachments/assets/a25b960b-f9b9-463c-8e26-77e1a6b20c80" width="250px"/>
+<img src="https://github.com/user-attachments/assets/9fbee648-0fed-4b8b-a779-593ae49d6689" width="250px"/>
 
 verificando se o resultado é vazio não exibir o botão de imprimir se over resultado exiba.
 
