@@ -4,7 +4,7 @@ import styles from '@/app/menu/page.module.css';
 import TableReport from '@/components/tables';
 const CurrentMonth = new Date();
 export default function ReportListYMonth() {
-    const crmy = Number(process.env.DOCTORY_CRM);
+    const crmy = Number(process.env.NEXT_PUBLIC_DOCTORY_CRM);
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>

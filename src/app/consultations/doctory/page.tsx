@@ -5,7 +5,7 @@ import styles from '@/app/page.module.css';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import SearchForm from '@/components/forms/formsearch';
 export default function ConsultationyPage() {
-    const crmy = Number(process.env.DOCTORY_CRM);
+    const crmy = Number(process.env.NEXT_PUBLIC_DOCTORY_CRM);
     const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<InputsRegisterPatientProps | null>(null);
     const handleCpfSearch = (result: InputsRegisterPatientProps) => {
         setSearchPatDocUserCpf(result);

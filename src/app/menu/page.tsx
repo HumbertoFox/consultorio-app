@@ -1,11 +1,18 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookMedical, faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUserNurse, faUserPlus, faUserPen, faUserLock } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import styles from './page.module.css';
 export default function MenuPage() {
-    const crmy = process.env.DOCTORY_CRM;
-    const crmx = process.env.DOCTORX_CRM;
+    const [CrmyEnv, setCrmyEnv] = useState<string>('N/A');
+    const [CrmxEnv, setCrmxEnv] = useState<string>('N/A');
+    useEffect(() => {
+        const crmy = process.env.NEXT_PUBLIC_DOCTORY_CRM || 'N/A';
+        const crmx = process.env.NEXT_PUBLIC_DOCTORX_CRM || 'N/A';
+        setCrmyEnv(crmy);
+        setCrmxEnv(crmx);
+    }, [])
     return (
         <main className={styles.menu}>
             <div className={styles.divmenu}>
@@ -20,10 +27,10 @@ export default function MenuPage() {
                         </Link>
                     </div>
                     <div>
-                        <Link href={'/menu/monthconsultx'} title={`Exibir Consulta do Mês, CRM ${crmx}`} aria-label={`Exibir Consulta do Mês, CRM ${crmx}`}>
+                        <Link href={'/menu/monthconsultx'} title={`Exibir Consulta do Mês, CRM ${CrmxEnv}`} aria-label={`Exibir Consulta do Mês, CRM ${CrmxEnv}`}>
                             <FontAwesomeIcon icon={faBookMedical} />
                         </Link>
-                        <Link href={'/menu/monthconsulty'} title={`Exibir Consulta do Mês, CRM ${crmy}`} aria-label={`Exibir Consulta do Mês, CRM ${crmy}`}>
+                        <Link href={'/menu/monthconsulty'} title={`Exibir Consulta do Mês, CRM ${CrmyEnv}`} aria-label={`Exibir Consulta do Mês, CRM ${CrmyEnv}`}>
                             <FontAwesomeIcon icon={faBookMedical} />
                         </Link>
                     </div>

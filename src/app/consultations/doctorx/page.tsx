@@ -5,7 +5,7 @@ import styles from '@/app/page.module.css';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import SearchForm from '@/components/forms/formsearch';
 export default function ConsultationxPage() {
-    const crmx = Number(process.env.DOCTORX_CRM);
+    const crmx = Number(process.env.NEXT_PUBLIC_DOCTORX_CRM);
     const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<InputsRegisterPatientProps | null>(null);
     const handleCpfSearch = (result: InputsRegisterPatientProps) => {
         setSearchPatDocUserCpf(result);

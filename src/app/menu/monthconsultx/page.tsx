@@ -4,7 +4,7 @@ import styles from '@/app/menu/page.module.css';
 import TableReport from '@/components/tables';
 const CurrentMonth = new Date();
 export default function ReportListXMonth() {
-    const crmx = Number(process.env.DOCTORX_CRM);
+    const crmx = Number(process.env.NEXT_PUBLIC_DOCTORX_CRM);
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>

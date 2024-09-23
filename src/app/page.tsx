@@ -24,7 +24,7 @@ export default function CalendarPage() {
   useEffect(() => {
     const eventAgendCalendar = async () => {
       try {
-        const crmx = Number(process.env.DOCTORX_CRM);
+        const crmx = Number(process.env.NEXT_PUBLIC_DOCTORX_CRM);
         const result = await AgendaPacient();
         const res = Object.values(result);
         const response = res[3];

@@ -17,7 +17,7 @@ import Link from 'next/link';
 import styles from './form.module.css';
 import EventClick from '../modal/eventclick';
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResultFormProps) {
-    const crmy = Number(process.env.DOCTORY_CRM);
+    const [CrmyEnv, setCrmyEnv] = useState<number>(0);
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
     const [age, setAge] = useState<number>(0);
@@ -231,6 +231,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setRadioSelect(searchPatDocUserCpf.typeresidence);
             setSelectRadio(searchPatDocUserCpf.typeservice);
         };
+        setCrmyEnv(Number(process.env.NEXT_PUBLIC_DOCTORY_CRM));
     }, [crm, searchPatDocUserCpf, setValue]);
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -441,7 +442,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         />
                         Particular
                     </label>
-                    {crm === crmy && <label htmlFor='courtesyradio'>
+                    {crm == CrmyEnv && <label htmlFor='courtesyradio'>
                         <input
                             type='radio'
                             id='courtesyradio'
