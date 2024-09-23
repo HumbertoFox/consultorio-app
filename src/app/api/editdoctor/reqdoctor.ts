@@ -14,7 +14,6 @@ export async function EditDoctor(formData: FormData) {
     const existingUser = await prisma.user.findFirst({
         where: { cpf: userCpf }
     });
-
     if (!existingUser) {
         return { status: 401, Error: true, message: 'Usuário não autenticado!' };
     };
