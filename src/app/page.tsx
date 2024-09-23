@@ -24,12 +24,13 @@ export default function CalendarPage() {
   useEffect(() => {
     const eventAgendCalendar = async () => {
       try {
+        const crmx = Number(process.env.DOCTORX_CRM);
         const result = await AgendaPacient();
         const res = Object.values(result);
         const response = res[3];
         const formattedEvents = response.map((consult: any) => ({
           ...consult,
-          color: consult.desc === '8185' ? '#FF0075' : '#3C91E6',
+          color: consult.desc == crmx ? '#FF0075' : '#3C91E6',
           tipo: 'activity',
           start: new Date(consult.start.replace(/-/g, ',').replace(/T/g, ' ')),
           end: new Date(consult.end.replace(/-/g, ',').replace(/T/g, ' ')),

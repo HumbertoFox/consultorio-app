@@ -4,6 +4,7 @@ import styles from '@/app/menu/page.module.css';
 import TableReport from '@/components/tables';
 const CurrentMonth = new Date();
 export default function ReportListYMonth() {
+    const crmy = Number(process.env.DOCTORY_CRM);
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>
@@ -16,7 +17,7 @@ export default function ReportListYMonth() {
             </thead>
             <tbody>
                 <tr>
-                    <td><TableReport crm={6733} month={true} /></td>
+                    <td><TableReport crm={crmy} month={true} /></td>
                 </tr>
                 <tr>
                     <td className={styles.tdbutton}><Link href={'/menu'} className={`${styles['no-print']}`}>Menu</Link></td>

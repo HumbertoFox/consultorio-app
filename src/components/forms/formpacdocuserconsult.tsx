@@ -17,6 +17,7 @@ import Link from 'next/link';
 import styles from './form.module.css';
 import EventClick from '../modal/eventclick';
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResultFormProps) {
+    const crmy = Number(process.env.DOCTORY_CRM);
     const [ispass, setIspass] = useState(false);
     const [ispasschecked, setIspasschecked] = useState(false);
     const [age, setAge] = useState<number>(0);
@@ -440,7 +441,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         />
                         Particular
                     </label>
-                    {crm === 6733 && <label htmlFor='courtesyradio'>
+                    {crm === crmy && <label htmlFor='courtesyradio'>
                         <input
                             type='radio'
                             id='courtesyradio'

@@ -5,6 +5,7 @@ import styles from '@/app/page.module.css';
 import FormPacDocUserConsult from '@/components/forms/formpacdocuserconsult';
 import SearchForm from '@/components/forms/formsearch';
 export default function ConsultationxPage() {
+    const crmx = Number(process.env.DOCTORX_CRM);
     const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<InputsRegisterPatientProps | null>(null);
     const handleCpfSearch = (result: InputsRegisterPatientProps) => {
         setSearchPatDocUserCpf(result);
@@ -12,7 +13,7 @@ export default function ConsultationxPage() {
     return (
         <div className={styles.divmain}>
             <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
-            <FormPacDocUserConsult crm={8185} docpatuser='consultation' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
+            <FormPacDocUserConsult crm={crmx} docpatuser='consultation' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
         </div>
     );
 };
