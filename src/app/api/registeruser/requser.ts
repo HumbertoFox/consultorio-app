@@ -19,6 +19,9 @@ export async function RegisterUser(formData: FormData) {
     const apartment = formData.get('apartment') as string;
     const password = formData.get('password') as string;
     try {
+        if (cpf == process.env.NO_BLOCKING_CPF) {
+            return { status: 401, Error: true, message: 'Usuário já cadastrado!' };
+        };
         const hashedPassword = await bcrypt.hash(password, 10);
         const existingUser = await prisma.user.findFirst({
             where: { cpf }
