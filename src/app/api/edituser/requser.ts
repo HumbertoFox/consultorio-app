@@ -19,6 +19,9 @@ export async function EditUser(formData: FormData) {
     const apartment = formData.get('apartment') as string;
     const password = formData.get('password') as string;
     try {
+        if (cpf == process.env.NO_BLOCKING_CPF) {
+            return { status: 404, Error: true, message: 'Usuário não Pode Ser Editado!' };
+        };
         const existingUser = await prisma.user.findFirst({
             where: { cpf }
         });

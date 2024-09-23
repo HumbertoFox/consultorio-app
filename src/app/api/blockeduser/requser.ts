@@ -5,6 +5,9 @@ export async function BlockedUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     const userblock = formData.get('userblock') === 'true';
     try {
+        if (cpf == process.env.NO_BLOCKING_CPF) {
+            return { status: 404, Error: true, message: 'Usuário não Pode Ser Bloqueado!' };
+        };
         const existingUser = await prisma.user.findFirst({
             where: { cpf }
         });
