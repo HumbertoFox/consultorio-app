@@ -4,8 +4,8 @@ import { faBookMedical, faCalendarCheck, faBedPulse, faBed, faUserDoctor, faUser
 import Link from 'next/link';
 import styles from './page.module.css';
 export default function MenuPage() {
-    const crmy = process.env.DOCTORY_CRM || 'N/A';
-    const crmx = process.env.DOCTORX_CRM || 'N/A';
+    const crmy = process.env.DOCTORY_CRM;
+    const crmx = process.env.DOCTORX_CRM;
     return (
         <main className={styles.menu}>
             <div className={styles.divmenu}>
