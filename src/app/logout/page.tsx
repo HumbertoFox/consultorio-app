@@ -9,8 +9,6 @@ export default function LogoutPage() {
     useEffect(() => {
         const logout = async () => {
             const sucess = await destroySession();
-            console.log(sucess);
-            
             if (sucess) {
                 router.push('/login');
             };
