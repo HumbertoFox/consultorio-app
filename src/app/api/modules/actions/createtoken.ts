@@ -4,6 +4,9 @@ import { cookies } from 'next/headers';
 import { openSessionToken } from '@/app/api/modules/actions/opentoken';
 export async function createSessionToken(payload = {}) {
     try {
+        if (!process.env.AUTH_SECRET) {
+            throw new Error('AUTH_SECRET is not defined');
+        };
         const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
         const session = await new jose.SignJWT(payload)
             .setProtectedHeader({ alg: 'HS256' })
