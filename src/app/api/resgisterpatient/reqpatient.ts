@@ -58,7 +58,7 @@ export async function RegisterPatient(formData: FormData) {
         await prisma.patient.create({
             data: { cpf, telephone, address_id: existingAddress.address_id }
         });
-        return { status: 200, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
+        return { status: 201, Error: false, message: 'Paciente Cadastrado com Sucesso!' };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };

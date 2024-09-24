@@ -93,7 +93,7 @@ export async function EditDoctor(formData: FormData) {
             where: { doctor_id: existingdoctor.doctor_id },
             data: { crm, cpf, telephone, address_id: checkedAddress.address_id, user_id: existingUser.user_id }
         });
-        return { status: 200, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
+        return { status: 201, Error: false, message: 'Doutor(a) Editado(a) com Sucesso!' };
     } catch (Error) {
         console.error(Error);
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
