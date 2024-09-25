@@ -8,10 +8,8 @@ export default function LogoutPage() {
     const router = useRouter();
     useEffect(() => {
         const logout = async () => {
-            const sucess = await destroySession();
-            if (sucess) {
-                router.push('/login');
-            };
+            await destroySession();
+            router.push('/login');
         };
         const timer = setTimeout(logout, 3000);
         return () => clearTimeout(timer);
