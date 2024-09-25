@@ -118,7 +118,7 @@ model Telephone {
 
 model User {
   user_id           Int            @id @default(autoincrement())
-  cpf               String
+  cpf               String         @unique
   telephone         String
   password          String         @db.VarChar(200)
   address_id        Int
