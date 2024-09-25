@@ -12,7 +12,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^5.20.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/react-big-calendar": "^1.8.10",
     "@vercel/postgres": "^0.9.0",
@@ -33,7 +33,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
-    "prisma": "^5.19.1",
+    "prisma": "^5.20.0",
     "typescript": "^5"
   },
   "keywords": [],

@@ -76,7 +76,7 @@ model Crm {
 model Doctor {
   doctor_id        Int       @id @default(autoincrement())
   crm              String
-  cpf              String
+  cpf              String    @unique
   telephone        String
   address_id       Int
   user_id          Int
@@ -93,7 +93,7 @@ model Doctor {
 
 model Patient {
   patient_id           Int            @id @default(autoincrement())
-  cpf                  String
+  cpf                  String         @unique
   telephone            String
   address_id           Int
   createdAt            DateTime       @default(now())
