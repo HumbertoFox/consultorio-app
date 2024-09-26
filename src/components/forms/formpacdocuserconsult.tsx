@@ -1,7 +1,7 @@
 'use client';
 import { GetCrmY } from '@/app/api/getcrms/crmy';
 import { EditUser } from '@/app/api/edituser/requser';
-import { viaCepApi } from '@/app/api/viacep';
+import { viaCepApi } from '@/app/api/searchviacep/viacep';
 import { EditDoctor } from '@/app/api/editdoctor/reqdoctor';
 import { EditPatient } from '@/app/api/editpatient/reqpatient';
 import { BlockedUser } from '@/app/api/blockeduser/requser';
