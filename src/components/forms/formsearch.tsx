@@ -84,7 +84,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                 {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
             <input type='submit' title='Pesquisar Por CPF' value='Pesquisar' />
-            {eventAlert && <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />}
+            {eventAlert && (
+                <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />
+            )}
         </form>
     );
 };

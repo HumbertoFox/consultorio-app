@@ -400,98 +400,103 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         {...register('city', { required: true })}
                     />
                 </label>
-                {docpatuser === 'user' && <div className={styles.divpassword}>
-                    <label htmlFor='password'>Senha
+                {docpatuser === 'user' && (
+                    <div className={styles.divpassword}>
+                        <label htmlFor='password'>Senha
+                            <input
+                                type={ispass ? 'text' : 'password'}
+                                id='password'
+                                autoComplete='off'
+                                placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
+                                className={`${errors.password ? styles.required : ''}`}
+                                {...register('password', { required: true })}
+                            />
+                            <button type='button' onClick={handlePass}>
+                                {!ispass && <FontAwesomeIcon icon={faEye} />}
+                                {ispass && <FontAwesomeIcon icon={faEyeSlash} />}
+                            </button>
+                        </label>
+                        <label htmlFor='passwordchecked'>Confirme Senha
+                            <input
+                                type={ispasschecked ? 'text' : 'password'}
+                                id='passwordchecked'
+                                autoComplete='off'
+                                placeholder={`${errors.passwordchecked ? 'Campo Obrigatório' : ''}`}
+                                className={`${errors.passwordchecked ? styles.required : ''}`}
+                                {...register('passwordchecked', { required: true, validate: (value) => value === password })}
+                            />
+                            <button type='button' onClick={handlePassChecked}>
+                                {!ispasschecked && <FontAwesomeIcon icon={faEye} />}
+                                {ispasschecked && <FontAwesomeIcon icon={faEyeSlash} />}
+                            </button>
+                        </label>
+                    </div>
+                )}
+                {buttons === 'Agendar' && (
+                    <div className={styles.radiolabeldiv}>
+                        <label htmlFor='covenantradio'>
+                            <input
+                                type='radio'
+                                id='covenantradio'
+                                value='covenantradio'
+                                defaultChecked
+                                {...register('typeservice', { onChange: swapSelectedRadio })}
+                            />
+                            Covênio
+                        </label>
+                        <label htmlFor='particularradio'>
+                            <input
+                                type='radio'
+                                id='particularradio'
+                                value='particularradio'
+                                {...register('typeservice')}
+                            />
+                            Particular
+                        </label>
+                        {crm == crmyEnv && <label htmlFor='courtesyradio'>
+                            <input
+                                type='radio'
+                                id='courtesyradio'
+                                value='courtesyradio'
+                                {...register('typeservice')}
+                            />
+                            Cortesia
+                        </label>
+                        }
+                    </div>
+                )}
+                {selectRadio === 'covenantradio' && buttons === 'Agendar' && (
+                    <label htmlFor='covenant'>Covênio
                         <input
-                            type={ispass ? 'text' : 'password'}
-                            id='password'
-                            autoComplete='off'
-                            placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
-                            className={`${errors.password ? styles.required : ''}`}
-                            {...register('password', { required: true })}
+                            type='text'
+                            id='covenant'
+                            placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
+                            className={`${errors.covenant ? styles.required : ''}`}
+                            {...register('covenant', { required: true })}
                         />
-                        <button type='button' onClick={handlePass}>
-                            {!ispass && <FontAwesomeIcon icon={faEye} />}
-                            {ispass && <FontAwesomeIcon icon={faEyeSlash} />}
-                        </button>
                     </label>
-                    <label htmlFor='passwordchecked'>Confirme Senha
+                )}
+                {selectRadio === 'particularradio' && (
+                    <label htmlFor='particular'>Valor
                         <input
-                            type={ispasschecked ? 'text' : 'password'}
-                            id='passwordchecked'
-                            autoComplete='off'
-                            placeholder={`${errors.passwordchecked ? 'Campo Obrigatório' : ''}`}
-                            className={`${errors.passwordchecked ? styles.required : ''}`}
-                            {...register('passwordchecked', { required: true, validate: (value) => value === password })}
+                            type='text'
+                            id='particular'
+                            {...register('particular', { value: '0' })}
                         />
-                        <button type='button' onClick={handlePassChecked}>
-                            {!ispasschecked && <FontAwesomeIcon icon={faEye} />}
-                            {ispasschecked && <FontAwesomeIcon icon={faEyeSlash} />}
-                        </button>
                     </label>
-                </div>
-                }
-                {buttons === 'Agendar' && <div className={styles.radiolabeldiv}>
-                    <label htmlFor='covenantradio'>
+                )}
+                {selectRadio === 'courtesyradio' && (
+                    <label htmlFor='courtesy'>Cortesia
                         <input
-                            type='radio'
-                            id='covenantradio'
-                            value='covenantradio'
-                            defaultChecked
-                            {...register('typeservice', { onChange: swapSelectedRadio })}
+                            type='text'
+                            id='courtesy'
+                            disabled={true}
+                            placeholder={`${errors.courtesy ? 'Campo Obrigatório' : ''}`}
+                            className={`${errors.courtesy ? styles.required : ''}`}
+                            {...register('courtesy', { required: true, value: 'Não' })}
                         />
-                        Covênio
                     </label>
-                    <label htmlFor='particularradio'>
-                        <input
-                            type='radio'
-                            id='particularradio'
-                            value='particularradio'
-                            {...register('typeservice')}
-                        />
-                        Particular
-                    </label>
-                    {crm == crmyEnv && <label htmlFor='courtesyradio'>
-                        <input
-                            type='radio'
-                            id='courtesyradio'
-                            value='courtesyradio'
-                            {...register('typeservice')}
-                        />
-                        Cortesia
-                    </label>
-                    }
-                </div>
-                }
-                {selectRadio === 'covenantradio' && buttons === 'Agendar' && <label htmlFor='covenant'>Covênio
-                    <input
-                        type='text'
-                        id='covenant'
-                        placeholder={`${errors.covenant ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.covenant ? styles.required : ''}`}
-                        {...register('covenant', { required: true })}
-                    />
-                </label>
-                }
-                {selectRadio === 'particularradio' && <label htmlFor='particular'>Valor
-                    <input
-                        type='text'
-                        id='particular'
-                        {...register('particular', { value: '0' })}
-                    />
-                </label>
-                }
-                {selectRadio === 'courtesyradio' && <label htmlFor='courtesy'>Cortesia
-                    <input
-                        type='text'
-                        id='courtesy'
-                        disabled={true}
-                        placeholder={`${errors.courtesy ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.courtesy ? styles.required : ''}`}
-                        {...register('courtesy', { required: true, value: 'Não' })}
-                    />
-                </label>
-                }
+                )}
                 {isReturn && (
                     <label htmlFor='returnconsult'>Volta/Retorno
                         <select
@@ -501,61 +506,69 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         </select>
                     </label>
                 )}
-                {buttons === 'Agendar' && <label htmlFor='consultdatestart'>Data da Consulta Inicio
-                    <input
-                        type='datetime-local'
-                        id='consultdatestart'
-                        min={formattedNow}
-                        className={`${errors.consultdatestart ? styles.requireddate : ''}`}
-                        {...register('consultdatestart', { required: true, onBlur: (elementDate) => setEndDateStart(elementDate.target.value) })}
-                    />
-                </label>
-                }
-                {buttons === 'Agendar' && <label htmlFor='consultdateend'>Data da Consulta Termino
-                    <input
-                        type='datetime-local'
-                        id='consultdateend'
-                        min={endDateStart == '' ? formattedNow : endDateStart}
-                        className={`${errors.consultdateend ? styles.requireddate : ''}`}
-                        {...register('consultdateend', { required: true })}
-                    />
-                </label>
-                }
-                {buttons === 'Agendar' && <label htmlFor='observation'>Observações
-                    <textarea
-                        id='observation'
-                        {...register('observation', { value: '...' })}
-                    />
-                </label>
-                }
+                {buttons === 'Agendar' && (
+                    <label htmlFor='consultdatestart'>Data da Consulta Inicio
+                        <input
+                            type='datetime-local'
+                            id='consultdatestart'
+                            min={formattedNow}
+                            className={`${errors.consultdatestart ? styles.requireddate : ''}`}
+                            {...register('consultdatestart', { required: true, onBlur: (elementDate) => setEndDateStart(elementDate.target.value) })}
+                        />
+                    </label>
+                )}
+                {buttons === 'Agendar' && (
+                    <label htmlFor='consultdateend'>Data da Consulta Termino
+                        <input
+                            type='datetime-local'
+                            id='consultdateend'
+                            min={endDateStart == '' ? formattedNow : endDateStart}
+                            className={`${errors.consultdateend ? styles.requireddate : ''}`}
+                            {...register('consultdateend', { required: true })}
+                        />
+                    </label>
+                )}
+                {buttons === 'Agendar' && (
+                    <label htmlFor='observation'>Observações
+                        <textarea
+                            id='observation'
+                            {...register('observation', { value: '...' })}
+                        />
+                    </label>
+                )}
             </fieldset>
-            {docpatuser === 'blockeduser' && <div className={styles.radiolabeldivuser}>
-                <label htmlFor='userblock'>
-                    <input
-                        type='radio'
-                        value='true'
-                        id='userblock'
-                        {...register('userblock')}
-                    />
-                    Bloquear
-                </label>
-                <label htmlFor='userunblock'>
-                    <input
-                        type='radio'
-                        value='false'
-                        id='userunblock'
-                        defaultChecked
-                        {...register('userblock')}
-                    />
-                    Desbloquear
-                </label>
-            </div>
-            }
+            {docpatuser === 'blockeduser' && (
+                <div className={styles.radiolabeldivuser}>
+                    <label htmlFor='userblock'>
+                        <input
+                            type='radio'
+                            value='true'
+                            id='userblock'
+                            {...register('userblock')}
+                        />
+                        Bloquear
+                    </label>
+                    <label htmlFor='userunblock'>
+                        <input
+                            type='radio'
+                            value='false'
+                            id='userunblock'
+                            defaultChecked
+                            {...register('userblock')}
+                        />
+                        Desbloquear
+                    </label>
+                </div>
+            )}
             <div className={styles.divbtn}>
                 <input type='submit' title={buttons} value={buttons} />
-                {buttons !== 'Agendar' && (<Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu'>Menu</Link>)}
+                {buttons !== 'Agendar' && (
+                    <Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu'>Menu</Link>
+                )}
             </div>
-            {eventAlert && (<EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />)}
+            {eventAlert && (
+                <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />
+            )}
         </form >
     );
 };

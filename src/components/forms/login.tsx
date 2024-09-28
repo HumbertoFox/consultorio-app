@@ -20,7 +20,6 @@ export default function FormLogin() {
             const formData = new FormData();
             formData.append('cpf', data.cpf);
             formData.append('password', data.password);
-
             const response = await loginAuth(formData);
             setEventAlert(response);
 
@@ -34,7 +33,6 @@ export default function FormLogin() {
                     router.push('/login');
                 }, 3000);
             };
-
         } catch (error) {
             console.error('Erro ao Conectar ao Banco:', error);
             setEventAlert({
@@ -76,7 +74,9 @@ export default function FormLogin() {
                 </label>
             </div>
             <input type='submit' title='Entrar' value='Entrar' aria-label='Fechar Login' />
-            {eventAlert && (<EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />)}
+            {eventAlert && (
+                <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />
+            )}
         </form>
     );
 };
