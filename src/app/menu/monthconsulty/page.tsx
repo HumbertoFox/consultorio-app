@@ -11,15 +11,21 @@ export default function ReportListYMonth() {
                     <th>Lista de Consulta</th>
                 </tr>
                 <tr>
-                    <th>{`Mês ${CurrentMonth.getMonth() + 1}`}</th>
+                    <th>
+                        {`Mês ${CurrentMonth.getMonth() + 1}`}
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><TableReport crm={crmy} month={true} /></td>
+                    <td>
+                        <TableReport crm={crmy} month={true} />
+                    </td>
                 </tr>
                 <tr>
-                    <td className={styles.tdbutton}><Link href={'/menu'} className={`${styles['no-print']}`}>Menu</Link></td>
+                    <td className={styles.tdbutton}>
+                        <Link href={'/menu'} className={`${styles['no-print']}`}>Menu</Link>
+                    </td>
                 </tr>
             </tbody>
         </table>

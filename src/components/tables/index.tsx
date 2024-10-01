@@ -84,11 +84,9 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
             <tbody>
                 {notConsults && (
                     <tr className={styles.error}>
-                        <td></td><td></td><td></td><td></td>
-                        <td>
+                        <td colSpan={8}>
                             {notConsults}
                         </td>
-                        <td></td><td></td>
                     </tr>
                 )}
                 {consults.map((consul: any) => (
@@ -116,7 +114,7 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                 ))}
                 {consults.length !== 0 && (
                     <tr>
-                        <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={7}>
+                        <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={8}>
                             <button title='Imprimir' type='button' onClick={handlePrint}>
                                 <FontAwesomeIcon icon={faPrint} />
                             </button>
