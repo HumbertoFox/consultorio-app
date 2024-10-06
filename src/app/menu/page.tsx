@@ -49,18 +49,18 @@ export default function MenuPage() {
                     </div>
                     <div>
                         <Link href={'/menu/editdoctors'} title='Editar Doutor(a)' aria-label='Editar Doutor(a)'>
-                            <FontAwesomeIcon icon={faUserNurse} />
+                            <FontAwesomeIcon icon={faUserNurse} className={styles.edit} />
                         </Link>
                         <Link href={'/menu/editpatients'} title='Editar Paciente' aria-label='Editar Paciente'>
-                            <FontAwesomeIcon icon={faBedPulse} />
+                            <FontAwesomeIcon icon={faBedPulse} className={styles.edit} />
                         </Link>
                     </div>
                     <div>
                         <Link href={'/menu/edituser'} title='Editar Usuário' aria-label='Editar Usuário'>
-                            <FontAwesomeIcon icon={faUserPen} />
+                            <FontAwesomeIcon icon={faUserPen} className={styles.edit} />
                         </Link>
                         <Link href={'/menu/blockeduser'} title='Bloquear Usuário' aria-label='Bloquear Usuário'>
-                            <FontAwesomeIcon icon={faUserLock} />
+                            <FontAwesomeIcon icon={faUserLock} className={styles.block} />
                         </Link>
                     </div>
                 </nav>

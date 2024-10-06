@@ -70,13 +70,23 @@
   gap: 30px;
 }
 
-.navmenu a {
+.navmenu a,
+.navmenu a .edit,
+.navmenu a .block {
   transition: .4s ease-in-out;
 }
 
 .navmenu a:hover {
   transform: scale(1.1);
   filter: drop-shadow(hsl(120, 73.44%, 74.9%) 0 0 5px);
+}
+
+.navmenu a:hover .edit {
+  color: orange;
+}
+
+.navmenu a:hover .block {
+  color: red;
 }
 
 .tableconsults a {
