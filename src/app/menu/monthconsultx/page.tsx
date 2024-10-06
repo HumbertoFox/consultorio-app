@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import moment from 'moment';
 import styles from '@/app/menu/page.module.css';
 import TableReport from '@/components/tables';
-const CurrentMonth = new Date();
+import 'moment/locale/pt-br';
+const CurrentMonth = moment();
 export default function ReportListXMonth() {
     const crmx = Number(process.env.DOCTORX_CRM);
+    const monthName = CurrentMonth.format('MMMM');
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>
@@ -12,7 +15,7 @@ export default function ReportListXMonth() {
                 </tr>
                 <tr>
                     <th>
-                        {`Mês ${CurrentMonth.getMonth() + 1}`}
+                        {`Mês de ${monthName.charAt(0).toLocaleUpperCase() + monthName.slice(1)}`}
                     </th>
                 </tr>
             </thead>
