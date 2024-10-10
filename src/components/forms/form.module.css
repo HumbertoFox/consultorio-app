@@ -178,6 +178,7 @@
     right: 5px;
     background: none;
     cursor: pointer;
+    transition: .4s ease-in-out;
 }
 
 .divpassword svg {
@@ -209,5 +210,9 @@
     .form textarea,
     .form a {
         font-size: .69rem;
+    }
+
+    .divpassword button {
+        top: 20px;
     }
 }
