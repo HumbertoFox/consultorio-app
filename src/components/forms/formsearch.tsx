@@ -88,7 +88,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
     }, [patdocuserSearch, searchPatDocUserCpf]);
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor='searchcpf'>Pesquisar</label>
+            <label htmlFor='searchcpf'>Pesquisar CPF só número</label>
             <input
                 type='search'
                 id='searchcpf'

@@ -277,7 +277,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         />
                     </label>
                 )}
-                <label htmlFor='cpf'>CPF
+                <label htmlFor='cpf'>CPF só número
                     <input
                         type='number'
                         id='cpf'
@@ -328,7 +328,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         {...register('email', { required: true })}
                     />
                 </label>
-                <label htmlFor='zipcode'>CEP
+                <label htmlFor='zipcode'>CEP só número
                     <input
                         type='number'
                         id='zipcode'
