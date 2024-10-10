@@ -89,7 +89,7 @@ export default function FormLogin() {
                     </button>
                 </label>
             </div>
-            <input type='submit' title='Entrar' value='Entrar' aria-label='Fechar Login' />
+            <input type='submit' title='Entrar' value='Entrar' id='entrar' aria-label='Entrar Login' />
         </form>
     );
 };

@@ -26,6 +26,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
+    const [blokingUserSelect, setBlokingUserSelect] = useState<string>('false');
     const [isReturn, setIsReturn] = useState<boolean>(false);
     const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const handlePass = () => setIspass(!ispass);
@@ -150,6 +151,10 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         const selectedValue = element.target.value;
         setSelectRadio(selectedValue);
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
+    };
+    const swapRadioBlokingUser = (element: ChangeEvent<HTMLInputElement>) => {
+        const selectValue = element.target.value;
+        setBlokingUserSelect(selectValue);
     };
     const onSubmit: SubmitHandler<InputsProps> = async (data: any) => {
         const cpf = data.cpf;
@@ -560,7 +565,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                             type='radio'
                             value='true'
                             id='userblock'
-                            {...register('userblock')}
+                            {...register('userblock', { onChange: swapRadioBlokingUser })}
                         />
                         Bloquear
                     </label>
@@ -577,7 +582,11 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 </div>
             )}
             <div className={styles.divbtn}>
-                <input type='submit' title={buttons} value={buttons} />
+                <input
+                    type='submit'
+                    title={buttons !== 'Des/Bloquear' ? buttons : blokingUserSelect !== 'false' ? 'Bloquear' : 'Desbloquear'}
+                    value={buttons !== 'Des/Bloquear' ? buttons : blokingUserSelect !== 'false' ? 'Bloquear' : 'Desbloquear'}
+                />
                 {buttons !== 'Agendar' && (
                     <Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu'>Menu</Link>
                 )}
