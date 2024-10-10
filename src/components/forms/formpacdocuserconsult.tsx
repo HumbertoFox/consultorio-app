@@ -344,6 +344,24 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         {...register('street', { required: true })}
                     />
                 </label>
+                <label htmlFor='district'>Bairro/Distrito
+                    <input
+                        type='text'
+                        id='district'
+                        placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.district ? styles.required : ''}`}
+                        {...register('district', { required: true })}
+                    />
+                </label>
+                <label htmlFor='city'>Cidade
+                    <input
+                        type='text'
+                        id='city'
+                        placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
+                        className={`${errors.city ? styles.required : ''}`}
+                        {...register('city', { required: true })}
+                    />
+                </label>
                 <label htmlFor='residencenumber'>Número da Casa/Edifício
                     <input
                         type='text'
@@ -403,24 +421,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                         </label>
                     </div>
                 )}
-                <label htmlFor='district'>Bairro/Distrito
-                    <input
-                        type='text'
-                        id='district'
-                        placeholder={`${errors.district ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.district ? styles.required : ''}`}
-                        {...register('district', { required: true })}
-                    />
-                </label>
-                <label htmlFor='city'>Cidade
-                    <input
-                        type='text'
-                        id='city'
-                        placeholder={`${errors.city ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.city ? styles.required : ''}`}
-                        {...register('city', { required: true })}
-                    />
-                </label>
                 {docpatuser === 'user' && (
                     <div className={styles.divpassword}>
                         <label htmlFor='password'>Senha
