@@ -51,6 +51,7 @@ export async function SearchPatient(formData: FormData) {
             building: patient.parient_address.building,
             buildingblock: patient.parient_address.buildingblock,
             apartment: patient.parient_address.apartment,
+            crm: patient.patient_consultation[0].crm,
             typeservice: patient.patient_consultation[0].typeservice,
             covenant: patient.patient_consultation[0].covenant,
             particular: patient.patient_consultation[0].particular,

@@ -4,12 +4,11 @@ import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
 import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { EventMessageProps, InputsSearchCpfProps, PatDocUserSearchResultProps } from '@/interfaces/interfaces';
+import { InputsSearchCpfProps, PatDocUserSearchResultProps } from '@/interfaces/interfaces';
 import styles from './form.module.css'
-import EventClick from '../modal/eventclick';
+import Swal from 'sweetalert2';
 export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSearchResultProps) {
     const [patdocuserSearch, setPatDocUserSearch] = useState<any>('');
-    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
     const { register, handleSubmit, setError, formState: { errors } } = useForm<InputsSearchCpfProps>();
     const getCheckedCpf = (data: string) => {
         const isRepeatedCPF = (cpf: string) => {
@@ -34,7 +33,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
         let correctCpf = data.substring(0, 9) + primaryCheckDigit + secondaryCheckDigit;
         return data === correctCpf;
     };
-    const handleEventAlertClose = () => setEventAlert(null);
     const onSubmit: SubmitHandler<InputsSearchCpfProps> = async (data: any) => {
         const cpf = data.searchcpf as string;
         if (!getCheckedCpf(cpf)) {
@@ -57,13 +55,28 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                     break;
             };
             setPatDocUserSearch(result);
-            setEventAlert(result);
-
+            if (result.Error === false) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: result.message,
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: result.message,
+                    confirmButtonText: 'OK'
+                });
+            };
         } catch (error) {
             console.error('Erro', error);
-            setEventAlert({
-                Error: true,
-                message: 'Erro ao Conectar ao Banco!'
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Erro ao Conectar com o Banco!',
+                confirmButtonText: 'OK'
             });
         };
     };
@@ -84,9 +97,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                 {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
             <input type='submit' title='Pesquisar Por CPF' value='Pesquisar' />
-            {eventAlert && (
-                <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />
-            )}
         </form>
     );
 };

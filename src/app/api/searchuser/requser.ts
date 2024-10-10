@@ -5,7 +5,7 @@ export async function SearchUser(formData: FormData) {
     const cpf = formData.get('cpf') as string;
     try {
         if (cpf == process.env.NO_BLOCKING_CPF) {
-            return { status: 401, Error: true, message: 'Usuário não Pode Ser Pesquisador!' };
+            return { status: 401, Error: true, message: 'Usuário não Pode Ser Pesquisado!' };
         };
         if (!cpf) {
             return { status: 400, Error: true, message: 'CPF Não encontrado!' }

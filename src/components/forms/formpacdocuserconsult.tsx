@@ -13,10 +13,10 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { EventMessageProps, InputsProps, PatDocUserSearchResultFormProps } from '@/interfaces/interfaces';
+import { InputsProps, PatDocUserSearchResultFormProps } from '@/interfaces/interfaces';
 import Link from 'next/link';
 import styles from './form.module.css';
-import EventClick from '../modal/eventclick';
+import Swal from 'sweetalert2';
 export default function FormPacDocUserConsult({ crm, docpatuser, buttons, searchPatDocUserCpf }: PatDocUserSearchResultFormProps) {
     const [crmyEnv, setCrmyEnv] = useState<number>(0);
     const [ispass, setIspass] = useState(false);
@@ -26,7 +26,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
     const [endDateStart, setEndDateStart] = useState<string>(formattedNow);
     const [radioSelect, setRadioSelect] = useState<string>('house');
     const [selectRadio, setSelectRadio] = useState<string>('covenantradio');
-    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
     const [isReturn, setIsReturn] = useState<boolean>(false);
     const { register, handleSubmit, setError, setValue, setFocus, watch, reset, formState: { errors } } = useForm<InputsProps>();
     const handlePass = () => setIspass(!ispass);
@@ -38,9 +37,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             const firstDigit = cpf[0];
             return cpf.split('').every(digit => digit === firstDigit);
         };
-        if (isRepeatedCpf(data)) {
-            return;
-        };
+        if (isRepeatedCpf(data)) { return; };
         const calculateCheckDigit = (input: string) => {
             let sum = 0;
             for (let i = 0; i < input.length; i++) {
@@ -93,9 +90,11 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         if (!element.target.value) {
             clearZipCode();
             setFocus('email');
-            setEventAlert({
-                Error: true,
-                message: 'Formato de CEP inválido!'
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Formato de CEP inválido!',
+                confirmButtonText: 'OK'
             });
             return;
         };
@@ -113,26 +112,32 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                 } else {
                     clearZipCode();
                     setFocus('email');
-                    setEventAlert({
-                        Error: true,
-                        message: 'CEP não encontrado!'
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        text: 'CEP não encontrado!',
+                        confirmButtonText: 'OK'
                     });
-                }
+                };
             } else {
                 clearZipCode();
                 setFocus('email');
-                setEventAlert({
-                    Error: true,
-                    message: 'Formato de CEP inválido!'
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: 'Formato de CEP inválido!',
+                    confirmButtonText: 'OK'
                 });
             };
         } catch (error) {
             console.error(error);
             clearZipCode();
             setFocus('email');
-            setEventAlert({
-                Error: true,
-                message: 'Formato de CEP inválido ou não encontrado!'
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Formato de CEP inválido ou não encontrado!',
+                confirmButtonText: 'OK'
             });
             return;
         };
@@ -146,7 +151,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
         setSelectRadio(selectedValue);
         setValue('courtesy', selectedValue !== 'courtesyradio' ? 'Não' : 'Sim');
     };
-    const handleEventAlertClose = () => setEventAlert(null);
     const onSubmit: SubmitHandler<InputsProps> = async (data: any) => {
         const cpf = data.cpf;
         if (!getCheckedCpf(cpf)) {
@@ -187,15 +191,27 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             };
             if (response.Error === false) {
                 reset();
-                setEventAlert(response);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: response.message,
+                    confirmButtonText: 'OK'
+                });
             } else {
-                setEventAlert(response);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: response.message,
+                    confirmButtonText: 'OK'
+                });
             };
         } catch (error) {
             console.error('Erro ao Conectar ao Banco:', error);
-            setEventAlert({
-                Error: true,
-                message: 'Erro ao Conectar ao Banco!'
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Erro ao Conectar com o Banco!',
+                confirmButtonText: 'OK'
             });
         };
     };
@@ -219,7 +235,7 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('building', searchPatDocUserCpf.building);
             setValue('buildingblock', searchPatDocUserCpf.buildingblock);
             setValue('apartment', searchPatDocUserCpf.apartment);
-            setValue('crm', searchPatDocUserCpf.crm);
+            { !crm && setValue('crm', searchPatDocUserCpf.crm); };
             setValue('consultdatestart', searchPatDocUserCpf.consultdatestart);
             setValue('consultdateend', searchPatDocUserCpf.consultdateend);
             setValue('observation', searchPatDocUserCpf.observation);
@@ -566,9 +582,6 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
                     <Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu'>Menu</Link>
                 )}
             </div>
-            {eventAlert && (
-                <EventClick {...eventAlert} title='Fechar' onClose={handleEventAlertClose} />
-            )}
         </form >
     );
 };

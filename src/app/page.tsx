@@ -7,21 +7,34 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import styles from './page.module.css';
 import SideBar from '@/components/sidebar';
-import ConsultClick from '@/components/modal/eventconsults';
 import CustomToolbar from '@/components/toobar';
 import 'moment/locale/pt-br';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
+import Swal from 'sweetalert2';
 moment.locale('pt-br');
 const localizer = momentLocalizer(moment);
 export default function CalendarPage() {
   const [consults, setConsults] = useState<CalendarEventProps[]>([]);
-  const [consultSelected, setConsultSelected] = useState<CalendarEventProps | any>(null);
   const styleColor = (event: CalendarEventProps): { style: { backgroundColor: string } } => ({
     style: { backgroundColor: event.color }
   });
-  const handleConsultSelectClick = (element: any) => setConsultSelected(element);
-  const handleConsultSelectClose = () => setConsultSelected(null);
+  const handleConsultSelectClick = (element: any) => {
+    Swal.fire({
+      title: element.name,
+      html: `<p><strong>Status:</strong> ${element.status}</p>
+                ${element.returnconsult === 'Sim' ? `<p><strong>Volta:</strong> ${element.returnconsult}</p>` : ''}
+                <p><strong>CPF:</strong> ${element.title}</p>
+                <p><strong>Telefone:</strong> ${element.telephone}</p>
+                <p><strong>Plano:</strong> ${element.covenant}</p>
+                <p><strong>Início:</strong> ${element.start.toLocaleString()}</p>
+                <p><strong>Termino:</strong> ${element.end.toLocaleString()}</p>
+                <p><strong>Crm:</strong> ${element.desc}</p>
+                <p><strong>Obs:</strong> ${element.observation}</p>`,
+      icon: 'info',
+      confirmButtonText: 'Ok'
+    });
+  };
   useEffect(() => {
     const eventAgendCalendar = async () => {
       try {
@@ -39,10 +52,13 @@ export default function CalendarPage() {
           telephone: consult.telephone.replace(/(\d{2})(\d{5})(\d{4})/, '($1)$2-$3')
         }));
         setConsults(formattedEvents);
-      } catch (Error) {
-        console.error({
-          type: 'Error',
-          message: 'Erro ao Conectar ao Banco!'
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Erro ao Conectar com o Banco!',
+          confirmButtonText: 'OK'
         });
       };
     };
@@ -61,7 +77,6 @@ export default function CalendarPage() {
           endAccessor='end'
           components={{ toolbar: CustomToolbar }}
         />
-        {consultSelected && (<ConsultClick {...consultSelected} onClose={handleConsultSelectClose} />)}
       </div>
     </main>
   );

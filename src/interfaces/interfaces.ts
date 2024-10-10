@@ -45,12 +45,6 @@ export interface InputsLoginProps {
     cpf: string;
     password: string;
 };
-export interface EventMessageProps {
-    message?: string;
-    Error: boolean;
-    title?: string;
-    onClose?: () => void;
-};
 export interface CalendarEventProps {
     name: string;
     telephone: string;
@@ -63,7 +57,6 @@ export interface CalendarEventProps {
     title: string;
     status: string;
     [key: string]: any;
-    onClose?: () => void;
 };
 export interface InputsSearchCpfProps {
     searchcpf: number;

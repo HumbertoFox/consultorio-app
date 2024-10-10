@@ -25,7 +25,8 @@
     "react-big-calendar": "^1.13.4",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
-    "react-loading": "^2.0.3"
+    "react-loading": "^2.0.3",
+    "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -5,29 +5,41 @@ import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { EventMessageProps, InputsLoginProps } from '@/interfaces/interfaces';
+import { InputsLoginProps } from '@/interfaces/interfaces';
 import styles from './form.module.css';
-import EventClick from '../modal/eventclick';
+import Swal from 'sweetalert2';
 export default function FormLogin() {
     const [ispass, setIspass] = useState<boolean>(false);
-    const [eventAlert, setEventAlert] = useState<EventMessageProps | null>(null);
     const { register, handleSubmit, formState: { errors } } = useForm<InputsLoginProps>();
     const router = useRouter();
     const handlePass = () => setIspass(!ispass);
-    const handleEventAlertClose = () => setEventAlert(null);
     const onSubmit: SubmitHandler<InputsLoginProps> = async (data) => {
         try {
             const formData = new FormData();
             formData.append('cpf', data.cpf);
             formData.append('password', data.password);
             const response = await loginAuth(formData);
-            setEventAlert(response);
-
             if (response.Error === false) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
                 setTimeout(() => {
                     router.push('/');
                 }, 3000);
             } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
                 setTimeout(() => {
                     window.location.reload();
                     router.push('/login');
@@ -35,9 +47,13 @@ export default function FormLogin() {
             };
         } catch (error) {
             console.error('Erro ao Conectar ao Banco:', error);
-            setEventAlert({
-                Error: true,
-                message: 'Erro ao Conectar ao Banco!'
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: 'Erro ao Conectar com o Banco!',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
             });
             setTimeout(() => {
                 window.location.reload();
@@ -74,9 +90,6 @@ export default function FormLogin() {
                 </label>
             </div>
             <input type='submit' title='Entrar' value='Entrar' aria-label='Fechar Login' />
-            {eventAlert && (
-                <EventClick {...eventAlert} title='Fechar Login' onClose={handleEventAlertClose} />
-            )}
         </form>
     );
 };
