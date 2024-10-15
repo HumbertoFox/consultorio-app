@@ -1,0 +1,124 @@
+.table {
+    text-align: center;
+    width: 100%;
+}
+
+.loading {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table thead th {
+    font-size: .9rem;
+    text-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+    cursor: help;
+}
+
+.table tbody td {
+    font-size: .8rem;
+    cursor: default;
+}
+
+.table tbody tr.error td {
+    color: red;
+    padding-top: 20px;
+}
+
+.table select {
+    text-align: center;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.table select::-ms-expand {
+    display: none;
+}
+
+.confirm {
+    color: orange;
+}
+
+.confirmed {
+    color: green;
+}
+
+.cancel {
+    color: red;
+}
+
+.serviced {
+    color: blue;
+}
+
+.printtd {
+    text-align: start;
+    padding-top: 20px;
+}
+
+.printtd button {
+    background: none;
+    border: none;
+}
+
+.printtd svg {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: .4s ease-in-out;
+}
+
+.printtd svg:hover {
+    color: green;
+}
+
+.printtd svg:active {
+    color: blue;
+}
+
+@media screen and (max-width: 480px) {
+    .table thead th {
+        font-size: .69rem;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    .print-content {
+        width: 100vw;
+        display: block;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+    }
+
+    .table thead th,
+    .table tbody td {
+        font-size: 0.8rem;
+        padding: 9px;
+        border: 1px solid #DDD;
+    }
+
+    .table thead th {
+        background-color: #F2F2F2;
+        text-shadow: none;
+    }
+
+    .printtd svg {
+        display: none;
+    }
+
+    .confirmed,
+    .cancel,
+    .serviced,
+    .confirm {
+        color: black;
+    }
+}
