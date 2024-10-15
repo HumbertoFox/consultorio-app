@@ -1,0 +1,218 @@
+.form {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form input::-webkit-outer-spin-button,
+.form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form label {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    color: gray;
+    font-size: .9rem;
+    transition: .4s ease-in-out;
+}
+
+.radiolabeldiv,
+.radiolabeldivuser {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.radiolabeldivuser {
+    padding-bottom: 20px;
+}
+
+.radiolabeldiv label,
+.radiolabeldivuser label {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.form select {
+    width: 220px;
+    background: none;
+}
+
+.form input[type=text],
+.form input[type=number],
+.form input[type=tel],
+.form input[type=email],
+.form input[type=date],
+.form input[type=password],
+.form input[type=search],
+.form input[type=date],
+.form input[type=datetime-local],
+.form textarea,
+.form select {
+    height: 30px;
+    border: 1px solid #D2D4DE;
+    border-radius: 5px;
+    padding: 0 5px;
+    outline: none;
+    margin-bottom: 5px;
+    transition: .4s ease-in-out;
+}
+
+.form input[type=text]:focus,
+.form input[type=number]:focus,
+.form input[type=tel]:focus,
+.form input[type=email]:focus,
+.form input[type=date]:focus,
+.form input[type=password]:focus,
+.form input[type=search]:focus,
+.form input[type=date]:focus,
+.form input[type=datetime-local]:focus,
+.form textarea:focus,
+.form select:focus {
+    border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    border-radius: 5px;
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+}
+
+.form textarea {
+    height: 70px;
+    padding: 5px;
+    resize: none;
+}
+
+.form input[type=date],
+.form input[type=datetime-local] {
+    width: 220px;
+    padding: 5px;
+}
+
+.form input[type=submit],
+.form .divbtn a {
+    color: black;
+    background-color: #90EE90;
+    padding: 5px 10px;
+    border: 1px solid #D2D4DE;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .4s ease-in-out;
+    margin: 0 auto;
+}
+
+.form input[type=submit]:hover,
+.form .divbtn a:hover {
+    border: 1px solid hsla(205.46, 86.5%, 46.47%, .5);
+    box-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+    color: #FFF;
+    text-shadow: 0 0 5px hsla(205.46, 86.5%, 46.47%, .5);
+}
+
+.form input[type=submit]:active,
+.form .divbtn a:active {
+    color: #3C91E6;
+    border: 1px solid hsla(120, 73.44%, 74.9%, .5);
+    box-shadow: 0 0 5px hsla(120, 73.44%, 74.9%, .5);
+}
+
+.form input.required:focus,
+.form input.requireddate:focus {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+    box-shadow: 0 0 5px hsla(332.47, 100%, 50%, .5);
+}
+
+.form input.required {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+    background: url('../../assets/aviso.png') no-repeat right 2% bottom 50%;
+    background-size: 20px;
+}
+
+.form input[type=search].required,
+.form input[type=password].required {
+    background: url('../../assets/ponto-de-exclamacao.png') right 9% bottom 50% no-repeat;
+    background-size: 20px;
+}
+
+.form input.requireddate {
+    border: 1px solid hsla(332.47, 100%, 50%, .5);
+}
+
+.form .required::placeholder {
+    font-style: italic;
+    color: hsla(332.47, 100%, 50%, .5);
+}
+
+.divage {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    font-size: .9rem;
+    transition: .4s ease-in-out;
+}
+
+.divbuilding,
+.divpassword {
+    display: flex;
+    flex-direction: column;
+}
+
+.divpassword label {
+    position: relative;
+}
+
+.form fieldset,
+.divpassword button {
+    border: none;
+}
+
+.divpassword button {
+    position: absolute;
+    top: 25px;
+    right: 5px;
+    background: none;
+    cursor: pointer;
+    transition: .4s ease-in-out;
+}
+
+.divpassword svg {
+    color: gray;
+}
+
+.divbtn {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 480px) {
+
+    .form input[type=text],
+    .form input[type=number],
+    .form input[type=tel],
+    .form input[type=email],
+    .form input[type=date],
+    .form input[type=password],
+    .form input[type=search],
+    .form input[type=date],
+    .form input[type=datetime-local] {
+        height: 25px;
+        font-size: .69rem;
+    }
+
+    .form label,
+    .form input[type=submit],
+    .form textarea,
+    .form a {
+        font-size: .69rem;
+    }
+
+    .divpassword button {
+        top: 20px;
+    }
+}
