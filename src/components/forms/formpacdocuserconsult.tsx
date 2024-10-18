@@ -89,7 +89,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             setValue('district', '');
             setValue('city', '');
         };
-        if (!element.target.value) {
+        const zipcode = element.target.value.replace(/\D/g, '');
+        const validazipcode = /^[0-9]{8}$/;
+        if (!zipcode) {
             clearZipCode();
             setFocus('email');
             Swal.fire({
@@ -100,12 +102,9 @@ export default function FormPacDocUserConsult({ crm, docpatuser, buttons, search
             });
             return;
         };
-        const zipcode = element.target.value.replace(/\D/g, '');
-        var validazipcode = /^[0-9]{8}$/;
         try {
             if (validazipcode.test(zipcode)) {
-                const data = await viaCepApi.get(`${zipcode}/json/`)
-                    .then(res => res.data);
+                const { data } = await viaCepApi.get(`${zipcode}/json/`)
                 if (data && !data.erro) {
                     setValue('street', data.logradouro);
                     setValue('district', data.bairro);
