@@ -22,7 +22,7 @@ export async function createSessionToken(payload = {}) {
             path: '/',
             domain: '.vercel.app',
             secure: true,
-            sameSite: 'none',
+            sameSite: 'lax',
             expires: new Date((exp as number) * 1000)
         });
     } catch (error) {
