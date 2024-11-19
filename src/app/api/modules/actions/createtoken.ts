@@ -20,9 +20,9 @@ export async function createSessionToken(payload = {}) {
         (await cookies()).set('sessionAuthToken', sessionAuthToken, {
             httpOnly: true,
             path: '/',
-            domain: 'cunsultorio-app.vercel.app',
+            domain: '.vercel.app',
             secure: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             expires: new Date((exp as number) * 1000)
         });
     } catch (error) {

@@ -16,7 +16,8 @@ export default function LoginPage() {
                         className={styles.imgnedicina}
                         width={110}
                         height={110}
-                        alt='Imagem Logo Medicina' rel='preload' priority
+                        alt='Imagem Logo Medicina'
+                        rel='preload' priority
                     />
                     <Icon
                         icon={'fa-solid fa-house-medical-circle-check'}
