@@ -10,8 +10,15 @@ export default function RegisterPatientsPage() {
             <h1>Cadastrar Paciente</h1>
 
             <section className={styles.menusection}>
-                <Icon icon={'fa-solid fa-hospital-user'} className={styles.icons} />
-                <FormPacDocUserConsult docpatuser='patient' buttons='Cadastrar' searchPatDocUserCpf={null} />
+                <Icon
+                    icon={'fa-solid fa-hospital-user'}
+                    className={styles.icons}
+                />
+                <FormPacDocUserConsult
+                    docpatuser='patient'
+                    buttons='Cadastrar'
+                    searchPatDocUserCpf={null}
+                />
             </section>
         </main>
     );

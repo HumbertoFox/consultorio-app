@@ -14,11 +14,21 @@ export default function EditPatientsPage() {
     return (
         <main className={styles.mainmenu}>
             <h1>Editar Paciente</h1>
-            
+
             <section className={styles.menusection}>
-                <Icon icon={'fa-solid fa-hospital-user'} className={styles.icons} />
-                <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='editpatient' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <Icon
+                    icon={'fa-solid fa-hospital-user'}
+                    className={styles.icons}
+                />
+                <SearchForm
+                    type='patient'
+                    searchPatDocUserCpf={handleCpfSearch}
+                />
+                <FormPacDocUserConsult
+                    docpatuser='editpatient'
+                    buttons='Editar'
+                    searchPatDocUserCpf={searchPatDocUserCpf}
+                />
             </section>
         </main>
     );

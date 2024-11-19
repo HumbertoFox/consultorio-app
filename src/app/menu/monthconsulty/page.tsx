@@ -8,7 +8,7 @@ const CurrentMonth = moment();
 export default function ReportListYMonth() {
     const crmy = Number(process.env.DOCTORY_CRM);
     const monthName = CurrentMonth.format('MMMM');
-    
+
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>
@@ -24,12 +24,19 @@ export default function ReportListYMonth() {
             <tbody>
                 <tr>
                     <td>
-                        <TableReport crm={crmy} month={true} />
+                        <TableReport
+                            crm={crmy}
+                            month={true}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className={styles.tdbutton}>
-                        <Link href={'/menu'} className={`${styles['no-print']}`}>Menu</Link>
+                        <Link
+                            href={'/menu'}
+                            className={`${styles['no-print']}`}>
+                            Menu
+                        </Link>
                     </td>
                 </tr>
             </tbody>

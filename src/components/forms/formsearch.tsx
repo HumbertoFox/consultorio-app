@@ -25,7 +25,7 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             );
             return;
         };
-        
+
         setIsSubmitting(true);
         try {
             const formData = new FormData();
@@ -73,8 +73,12 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             <input
                 type='search'
                 id='searchcpf'
-                placeholder={`${errors.searchcpf ? 'Campo Obrigatório' : ''}`}
-                className={`${errors.searchcpf ? styles.required : ''}`}
+                placeholder={`${errors.searchcpf
+                    ? 'Campo Obrigatório'
+                    : ''}`}
+                className={`${errors.searchcpf
+                    ? styles.required
+                    : ''}`}
                 {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
 
@@ -82,7 +86,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             <input
                 type='submit'
                 title='Pesquisar Por CPF'
-                value={isSubmitting ? 'Aguarde...' : 'Pesquisar'}
+                value={isSubmitting
+                    ? 'Aguarde...'
+                    : 'Pesquisar'}
                 disabled={isSubmitting}
             />
         </form>

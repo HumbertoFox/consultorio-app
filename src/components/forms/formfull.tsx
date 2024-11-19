@@ -617,13 +617,27 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
             <div className={styles.divbtn}>
                 <input
                     type='submit'
-                    title={buttons !== 'Des/Bloquear' ? buttons : blokingUserSelect !== 'false' ? 'Bloquear' : 'Desbloquear'}
-                    value={buttons !== 'Des/Bloquear' ? buttons : blokingUserSelect !== 'false' ? 'Bloquear' : 'Desbloquear'}
+                    title={buttons !== 'Des/Bloquear'
+                        ? buttons
+                        : blokingUserSelect !== 'false'
+                            ? 'Bloquear'
+                            : 'Desbloquear'}
+                    value={buttons !== 'Des/Bloquear'
+                        ? buttons
+                        : blokingUserSelect !== 'false'
+                            ? 'Bloquear'
+                            : 'Desbloquear'}
                     disabled={isSubmitting}
                     role='button'
                 />
                 {buttons !== 'Agendar' && (
-                    <Link href={'/menu'} title='Voltar ao Menu' aria-label='Voltar ao Menu' role='button'>Menu</Link>
+                    <Link
+                        href={'/menu'}
+                        title='Voltar ao Menu'
+                        aria-label='Voltar ao Menu'
+                        role='button'>
+                        Menu
+                    </Link>
                 )}
             </div>
         </form >

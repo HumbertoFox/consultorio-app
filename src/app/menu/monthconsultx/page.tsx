@@ -8,7 +8,7 @@ const CurrentMonth = moment();
 export default function ReportListXMonth() {
     const crmx = Number(process.env.DOCTORX_CRM);
     const monthName = CurrentMonth.format('MMMM');
-    
+
     return (
         <table className={styles.tableconsults}>
             <thead className={styles.thead}>
@@ -29,7 +29,11 @@ export default function ReportListXMonth() {
                 </tr>
                 <tr>
                     <td className={styles.tdbutton}>
-                        <Link href={'/menu'} className={`${styles['no-print']}`}>Menu</Link>
+                        <Link
+                            href={'/menu'}
+                            className={`${styles['no-print']}`}>
+                            Menu
+                        </Link>
                     </td>
                 </tr>
             </tbody>

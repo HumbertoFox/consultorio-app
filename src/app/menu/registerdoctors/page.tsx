@@ -10,8 +10,15 @@ export default function RegisterDoctorsPage() {
             <h1>Cadastrar Doutor(a)</h1>
 
             <section className={styles.menusection}>
-                <Icon icon={'fa-solid fa-user-doctor'} className={styles.icons} />
-                <FormPacDocUserConsult docpatuser='doctor' buttons='Cadastrar' searchPatDocUserCpf={null} />
+                <Icon
+                    icon={'fa-solid fa-user-doctor'}
+                    className={styles.icons}
+                />
+                <FormPacDocUserConsult
+                    docpatuser='doctor'
+                    buttons='Cadastrar'
+                    searchPatDocUserCpf={null}
+                />
             </section>
         </main>
     );

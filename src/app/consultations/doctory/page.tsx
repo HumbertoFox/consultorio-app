@@ -8,14 +8,20 @@ import FormPacDocUserConsult from '@/components/forms/formfull';
 
 export default function ConsultationyPage() {
     const [searchPatDocUserCpf, setSearchPatDocUserCpf] = useState<InputsRegisterPatientProps | null>(null);
-    const handleCpfSearch = (result: InputsRegisterPatientProps) => {
-        setSearchPatDocUserCpf(result);
-    };
+    const handleCpfSearch = (result: InputsRegisterPatientProps) => setSearchPatDocUserCpf(result);
 
     return (
         <div className={styles.divmain}>
-            <SearchForm type='patient' searchPatDocUserCpf={handleCpfSearch} />
-            <FormPacDocUserConsult doctorcrm='crmy' docpatuser='consultation' buttons='Agendar' searchPatDocUserCpf={searchPatDocUserCpf} />
+            <SearchForm
+                type='patient'
+                searchPatDocUserCpf={handleCpfSearch}
+            />
+            <FormPacDocUserConsult
+                doctorcrm='crmy'
+                docpatuser='consultation'
+                buttons='Agendar'
+                searchPatDocUserCpf={searchPatDocUserCpf}
+            />
         </div>
     );
 };

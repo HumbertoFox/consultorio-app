@@ -10,8 +10,15 @@ export default function RegisterUserPage() {
             <h1>Cadastrar Usuário</h1>
 
             <section className={styles.menusection}>
-                <Icon icon={'fa-solid fa-user-plus'} className={styles.icons} />
-                <FormPacDocUserConsult docpatuser='user' buttons='Cadastrar' searchPatDocUserCpf={null} />
+                <Icon
+                    icon={'fa-solid fa-user-plus'}
+                    className={styles.icons}
+                />
+                <FormPacDocUserConsult
+                    docpatuser='user'
+                    buttons='Cadastrar'
+                    searchPatDocUserCpf={null}
+                />
             </section>
         </main>
     );

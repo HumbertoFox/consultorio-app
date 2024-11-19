@@ -1,4 +1,5 @@
 'use client';
+
 import Icon from '@/components/Icons/Icons';
 import Image from 'next/image';
 import styles from '@/app/page.module.css';
@@ -11,8 +12,16 @@ export default function LoginPage() {
             <div className={styles.login}>
                 <h1>Usuário do Sistema</h1>
                 <section className={styles.loginsection}>
-                    <Image src={ImageMedicine} className={styles.imgnedicina} width={110} height={110} alt='Imagem Logo Medicina' rel='preload' priority />
-                    <Icon icon={'fa-solid fa-house-medical-circle-check'} className={styles.iconlogin} />
+                    <Image src={ImageMedicine}
+                        className={styles.imgnedicina}
+                        width={110}
+                        height={110}
+                        alt='Imagem Logo Medicina' rel='preload' priority
+                    />
+                    <Icon
+                        icon={'fa-solid fa-house-medical-circle-check'}
+                        className={styles.iconlogin}
+                    />
                     <FormLogin />
                 </section>
             </div>

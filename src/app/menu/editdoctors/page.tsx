@@ -14,11 +14,21 @@ export default function EditDoctorPage() {
     return (
         <main className={styles.mainmenu}>
             <h1>Editar Doutor(a)</h1>
-            
+
             <section className={styles.menusection}>
-                <Icon icon={'fa-solid fa-user-doctor'} className={styles.icons} />
-                <SearchForm type='doctor' searchPatDocUserCpf={handleCpfSearch} />
-                <FormPacDocUserConsult docpatuser='editdoctor' buttons='Editar' searchPatDocUserCpf={searchPatDocUserCpf} />
+                <Icon
+                    icon={'fa-solid fa-user-doctor'}
+                    className={styles.icons}
+                />
+                <SearchForm
+                    type='doctor'
+                    searchPatDocUserCpf={handleCpfSearch}
+                />
+                <FormPacDocUserConsult
+                    docpatuser='editdoctor'
+                    buttons='Editar'
+                    searchPatDocUserCpf={searchPatDocUserCpf}
+                />
             </section>
         </main>
     );
