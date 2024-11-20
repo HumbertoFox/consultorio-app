@@ -1,5 +1,4 @@
-'use server';
-
+import 'server-only';
 import * as jose from 'jose';
 import { cookies } from 'next/headers';
 import { openSessionToken } from '@/app/api/modules/actions/opentoken';
@@ -13,17 +12,17 @@ export async function createSessionToken(payload = {}) {
         const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
         const sessionAuthToken = await new jose.SignJWT(payload)
             .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
             .setExpirationTime('1d')
             .sign(secret);
         const { exp } = await openSessionToken(sessionAuthToken);
 
         (await cookies()).set('sessionAuthToken', sessionAuthToken, {
             httpOnly: true,
-            path: '/',
-            domain: '.vercel.app',
             secure: true,
+            expires: new Date((exp as number) * 1000),
             sameSite: 'lax',
-            expires: new Date((exp as number) * 1000)
+            path: '/',
         });
     } catch (error) {
         console.error('Error creating session token:', error);

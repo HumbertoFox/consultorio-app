@@ -54,7 +54,7 @@ export default function FormLogin() {
             setTimeout(() => setIsSubmitting(false), 3000);
         };
     };
-    
+
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='cpf'>CPF
@@ -62,8 +62,12 @@ export default function FormLogin() {
                     type='number'
                     id='cpf'
                     autoComplete='off'
-                    placeholder={`${errors.cpf ? 'Campo Obrigatório' : ''}`}
-                    className={`${errors.cpf ? styles.required : ''}`}
+                    placeholder={`${errors.cpf
+                        ? 'Campo Obrigatório'
+                        : ''}`}
+                    className={`${errors.cpf
+                        ? styles.required
+                        : ''}`}
                     {...register('cpf', { required: true, pattern: /^[0-9]{11}$/ })}
                 />
             </label>
@@ -71,19 +75,30 @@ export default function FormLogin() {
             <div className={styles.divpassword}>
                 <label htmlFor='password'>Senha
                     <input
-                        type={isPassVisible ? 'text' : 'password'}
+                        type={isPassVisible
+                            ? 'text' :
+                            'password'}
                         id='password'
                         autoComplete='off'
-                        placeholder={`${errors.password ? 'Campo Obrigatório' : ''}`}
-                        className={`${errors.password ? styles.required : ''}`}
+                        placeholder={`${errors.password
+                            ? 'Campo Obrigatório'
+                            : ''}`}
+                        className={`${errors.password
+                            ? styles.required
+                            : ''}`}
                         {...register('password', { required: true, minLength: 6 })}
                     />
                     <button
                         type='button'
-                        title={isPassVisible ? 'Não Mostrar Senha' : 'Mostrar Senha'}
+                        title={isPassVisible
+                            ? 'Não Mostrar Senha'
+                            : 'Mostrar Senha'}
                         onClick={togglePasswordVisibility}
                     >
-                        <Icon icon={isPassVisible ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
+                        <Icon icon={isPassVisible
+                            ? 'fa-solid fa-eye-slash'
+                            : 'fa-solid fa-eye'}
+                        />
                     </button>
                 </label>
             </div>
@@ -92,7 +107,9 @@ export default function FormLogin() {
                 id='entrar'
                 type='submit'
                 title='Entrar'
-                value={isSubmitting ? 'Aguarde...' : 'Entrar'}
+                value={isSubmitting
+                    ? 'Aguarde...'
+                    : 'Entrar'}
                 aria-label='Entrar Login'
                 disabled={isSubmitting}
             />
