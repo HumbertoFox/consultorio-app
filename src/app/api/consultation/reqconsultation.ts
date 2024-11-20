@@ -32,7 +32,7 @@ export async function SearchConsults(crm: string) {
                 crm: consult.crm,
                 cpf: consult.cpf,
                 name: consult.consultation_cpf.name,
-                returnconsult: consult.consultation_id.returnconsult,
+                returnconsult: consult.returnconsult,
                 covenant: consult.covenant,
                 start: consult.consultdatestart,
                 status: consult.status

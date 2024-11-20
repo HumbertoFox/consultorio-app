@@ -35,6 +35,7 @@
     -moz-appearance: none;
     appearance: none;
     cursor: pointer;
+    padding: 0 5px;
 }
 
 .table select::-ms-expand {

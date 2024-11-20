@@ -173,11 +173,14 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
             };
 
             const icon = response.Error ? 'error' : 'success';
-
             Toast.fire({ icon, title: response.message });
 
             if (!response.Error) {
-                reset();
+                if (docpatuser === 'consultation') {
+                    setTimeout(() => location.reload(), 3000);
+                } else {
+                    reset();
+                };
             };
 
         } catch (error) {
