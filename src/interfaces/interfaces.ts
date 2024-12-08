@@ -20,6 +20,10 @@ export interface IconProps {
     [key: string]: any;
 };
 
+export interface JWTPayload {
+    cpf: string;
+};
+
 export interface InputsProps {
     cpf?: number;
     name?: string;

@@ -11,8 +11,11 @@ export async function RegisterDoctor(formData: FormData) {
 
     if (sessionCookies) {
         const { value } = sessionCookies;
-        const { cpf } = await openSessionToken(value);
-        userCpf = cpf;
+        const tokenPayload = await openSessionToken(value);
+
+        if (tokenPayload) {
+            userCpf = tokenPayload.cpf;
+        };
     };
 
     const existingUser = await prisma.user.findFirst({
@@ -113,7 +116,7 @@ export async function RegisterDoctor(formData: FormData) {
         return { status: 201, Error: false, message: 'Doutor(a) Cadastrado com Sucesso!' };
     } catch (Error) {
         console.error(Error);
-        
+
         return { status: 500, Error: true, message: 'Erro interno do BD!' };
     } finally {
         await prisma.$disconnect();
