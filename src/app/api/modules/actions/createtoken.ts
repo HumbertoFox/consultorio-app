@@ -15,7 +15,12 @@ export async function createSessionToken(payload = {}) {
             .setIssuedAt()
             .setExpirationTime('1d')
             .sign(secret);
-        const { exp } = await openSessionToken(sessionAuthToken);
+        const tokenResponse = await openSessionToken(sessionAuthToken);
+
+        const exp = tokenResponse?.exp;
+        if (!exp) {
+            throw new Error('Expiration time not found in token response');
+        };
 
         (await cookies()).set('sessionAuthToken', sessionAuthToken, {
             httpOnly: true,
@@ -26,7 +31,7 @@ export async function createSessionToken(payload = {}) {
         });
     } catch (error) {
         console.error('Error creating session token:', error);
-        
+
         throw new Error('Failed to create session token');
     };
 };

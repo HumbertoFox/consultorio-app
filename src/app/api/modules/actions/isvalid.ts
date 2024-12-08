@@ -12,7 +12,6 @@ export async function isSessionValid(): Promise<boolean> {
         try {
             const sessionData = await openSessionToken(value);
 
-            // Check if sessionData is valid and contains 'exp'
             if (sessionData && sessionData.exp) {
                 const { exp } = sessionData;
                 const currentDate = new Date().getTime();
