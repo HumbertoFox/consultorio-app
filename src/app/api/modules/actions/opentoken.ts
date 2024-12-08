@@ -10,7 +10,5 @@ export async function openSessionToken(token: string) {
         return payload;
     } catch (error) {
         console.error('Token verification failed:', error);
-        
-        throw new Error('Invalid token');
     };
 };
