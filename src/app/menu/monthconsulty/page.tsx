@@ -34,7 +34,8 @@ export default function ReportListYMonth() {
                     <td className={styles.tdbutton}>
                         <Link
                             href={'/menu'}
-                            className={`${styles['no-print']}`}>
+                            className={`${styles['no-print']}`}
+                        >
                             Menu
                         </Link>
                     </td>
@@ -42,4 +43,4 @@ export default function ReportListYMonth() {
             </tbody>
         </table>
     );
-};
+}

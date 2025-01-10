@@ -12,4 +12,4 @@ export default function SideBarLayout({
             {children}
         </main>
     );
-};
+}

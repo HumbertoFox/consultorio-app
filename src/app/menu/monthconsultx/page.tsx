@@ -24,14 +24,18 @@ export default function ReportListXMonth() {
             <tbody>
                 <tr>
                     <td>
-                        <TableReport crm={crmx} month={true} />
+                        <TableReport
+                            crm={crmx}
+                            month={true}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className={styles.tdbutton}>
                         <Link
                             href={'/menu'}
-                            className={`${styles['no-print']}`}>
+                            className={`${styles['no-print']}`}
+                        >
                             Menu
                         </Link>
                     </td>
@@ -39,4 +43,4 @@ export default function ReportListXMonth() {
             </tbody>
         </table>
     );
-};
+}

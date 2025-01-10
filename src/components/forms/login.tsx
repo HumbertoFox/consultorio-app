@@ -5,7 +5,10 @@ import { useState } from 'react';
 import { loginAuth } from '@/app/api/modules/actions/auth/authactions';
 import { useRouter } from 'next/navigation';
 import { InputsLoginProps } from '@/interfaces/interfaces';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+    SubmitHandler,
+    useForm
+} from 'react-hook-form';
 import Icon from '../Icons/Icons';
 import styles from './form.module.css';
 
@@ -54,9 +57,11 @@ export default function FormLogin() {
             setTimeout(() => setIsSubmitting(false), 3000);
         };
     };
-
     return (
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className={styles.form}
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <label htmlFor='cpf'>CPF
                 <input
                     type='number'
@@ -115,4 +120,4 @@ export default function FormLogin() {
             />
         </form>
     );
-};
+}

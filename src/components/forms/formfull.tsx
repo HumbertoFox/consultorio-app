@@ -16,9 +16,19 @@ import { RegisterPatient } from '@/app/api/resgisterpatient/reqpatient';
 import { formatAsCurrency } from '../ts/CurrencyFormat';
 import { validatePassword } from '../ts/ValidPassword';
 import { RegisterConsultation } from '@/app/api/registerconsultation/reqconsultation';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { InputsProps, PatDocUserSearchResultFormProps } from '@/interfaces/interfaces';
+import {
+    SubmitHandler,
+    useForm
+} from 'react-hook-form';
+import {
+    ChangeEvent,
+    useEffect,
+    useState
+} from 'react';
+import {
+    InputsProps,
+    PatDocUserSearchResultFormProps
+} from '@/interfaces/interfaces';
 import Link from 'next/link';
 import Icon from '../Icons/Icons';
 import styles from './form.module.css';
@@ -251,23 +261,33 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
         getCrmEnv();
 
     }, [doctorcrm, setValue]);
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <fieldset disabled={buttons === 'Des/Bloquear' ? true : false}>
-                {(docpatuser === 'doctor' || docpatuser === 'consultation' || docpatuser === 'editdoctor') && (
-                    <label htmlFor='crm'>CRM
-                        <input
-                            type='number'
-                            id='crm'
-                            disabled={(buttons === 'Editar' || buttons === 'Cadastrar') ? false : true}
-                            placeholder={`${errors.crm ? 'Campo Obrigatório' : ''}`}
-                            className={`${errors.crm ? styles.required : ''}`}
-                            {...register('crm', { required: true, pattern: /^[0-9]{4}$/ })}
-                        />
-                        {errors.crm && <Errors>Apenas números</Errors>}
-                    </label>
-                )}
+                {(docpatuser === 'doctor'
+                    || docpatuser === 'consultation'
+                    || docpatuser === 'editdoctor'
+                ) && (
+                        <label htmlFor='crm'>CRM
+                            <input
+                                type='number'
+                                id='crm'
+                                disabled={(buttons === 'Editar' || buttons === 'Cadastrar') ? false : true}
+                                placeholder={`${errors.crm
+                                    ? 'Campo Obrigatório'
+                                    : ''}`
+                                }
+                                className={`${errors.crm
+                                    ? styles.required
+                                    : ''}`
+                                }
+                                {...register('crm', { required: true, pattern: /^[0-9]{4}$/ })}
+                            />
+                            {errors.crm && (
+                                <Errors>Apenas números</Errors>
+                            )}
+                        </label>
+                    )}
 
                 <label htmlFor='cpf'>CPF apenas número
                     <input
@@ -277,7 +297,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.cpf ? styles.required : ''}`}
                         {...register('cpf', { required: true, pattern: /^[0-9]{11}$/ })}
                     />
-                    {errors.cpf && <Errors>CPF Inválido</Errors>}
+                    {errors.cpf && (
+                        <Errors>CPF Inválido</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='name'>Nome
@@ -288,7 +310,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.name ? styles.required : ''}`}
                         {...register('name', { required: true, pattern: /[A-Za-z]{4}/ })}
                     />
-                    {errors.name && <Errors>Sequência min 4 letras</Errors>}
+                    {errors.name && (
+                        <Errors>Sequência min 4 letras</Errors>
+                    )}
                 </label>
 
                 <div className={styles.divage}>
@@ -300,7 +324,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                             className={`${errors.dateofbirth ? styles.requireddate : ''}`}
                             {...register('dateofbirth', { required: true, onChange: handleDateChange })}
                         />
-                        {errors.dateofbirth && <Errors>Campo Obrigatório</Errors>}
+                        {errors.dateofbirth && (
+                            <Errors>Campo Obrigatório</Errors>
+                        )}
                     </div>
                     <div>
                         <p>{age}</p>
@@ -316,7 +342,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.telephone ? styles.required : ''}`}
                         {...register('telephone', { required: true, pattern: /^[0-9]{10,11}$/ })}
                     />
-                    {errors.telephone && <Errors>Incluir o DDD</Errors>}
+                    {errors.telephone && (
+                        <Errors>Incluir o DDD</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='email'>Email
@@ -327,7 +355,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.email ? styles.required : ''}`}
                         {...register('email', { required: true })}
                     />
-                    {errors.email && <Errors>Campo Obrigatório</Errors>}
+                    {errors.email && (
+                        <Errors>Campo Obrigatório</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='zipcode'>CEP apenas número
@@ -338,7 +368,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.zipcode ? styles.required : ''}`}
                         {...register('zipcode', { required: true, onBlur: checkedZipCode })}
                     />
-                    {errors.zipcode && <Errors>CEP Inválido</Errors>}
+                    {errors.zipcode && (
+                        <Errors>CEP Inválido</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='street'>Logradouro Av/Travessa/Rua
@@ -349,7 +381,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.street ? styles.required : ''}`}
                         {...register('street', { required: true })}
                     />
-                    {errors.street && <Errors>Campo Obrigatório</Errors>}
+                    {errors.street && (
+                        <Errors>Campo Obrigatório</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='district'>Bairro/Distrito
@@ -360,7 +394,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.district ? styles.required : ''}`}
                         {...register('district', { required: true })}
                     />
-                    {errors.district && <Errors>Campo Obrigatório</Errors>}
+                    {errors.district && (
+                        <Errors>Campo Obrigatório</Errors>
+                    )}
                 </label>
 
                 <label htmlFor='city'>Cidade
@@ -371,7 +407,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.city ? styles.required : ''}`}
                         {...register('city', { required: true })}
                     />
-                    {errors.city && <Errors>Campo Obrigatório</Errors>}
+                    {errors.city && (
+                        <Errors>Campo Obrigatório</Errors>
+                    )}
                 </label>
 
                 <div className={styles.radiolabeldiv}>
@@ -404,7 +442,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                         className={`${errors.residencenumber ? styles.required : ''}`}
                         {...register('residencenumber', { required: true })}
                     />
-                    {errors.residencenumber && <Errors>Campo Obrigatório</Errors>}
+                    {errors.residencenumber && (
+                        <Errors>Campo Obrigatório</Errors>
+                    )}
                 </label>
 
                 {radioSelect === 'buildingradio' && (
@@ -417,7 +457,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                                 className={`${errors.building ? styles.required : ''}`}
                                 {...register('building', { required: true })}
                             />
-                            {errors.building && <Errors>Campo Obrigatório</Errors>}
+                            {errors.building && (
+                                <Errors>Campo Obrigatório</Errors>
+                            )}
                         </label>
                         <label htmlFor='buildingblock'>Bloco
                             <input
@@ -434,7 +476,9 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                                 className={`${errors.apartment ? styles.required : ''}`}
                                 {...register('apartment', { required: true })}
                             />
-                            {errors.apartment && <Errors>Campo Obrigatório</Errors>}
+                            {errors.apartment && (
+                                <Errors>Campo Obrigatório</Errors>
+                            )}
                         </label>
                     </div>
                 )}
@@ -450,13 +494,18 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                                 className={`${errors.password ? styles.required : ''}`}
                                 {...register('password', { required: true, validate: validatePassword })}
                             />
-                            {errors.password && <Errors>{errors.password?.message}</Errors>}
+                            {errors.password && (
+                                <Errors>{errors.password?.message}</Errors>
+                            )}
                             <button
                                 type='button'
                                 title={isPassVisible ? 'Não Mostrar Senha' : 'Mostrar Senha'}
                                 onClick={handlePass}
                             >
-                                <Icon icon={isPassVisible ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
+                                <Icon icon={isPassVisible
+                                    ? 'fa-solid fa-eye-slash'
+                                    : 'fa-solid fa-eye'}
+                                />
                             </button>
                         </label>
                         <label htmlFor='passwordchecked'>Confirme Senha
@@ -468,13 +517,18 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
                                 className={`${errors.passwordchecked ? styles.required : ''}`}
                                 {...register('passwordchecked', { required: true, validate: (value) => value === password })}
                             />
-                            {errors.passwordchecked && <Errors>As senhas digitadas não coincidem</Errors>}
+                            {errors.passwordchecked && (
+                                <Errors>As senhas digitadas não coincidem</Errors>
+                            )}
                             <button
                                 type='button'
                                 title={isPassVisibleChecked ? 'Não Mostrar Senha' : 'Mostrar Senha'}
                                 onClick={handlePassChecked}
                             >
-                                <Icon icon={isPassVisibleChecked ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'} />
+                                <Icon icon={isPassVisibleChecked
+                                    ? 'fa-solid fa-eye-slash'
+                                    : 'fa-solid fa-eye'}
+                                />
                             </button>
                         </label>
                     </div>
@@ -645,4 +699,4 @@ export default function FormPacDocUserConsult({ doctorcrm, docpatuser, buttons, 
             </div>
         </form >
     );
-};
+}

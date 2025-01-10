@@ -3,7 +3,10 @@
 import { GetCrmY } from '@/app/api/getcrms/crmy';
 import { GetCrmX } from '@/app/api/getcrms/crmx';
 import { MenuItem } from '@/interfaces/interfaces';
-import { useEffect, useState } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 import Icon from '@/components/Icons/Icons';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -44,7 +47,6 @@ export default function MenuPage() {
         };
         fetchCRMs();
     }, []);
-
     return (
         <main className={styles.menu}>
             <div className={styles.divmenu}>
@@ -53,7 +55,14 @@ export default function MenuPage() {
                 <nav className={styles.navmenu}>
                     {menuItems.map((group, index) => (
                         <div key={index}>
-                            {group.map(({ href, title, icon, rotate, edit, block }) => (
+                            {group.map(({
+                                href,
+                                title,
+                                icon,
+                                rotate,
+                                edit,
+                                block
+                            }) => (
                                 <Link
                                     key={title}
                                     href={href}
@@ -62,7 +71,14 @@ export default function MenuPage() {
                                 >
                                     <Icon
                                         icon={icon}
-                                        className={rotate ? styles.rotatyicon : edit ? styles.edit : block ? styles.block : ''}
+                                        className={rotate
+                                            ? styles.rotatyicon
+                                            : edit
+                                                ? styles.edit
+                                                : block
+                                                    ? styles.block
+                                                    : ''
+                                        }
                                     />
                                 </Link>
                             ))}
@@ -72,4 +88,4 @@ export default function MenuPage() {
             </div>
         </main>
     );
-};
+}

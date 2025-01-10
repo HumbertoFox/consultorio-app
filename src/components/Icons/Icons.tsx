@@ -6,11 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 library.add(fas, far);
 
-export default function Icon({ icon, className = '', ...props }: IconProps) {
+export default function Icon({
+    icon,
+    className = '',
+    ...props
+}: IconProps) {
     return <FontAwesomeIcon
         icon={icon}
         className={className}
         aria-hidden={!props.title}
         {...props}
     />;
-};
+}

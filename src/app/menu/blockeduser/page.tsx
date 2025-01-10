@@ -31,4 +31,4 @@ export default function RemoveUserPage() {
             </section>
         </main>
     );
-};
+}

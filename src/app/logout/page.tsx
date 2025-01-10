@@ -22,7 +22,6 @@ export default function LogoutPage() {
         const timer = setTimeout(logout, 3000);
         return () => clearTimeout(timer);
     }, [router]);
-
     return (
         <section className={styles.logout}>
             <DNA
@@ -33,7 +32,7 @@ export default function LogoutPage() {
                 wrapperStyle={{}}
                 wrapperClass='dna-wrapper'
             />
-            <span>Logging out...</span>
+            <span>Aguarde Saindo...</span>
         </section>
     );
-};
+}

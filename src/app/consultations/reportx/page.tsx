@@ -5,7 +5,10 @@ export default function ReportDoctorxPage() {
     const crmx = Number(process.env.DOCTORX_CRM);
     return (
         <div className={styles.divmain}>
-            <TableReport crm={crmx} month={false} />
+            <TableReport
+                crm={crmx}
+                month={false}
+            />
         </div>
     );
-};
+}

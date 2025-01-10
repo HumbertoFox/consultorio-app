@@ -3,8 +3,14 @@
 import { GetCrmX } from './api/getcrms/crmx';
 import { AgendaPacient } from './api/agendapatient/reqpatients';
 import { CalendarEventProps } from '@/interfaces/interfaces';
-import { useEffect, useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import {
+  useEffect,
+  useState
+} from 'react';
+import {
+  Calendar,
+  momentLocalizer
+} from 'react-big-calendar';
 import moment from 'moment';
 import styles from './page.module.css';
 import SideBar from '@/components/sidebar';
@@ -19,7 +25,7 @@ moment.locale('pt-br');
 
 export default function CalendarPage() {
   const [consults, setConsults] = useState<CalendarEventProps[]>([]);
-  
+
   const styleColor = (event: CalendarEventProps): { style: { backgroundColor: string } } => ({
     style: { backgroundColor: event.color }
   });
@@ -39,7 +45,7 @@ export default function CalendarPage() {
       confirmButtonText: 'Ok'
     });
   };
-  
+
   useEffect(() => {
     const eventAgendCalendar = async () => {
       try {
@@ -69,7 +75,6 @@ export default function CalendarPage() {
     };
     eventAgendCalendar();
   }, []);
-
   return (
     <main className={styles.main}>
       <SideBar />
@@ -86,4 +91,4 @@ export default function CalendarPage() {
       </div>
     </main>
   );
-};
+}

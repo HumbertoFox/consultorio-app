@@ -5,9 +5,19 @@ import { SearchUser } from '@/app/api/searchuser/requser';
 import { SearchDoctor } from '@/app/api/searchdoctor/reqdoctor';
 import { SearchPatient } from '@/app/api/searchpatient/reqpatient';
 import { getCheckedCpf } from '../ts/CheckedCpf';
-import { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { InputsSearchCpfProps, PatDocUserSearchResultProps, SearchResult } from '@/interfaces/interfaces';
+import {
+    useEffect,
+    useState
+} from 'react';
+import {
+    SubmitHandler,
+    useForm
+} from 'react-hook-form';
+import {
+    InputsSearchCpfProps,
+    PatDocUserSearchResultProps,
+    SearchResult
+} from '@/interfaces/interfaces';
 import Errors from '../errors/MessageErrors';
 import styles from './form.module.css'
 
@@ -66,7 +76,6 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             searchPatDocUserCpf(res[3]);
         };
     }, [patdocuserSearch, searchPatDocUserCpf]);
-
     return (
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='searchcpf'>Pesquisar CPF apenas número</label>
@@ -82,7 +91,9 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
                 {...register('searchcpf', { required: true, maxLength: 11, pattern: /\d{11}/g })}
             />
 
-            {errors.searchcpf && <Errors>{errors.searchcpf.message}</Errors>}
+            {errors.searchcpf && (
+                <Errors>{errors.searchcpf.message}</Errors>
+            )}
             <input
                 type='submit'
                 title='Pesquisar Por CPF'
@@ -93,4 +104,4 @@ export default function SearchForm({ type, searchPatDocUserCpf }: PatDocUserSear
             />
         </form>
     );
-};
+}

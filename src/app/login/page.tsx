@@ -15,7 +15,8 @@ export default function LoginPage() {
                         width={110}
                         height={110}
                         alt='Imagem Logo Medicina'
-                        rel='preload' priority
+                        rel='preload'
+                        priority
                     />
                     <Icon
                         icon={'fa-solid fa-house-medical-circle-check'}
@@ -26,4 +27,4 @@ export default function LoginPage() {
             </div>
         </main>
     );
-};
+}

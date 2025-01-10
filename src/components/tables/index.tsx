@@ -2,10 +2,16 @@
 
 import { DNA } from 'react-loader-spinner';
 import { SearchConsults } from '@/app/api/consultation/reqconsultation';
-import { useEffect, useState } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 import { SearchConsultsMonth } from '@/app/api/consultation/reqconsultationmonth';
 import { UpdateConsultationStatus } from '@/app/api/consultation/reqconsultationstatus';
-import { ConsultProps, CrmDoctorConsultProps } from '@/interfaces/interfaces';
+import {
+    ConsultProps,
+    CrmDoctorConsultProps
+} from '@/interfaces/interfaces';
 import Icon from '../Icons/Icons';
 import styles from './table.module.css';
 
@@ -131,7 +137,11 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
                 {consults.length !== 0 && (
                     <tr>
                         <td className={`${styles.printtd} ${styles['no-print']}`} colSpan={8}>
-                            <button title='Imprimir' type='button' onClick={handlePrint}>
+                            <button
+                                title='Imprimir'
+                                type='button'
+                                onClick={handlePrint}
+                            >
                                 <Icon icon={'fa-solid fa-print'} />
                             </button>
                         </td>
@@ -140,4 +150,4 @@ export default function TableReport({ crm, month }: CrmDoctorConsultProps) {
             </tbody>
         </table>
     );
-};
+}
