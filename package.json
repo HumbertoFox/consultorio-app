@@ -28,7 +28,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.0",
     "react-loader-spinner": "^6.1.6",
-    "sweetalert2": "^11.14.5"
+    "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
     "@types/node": "^22",
