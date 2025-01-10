@@ -86,7 +86,7 @@ export async function EditUser(formData: FormData) {
         };
 
         await prisma.user.update({
-            where: { user_id: existingUser.address_id },
+            where: { user_id: existingUser.user_id },
             data: { cpf, telephone, password: hashedPassword, address_id: checkedAddress.address_id }
         });
 
