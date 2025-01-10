@@ -1,3 +1,5 @@
+'use client';
+
 import Icon from '@/components/Icons/Icons';
 import Image from 'next/image';
 import styles from '@/app/page.module.css';
