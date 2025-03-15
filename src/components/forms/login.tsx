@@ -1,6 +1,6 @@
 'use client';
 
-import { Toast } from '../ts/SweetAlert';
+import { Toast } from '@/components/ts/SweetAlert';
 import { useState } from 'react';
 import { loginAuth } from '@/app/api/modules/actions/auth/authactions';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,7 @@ import {
     SubmitHandler,
     useForm
 } from 'react-hook-form';
-import Icon from '../Icons/Icons';
+import Icon from '@/components/Icons/Icons';
 import styles from './form.module.css';
 
 export default function FormLogin() {
@@ -36,7 +36,7 @@ export default function FormLogin() {
                     title: response.message
                 });
 
-                setTimeout(() => router.push('/'), 3000);
+                setTimeout(() => router.push('/agenda'), 3000);
             } else {
                 Toast.fire({
                     icon: 'error',

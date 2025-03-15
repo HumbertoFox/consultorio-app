@@ -1,14 +1,15 @@
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { IconProps } from '@/interfaces/interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-library.add(fas, far);
+library.add(fas, far, fab);
 
 export default function Icon({
     icon,
-    className = '',
+    className,
     ...props
 }: IconProps) {
     return <FontAwesomeIcon

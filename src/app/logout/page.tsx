@@ -13,7 +13,7 @@ export default function LogoutPage() {
         const logout = async () => {
             const success = await destroySession();
             if (success) {
-                router.push('/login');
+                router.push('/');
             } else {
                 console.error('Falha ao excluir o cookie.');
             };

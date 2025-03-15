@@ -1,94 +1,92 @@
 'use client';
 
-import { GetCrmX } from './api/getcrms/crmx';
-import { AgendaPacient } from './api/agendapatient/reqpatients';
-import { CalendarEventProps } from '@/interfaces/interfaces';
+import styles from '@/app/page.module.css';
+import Icon from '@/components/Icons/Icons';
+import Link from 'next/link';
 import {
   useEffect,
   useState
 } from 'react';
-import {
-  Calendar,
-  momentLocalizer
-} from 'react-big-calendar';
-import moment from 'moment';
-import styles from './page.module.css';
-import SideBar from '@/components/sidebar';
-import CustomToolbar from '@/components/toobar';
-import 'moment/locale/pt-br';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
-import Swal from 'sweetalert2';
 
-const localizer = momentLocalizer(moment);
-moment.locale('pt-br');
-
-export default function CalendarPage() {
-  const [consults, setConsults] = useState<CalendarEventProps[]>([]);
-
-  const styleColor = (event: CalendarEventProps): { style: { backgroundColor: string } } => ({
-    style: { backgroundColor: event.color }
-  });
-  const handleConsultSelectClick = (element: any) => {
-    Swal.fire({
-      title: element.name,
-      html: `<p><strong>Status:</strong> ${element.status}</p>
-                ${element.returnconsult === 'Sim' ? `<p><strong>Volta:</strong> ${element.returnconsult}</p>` : ''}
-                <p><strong>CPF:</strong> ${element.title}</p>
-                <p><strong>Telefone:</strong> ${element.telephone}</p>
-                <p><strong>Plano:</strong> ${element.covenant}</p>
-                <p><strong>Início:</strong> ${element.start.toLocaleString()}</p>
-                <p><strong>Termino:</strong> ${element.end.toLocaleString()}</p>
-                <p><strong>Crm:</strong> ${element.desc}</p>
-                <p><strong>Obs:</strong> ${element.observation}</p>`,
-      icon: 'info',
-      confirmButtonText: 'Ok'
-    });
-  };
+export default function Home() {
+  const [videoSrc, setVideoSrc] = useState<string>('/videos/pusasion.mp4');
 
   useEffect(() => {
-    const eventAgendCalendar = async () => {
-      try {
-        const crmx = await GetCrmX();
-        const result = await AgendaPacient();
-        const res = Object.values(result);
-        const response = res[3];
-        const formattedEvents = response.map((consult: any) => ({
-          ...consult,
-          color: consult.desc == crmx ? '#FF0075' : '#3C91E6',
-          tipo: 'activity',
-          start: new Date(consult.start.replace(/-/g, ',').replace(/T/g, ' ')),
-          end: new Date(consult.end.replace(/-/g, ',').replace(/T/g, ' ')),
-          title: consult.title.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
-          telephone: consult.telephone.replace(/(\d{2})(\d{5})(\d{4})/, '($1)$2-$3')
-        }));
-        setConsults(formattedEvents);
-      } catch (error) {
-        console.error(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro!',
-          text: 'Erro ao Conectar com o Banco!',
-          confirmButtonText: 'OK'
-        });
-      };
-    };
-    eventAgendCalendar();
+    const videos = [
+      '/videos/pusasion.mp4',
+      '/videos/virus.mp4',
+    ];
+
+    const randomIndex = Math.floor(Math.random() * videos.length);
+    setVideoSrc(videos[randomIndex]);
   }, []);
   return (
-    <main className={styles.main}>
-      <SideBar />
-      <div className={styles.divmain}>
-        <Calendar
-          localizer={localizer}
-          events={consults}
-          eventPropGetter={styleColor}
-          onSelectEvent={handleConsultSelectClick}
-          startAccessor='start'
-          endAccessor='end'
-          components={{ toolbar: CustomToolbar }}
+    <div className={styles.divbodyhome}>
+      <div className={styles.divopacity}>
+        <video
+          src={videoSrc}
+          loop
+          autoPlay
+          muted
+          playsInline
         />
       </div>
-    </main>
+      <div className={styles.divmainhome}>
+        <header>
+          <Link href='/login'>
+            Conecte-se
+          </Link>
+        </header>
+        <main>
+          <h1>Seu Sistema de Marcação e Confirmação de Consulta Mais Completo.</h1>
+          <h2>Bem-vindo!</h2>
+        </main>
+        <footer>
+          <address>
+            <strong>Endereço:</strong><br />
+            PE-022, 344-Box-B,<br />
+            Nossa senhora da Conceição, Paulista-PE.<br />
+            Paulista, 53.421-420, BR.<br />
+            Contato: 81 98807-5408 - WhatsApp.<br />
+            E-Mail: betofoxnettelecom@gmail.com.<br />
+          </address>
+          <div className={styles.divsocial}>
+            <h5><strong>Redes Sociais</strong></h5>
+            <div>
+              <Link
+                href=''
+                className={styles.instagran}
+              >
+                <Icon icon='fa-brands fa-instagram' />
+              </Link>
+              <Link
+                href=''
+                className={styles.twitter}
+              >
+                <Icon icon='fa-brands fa-x-twitter' />
+              </Link>
+              <Link
+                href=''
+                className={styles.facebook}
+              >
+                <Icon icon='fa-brands fa-facebook-f' />
+              </Link>
+              <Link
+                href=''
+                className={styles.whatsapp}
+              >
+                <Icon icon='fa-brands fa-whatsapp' />
+              </Link>
+              <Link
+                href=''
+                className={styles.phone}
+              >
+                <Icon icon='fa-solid fa-phone' />
+              </Link>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
   );
 }

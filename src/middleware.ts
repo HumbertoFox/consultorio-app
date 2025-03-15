@@ -4,10 +4,10 @@ import { isSessionValid } from '@/app/api/modules/actions/isvalid';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-    matcher: '/((?!_next/static|_next/image|favicon.ico).*)'
+    matcher: '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|videos/).*)'
 };
 
-const publicRoutes = ['/login', '/logout'];
+const publicRoutes = ['/', '/login', '/logout'];
 
 export async function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname;
@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
         if (isAPIRoute) {
             return { status: 401, Error: true, message: 'Não autorizado' };
         };
-        return NextResponse.redirect(new URL('/login', req.url));
+        return NextResponse.redirect(new URL('/', req.url));
     };
     
     return NextResponse.next();

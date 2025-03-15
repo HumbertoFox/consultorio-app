@@ -13,7 +13,7 @@ import styles from './page.module.css';
 
 const menuItems: MenuItem[][] = [
     [
-        { href: '/', title: 'Agenda', icon: 'fa-regular fa-calendar-check' },
+        { href: '/agenda', title: 'Agenda', icon: 'fa-regular fa-calendar-check' },
         { href: '/menu/registerpatients', title: 'Cadastrar Paciente', icon: 'fa-solid fa-hospital-user', rotate: true },
     ],
     [
