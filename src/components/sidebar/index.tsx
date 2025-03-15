@@ -31,11 +31,11 @@ export default function SideBar() {
                 <button
                     title='Agenda de Pacientes Confirmados'
                     type='button'
-                    className={pathname === '/'
+                    className={pathname === '/agenda'
                         ? styles.active :
                         ''}
                 >
-                    <Link href={'/'}>
+                    <Link href={'/agenda'}>
                         <Icon icon={'fa-regular fa-calendar-check'} />
                         <span>Calendario</span>
                     </Link>

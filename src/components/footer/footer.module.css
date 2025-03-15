@@ -1,0 +1,62 @@
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor: default;
+
+    & address {
+        font-size: 12px;
+    }
+}
+
+.divsocial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    & h5 {
+        font-size: 12px;
+    }
+
+    & div {
+        display: flex;
+        gap: 8px;
+
+        & a {
+            font-size: 18px;
+            color: black;
+            transition: all 0.3s ease-in-out;
+        }
+    }
+}
+
+.instagran {
+    &:hover {
+        color: #bc2a8d;
+    }
+}
+
+.twitter {
+    &:hover {
+        color: grey;
+    }
+}
+
+.facebook {
+    &:hover {
+        color: blue;
+    }
+}
+
+.whatsapp {
+    &:hover {
+        color: green;
+    }
+}
+
+.phone {
+    &:hover {
+        color: orange;
+    }
+}
